@@ -5,7 +5,7 @@ let adminRouter = [
     name: "home",
     component: () => import(/* webpackChunkName: "index" */ "../pages/admin_home"),
     meta: {
-      title:'后台管理系统',
+      title: '后台管理系统',
       requireAuth: true
     }
   },
@@ -16,8 +16,16 @@ let adminRouter = [
     meta: {
       title: '登录页面'
     }
+  }, {
+    path: "/user",
+    name: "personal_center",
+    component: () => import("../pages/personal_center"),
+    meta: {
+      title: '个人中心'
+    }
   }];
 
-let adminRouterGuard = (to, next) => {};
+let adminRouterGuard = (to, next) => {
+};
 
 export {adminRouter, adminRouterGuard};
