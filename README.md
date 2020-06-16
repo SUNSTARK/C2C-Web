@@ -4,30 +4,30 @@
 
 ## 目录结构
 ```bash
-|-- README.md 说明文档<br/>
-|-- package.json 依赖库配置<br/>
-|-- static 放置静态文件<br/>
-|-- src 源代码<br/>
-|   |-- App.vue 页面主容器<br/>
-|   |-- assets 资源文件<br/>
-|   |-- |-- iconfont 部分图标库<br/>
-|   |-- components 一些公用的组件<br/>
-|   |-- |-- ECharts ECharts相关组件<br/>
-|   |-- |-- userFrom 用户表单<br/>
-|   |-- main.js vue 入口以及 vue 根实例<br/>
-|   |-- pages 放置页面组件<br/>
-|   |-- |-- home 主页模块<br/>
-|   |-- |-- layout 导航模块<br/>
-|   |-- |-- login 登录模块<br/>
-|   |-- |-- NotFound 404页面<br/>
-|   |-- |-- table 一些表格模板<br/>
-|   |-- app app 目录，放置全局的文件<br/>
-|   |-- |-- apis 封装的 api 目录<br/>
-|   |-- |-- modules 封装数据的模块<br/>
-|   |-- |-- |-- functions 全局函数，已挂载到$fn<br/>
-|   |-- router vue-router 配置<br/>
+|-- README.md 说明文档
+|-- package.json 依赖库配置
+|-- static 放置静态文件
+|-- src 源代码
+|   |-- App.vue 页面主容器
+|   |-- assets 资源文件
+|   |-- |-- iconfont 部分图标库
+|   |-- components 一些公用的组件
+|   |-- |-- ECharts ECharts相关组件
+|   |-- |-- userFrom 用户表单
+|   |-- main.js vue 入口以及 vue 根实例
+|   |-- pages 放置页面组件
+|   |-- |-- home 主页模块
+|   |-- |-- layout 导航模块
+|   |-- |-- login 登录模块
+|   |-- |-- NotFound 404页面
+|   |-- |-- table 一些表格模板
+|   |-- app app 目录，放置全局的文件
+|   |-- |-- apis 封装的 api 目录
+|   |-- |-- modules 封装数据的模块
+|   |-- |-- |-- functions 全局函数，已挂载到$fn
+|   |-- router vue-router 配置
 |   |--store 全局状态管理目录
-|-- vue.config.js 打包和跨域配置<br/>
+|-- vue.config.js 打包和跨域配置
 ```
 
 ## 注意事项
