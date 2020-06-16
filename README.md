@@ -3,7 +3,7 @@
 > C2C众包项目Web端后台
 
 ## 目录结构
-
+```bash
 |-- README.md 说明文档<br/>
 |-- package.json 依赖库配置<br/>
 |-- static 放置静态文件<br/>
@@ -28,10 +28,14 @@
 |   |-- router vue-router 配置<br/>
 |   |--store 全局状态管理目录
 |-- vue.config.js 打包和跨域配置<br/>
+```
 
 ## 注意事项
+
+```bash
 # 安装依赖
 yarn install
 
 # 启动服务
 yarn start
+```
