@@ -19,7 +19,7 @@
 |   |-- |-- home 主页模块
 |   |-- |-- layout 导航模块
 |   |-- |-- login 登录模块
-|   |-- |-- NotFound 404页面
+|   |-- |-- notFound 404页面
 |   |-- |-- table 一些表格模板
 |   |-- app app 目录，放置全局的文件
 |   |-- |-- apis 封装的 api 目录
