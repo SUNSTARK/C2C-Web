@@ -1,8 +1,6 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import Cookies from "js-cookie"
-import routerData from "./modules/routerData"
-import role from "./modules/role"
 import layout from "./modules/layout/index"
 
 Vue.use(Vuex)
@@ -26,22 +24,12 @@ const store = new Vuex.Store({
     }
   },
   getters: {
-    addRouters: state => state.routerData.addRouters,
     token: state => state.token,
     info: state => state.role.info,
-    routers: state => state.routerData.routers,
     logoShow: state => state.layout.logoShow,
-    isCollapse: state => state.layout.isCollapse,
-    uniquerouter: state => state.layout.uniquerouter,
-    tabnavBox: state => state.layout.tabnavBox,
-    visible: state => state.layout.visible,
-    left: state => state.layout.left,
-    top: state => state.layout.top,
-    rightNav: state => state.layout.rightNav
+    isCollapse: state => state.layout.isCollapse
   },
   modules: {
-    routerData,
-    role,
     layout
   }
 })
