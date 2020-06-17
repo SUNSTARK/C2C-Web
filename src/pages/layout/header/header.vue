@@ -46,7 +46,7 @@ import Breadcrumb from "./Breadcrumb";
 
 export default {
   name: "Header",
-  components: {EditPassword,Breadcrumb, UserInfo},
+  components: {EditPassword, Breadcrumb, UserInfo},
   data () {
     return {
       dialogInfoVisible: false,
@@ -132,6 +132,7 @@ export default {
     margin-right: 13px;
     font-size: 12px;
   }
+  /*面包屑*/
   .crumbs{
     position: relative;
     margin-right: auto ;

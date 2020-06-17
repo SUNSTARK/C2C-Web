@@ -32,16 +32,6 @@
     color: #56a9ff;
   }
 
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: all 0.2s ease;
-  }
-
-  .fade-enter,
-  .fade-leave-active {
-    opacity: 0;
-  }
-
   #nprogress .bar {
     height: 3px !important;
     background: #56a9ff !important;

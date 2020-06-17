@@ -13,10 +13,19 @@
         text-color="#fff"
         active-text-color="#ffd04b"
         :collapse="$store.getters.isCollapse">
-        <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
-          <i :class="item.icon"></i>
-          <span> {{ item.navItem }}</span>
+        <el-menu-item v-if="site.children.length>0 && site.alone==true" v-for="(site,i) in navList" :key="i" :index="site.children[0].path">
+          <i :class="site.icon"></i>
+          <span> {{ site.name }}</span>
         </el-menu-item>
+        <el-submenu v-if="site.children.length>0 && site.alone==false" v-for="(site,index) in navList" :key="index" :index="site.children[0].path">
+          <template slot="title">
+            <i :class="site.icon"></i>
+            <span>{{ site.name }}</span>
+          </template>
+          <el-menu-item-group v-if="site.children.length>0 && site.alone==false" v-for="(item,index) in site.children" :key="index">
+            <el-menu-item :index="item.path">{{ item.name }}</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
       </el-menu>
     </el-aside>
   </div>
@@ -27,12 +36,9 @@ export default {
   name: "asideNav",
   data() {
     return {
-      navList:[
-        {name:'/index',navItem:'主页',icon:"el-icon-s-home"},
-        {name:'/alljobs',navItem:'任务大厅',icon:"fa fa-list-ul"},
-        {name:'/filterTable',navItem:'待审任务',icon: "fa fa-flag-checkered "}
-      ] }
-  },
+      navList:this.$store.getters.routers[0]
+    }
+  }
 }
 </script>
 

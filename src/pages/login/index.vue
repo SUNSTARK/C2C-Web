@@ -10,13 +10,9 @@
         <div class="loginCon">
           <p class="title">欢迎使用</p>
           <p class="title">C2C众包平台</p>
-          <el-card shadow="always" class="login-module" v-if="smdl">
+          <el-card shadow="always" class="login-module">
             <div slot="header" class="clearfix formTitlt">
               <span>密码登录</span>
-              <span class="titIconbox">
-              <i class="iconfont xu-saomadenglu2 fa-lg iconcolor"></i>
-              <i class="iconfont xu-saomadenglu01 el-icon--right fa-lg pointer" @click="smdl = !smdl"></i>
-            </span>
             </div>
             <el-form :model="loginForm" status-icon label-width="100px" class="demo-ruleForm">
               <el-form-item>
@@ -35,28 +31,6 @@
               </p>
             </el-form>
           </el-card>
-
-          <el-card shadow="always" class="login-module" v-else>
-            <div slot="header" class="clearfix formTitlt">
-              <span>扫码登录</span>
-              <span class="titIconbox">
-              <i class="iconfont xu-mimadenglu1 fa-lg iconcolor"></i>
-              <i class="iconfont xu-imagevector el-icon--right fa-lg pointer" @click="smdl = !smdl"></i>
-            </span>
-            </div>
-            <div class="ewmbox">
-              <div class="ewm">
-                <img src='static/ewm.png' height="140" width="140">
-              </div>
-              <div class="ewmicon">
-                <i class="iconfont xu-saomadenglu fa-2x iconcolor"></i>
-                <p>打开 微信 扫码登录</p>
-              </div>
-              <p class="smalltxt">
-                <router-link class="a" to="#">免费注册</router-link>
-              </p>
-            </div>
-          </el-card>
         </div>
       </div>
     </div>
@@ -66,7 +40,6 @@
   export default {
     data () {
       return {
-        smdl: true,
         loginForm: {
           username: "test",
           password: "test"

@@ -5,17 +5,17 @@
         <div class="card kjfs">
           <p class="title"><i class="fa fa-th-large"></i>快捷方式</p>
           <ul>
-            <li><router-link to="/alljobs" class="kjfs kjfs-bluee"><span><i class="el-icon-s-grid fa-2x"></i></span><span>任务大厅</span></router-link></li>
-            <li><router-link to="/filterTable" class="kjfs kjfs-pinkk"><span><i class="fa fa-hand-stop-o fa-2x"></i></span><span>筛选示例</span></router-link></li>
+            <li><router-link to="/alljobs" class="kjfs kjfs-bluee"><span><i class="fa fa-list-ul fa-2x"></i></span><span class="shortcut-character">任务大厅</span></router-link></li>
+            <li><router-link to="/filterTable" class="kjfs kjfs-grennn"><span><i class="fa fa-flag-checkered fa-2x"></i></span><span class="shortcut-character">任务审核</span></router-link></li>
           </ul>
         </div>
       </el-col>
       <el-col :span="16">
         <div class="card dbsx">
-          <p class="title"><i class="fa fa-list-ol"></i>待办事项</p>
+          <p class="title"><i class="fa fa-info-circle"></i>数据概览</p>
           <ul>
-            <li><router-link to="/filterTable"><span>待审任务</span><span class="num">10</span></router-link></li>
-            <li><router-link to="/filterTable"><span>待审帖子</span><span class="num">5</span></router-link></li>
+            <li><router-link to="/alljobs"><span class="data-characters">任务总数</span><span class="num">124</span></router-link></li>
+            <li><router-link to="/filterTable"><span class="data-characters">待审任务</span><span class="num">8</span></router-link></li>
           </ul>
         </div>
       </el-col>
@@ -96,56 +96,36 @@
   .card ul li a span {
     height: 44px;
   }
-  .card ul li a .num {
-    line-height: 44px;
+  /*数据概览汉字部分*/
+  .data-characters {
+    font-weight: bold;
+    font-size: 15px;
+  }
+  /*数据概览数字部分*/
+  .num {
+    line-height: 30px;
     font-size: 42px;
     color: #409eff;
     margin: 0px;
   }
+  /*快捷方式文字部分*/
+  .shortcut-character {
+    font-weight: bold;
+    font-size: 15px;
+  }
   .card ul li .kjfs-bluee {
     color: #409eff;
   }
-  .card ul li .kjfs-pinkk {
-    color: #eec2d3;
-  }
-  .card ul li .kjfs-yelloww {
-    color: #f4d884;
-  }
   .card ul li .kjfs-grennn {
     color: #89dda0;
-  }
-  .card ul li .kjfs-purplee {
-    color: #78a2ea;
-  }
-  .card ul li .kjfs-lightBluee {
-    color: #b8d6ff;
   }
   .card ul li:hover .kjfs-bluee {
     color: #ffffff;
     background: #409eff;
   }
-  .card ul li:hover .kjfs-pinkk {
-    color: #ffffff;
-    background: #eec2d3;
-  }
-  .card ul li:hover .kjfs-yelloww {
-    color: #ffffff;
-    background: #f4d884;
-  }
   .card ul li:hover .kjfs-grennn {
     color: #ffffff;
     background: #89dda0;
-  }
-  .card ul li:hover .kjfs-purplee {
-    color: #ffffff;
-    background: #78a2ea;
-  }
-  .card ul li:hover .kjfs-lightBluee {
-    color: #ffffff;
-    background: #b8d6ff;
-  }
-  .card .table {
-    padding: 21px;
   }
   .card .table p {
     height: 52px;

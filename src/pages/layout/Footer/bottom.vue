@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Copyright © 2020 C2C后台.</p>
+    <p>Copyright © 2020 C2C众包后台管理系统.</p>
   </div>
 </template>
 
@@ -16,6 +16,6 @@ p{
   line-height: 60px;
   text-align: left;
   font-size: 13px;
-  color: #999999;
+  color: black;
 }
 </style>

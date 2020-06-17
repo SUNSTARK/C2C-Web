@@ -8,7 +8,6 @@ import store from "./store";
 
 import "element-ui/lib/theme-chalk/index.css";
 import * as functions from "./app/modules/functions";
-import "@/assets/iconfont/iconfont.css";
 import "font-awesome/css/font-awesome.css";
 import 'element-ui/lib/theme-chalk/display.css';
 import "nprogress/nprogress.css";
@@ -23,7 +22,11 @@ NProgress.configure({ easing: "ease", speed: 500, showSpinner: false })
 // 路由设定
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  // console.log('从：'+from.path+' 到：'+to.path);
+  // 改变标题
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  //console.log('从：'+from.path+' 到：'+to.path);
   let isLogin = store.state.token; // 获取登录状态
   // 未登录且要去登陆页面的予以放行，防止死循环
   if (to.path === '/login' && !isLogin) {
@@ -32,10 +35,6 @@ router.beforeEach((to, from, next) => {
   // 未登录的都要重新登录
   if (!isLogin) {
     next({ path: '/login', });
-  }
-  // 改变标题
-  if (to.meta.title) {
-    document.title = to.meta.title
   }
   next()
 });
