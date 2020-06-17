@@ -1,7 +1,8 @@
 # C2C-Web-admin
 
 > C2C众包项目Web端后台
-
+>
+-[在线预览](https://sunstark.github.io/C2C-Web-admin/dist/#) (初次打开比较慢)
 ## 目录结构
 ```bash
 |-- README.md 说明文档
@@ -29,9 +30,7 @@
 |   |--store 全局状态管理目录
 |-- vue.config.js 打包和跨域配置
 ```
-
 ## 注意事项
-
 ```bash
 # 安装依赖
 yarn install
