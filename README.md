@@ -1,9 +1,9 @@
 # c2c-web
 
-> c2c众包
+> C2C众包项目Web端前台
 
 ## 目录结构
-
+```bash
 |-- README.md 说明文档<br/>
 |-- package.json 依赖库配置<br/>
 |-- static 放置静态文件<br/>
@@ -19,20 +19,18 @@
 |   |-- |-- |-- functions 全局函数，已挂载到$fn<br/>
 |   |-- router vue-router 配置<br/>
 |-- vue.config.js 打包和跨域配置<br/>
+```
 
 ## Build Setup
 
 ``` bash
-# install dependencies
+# 安装依赖
 yarn install
 
-# serve with hot reload at localhost:8080
-yarn run dev
+# 启动服务
+yarn start
 
-# build for production with minification
-yarn run build
-
-# build for production and view the bundle analyzer report
-yarn run build --report
+# 打包发布
+yarn build
 ```
 
