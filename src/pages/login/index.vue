@@ -113,7 +113,7 @@
         const h = this.$createElement
         this.$notify({
           title: "账号密码",
-          message: h("i", {style: "color: teal"}, "账号密码可以随意填写，测试时填写的账号将会被存储为临时假 token"),
+          message: h("i", {style: "color: teal"}, "账号密码随意填写，测试时被存储为临时假token"),
           duration: 6000
         })
       }
