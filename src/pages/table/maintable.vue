@@ -1,6 +1,6 @@
 <template>
     <div>
-      <p class="title"><i class="el-icon-tickets"></i>最新10条待审任务</p>
+      <p class="title"><i class="el-icon-tickets"></i>用户积分排名</p>
       <el-table
         border
         :data="tableData"
@@ -11,11 +11,11 @@
         <el-table-column
           sortable
           prop="odd"
-          label="订单号">
+          label="用户ID">
         </el-table-column>
         <el-table-column
           prop="name"
-          label="收货人">
+          label="用户名称">
         </el-table-column>
         <el-table-column
           prop="status"
@@ -24,7 +24,7 @@
         </el-table-column>
         <el-table-column
           prop="amount"
-          label="金额">
+          label="积分">
         </el-table-column>
         <el-table-column
           prop="date"

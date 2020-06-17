@@ -37,7 +37,7 @@ export default {
 
       this.chart.setOption({
         title: {
-          text: "折线图堆叠"
+          text: "近七天用户活跃度"
         },
         tooltip: {
           trigger: "axis"
