@@ -2,7 +2,7 @@
 
 > C2C众包项目Web端后台
 >
--🏠[在线预览](https://sunstark.github.io/C2C-Web-admin/dist/#) (初次打开比较慢)
+🏠[在线预览](https://sunstark.github.io/C2C-Web-admin/dist/#) (初次打开比较慢)
 ## 目录结构
 ```bash
 |-- README.md 说明文档
