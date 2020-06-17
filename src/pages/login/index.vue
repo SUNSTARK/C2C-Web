@@ -99,7 +99,7 @@
           // })
           // 将 username 设置为 token 存储在 store，仅为测试效果，实际存储 token 以后台返回为准
           that.$store.dispatch("setToken", that.loginForm.username).then(() => {
-            that.$router.push({path: "/"})
+            that.$router.push({path: "/index"}) // 登录成功后，重定向至首页
           }).catch(res => {
             that.$message({
               showClose: true,
@@ -113,7 +113,7 @@
         const h = this.$createElement
         this.$notify({
           title: "账号密码",
-          message: h("i", {style: "color: teal"}, "账号密码可以随意填写，为了测试效果填写的账号将会被存储为临时假 token"),
+          message: h("i", {style: "color: teal"}, "账号密码可以随意填写，测试时填写的账号将会被存储为临时假 token"),
           duration: 6000
         })
       }
