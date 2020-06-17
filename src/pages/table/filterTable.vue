@@ -17,12 +17,12 @@
         </el-table-column>
         <el-table-column
           prop="name"
-          label="姓名"
+          label="用户名"
           width="180">
         </el-table-column>
         <el-table-column
           prop="address"
-          label="地址"
+          label="任务简介"
           :formatter="formatter">
         </el-table-column>
         <el-table-column
