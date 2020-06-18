@@ -1,17 +1,17 @@
 <template>
   <div>
-    <h3>用户活跃度22222222</h3>
+    <h3>用户省份分布</h3>
     <el-row>
       <el-col :span="24">
-        <line-echarts id="lineEcharts" height="300px" ref="echarts"></line-echarts>
+        <city-echarts id="lineEcharts" height="500px" ref="echarts"></city-echarts>
       </el-col>
     </el-row>
     <br>
-    <h3>任务占比222222222222222</h3>
+    <h3>用户性别占比</h3>
     <br>
     <el-row>
       <el-col :span="24">
-        <radar-echarts id="radarEcharts" height="300px" ref="echarts"></radar-echarts>
+        <sex-echarts id="radarEcharts" height="300px" ref="echarts"></sex-echarts>
       </el-col>
     </el-row>
     <br>
@@ -20,12 +20,12 @@
 </template>
 
 <script>
-  import LineEcharts from "../../components/ECharts/lineEcharts"
-  import RadarEcharts from "../../components/ECharts/radarEcharts"
+  import CityEcharts from "../../components/ECharts/cityEcharts"
+  import SexEcharts from "../../components/ECharts/sexEcharts"
 
   export default {
     name: "mainIndex",
-    components: {RadarEcharts, LineEcharts},
+    components: {SexEcharts, CityEcharts},
     mounted () {
       this.selfAdaption()
     },
@@ -46,17 +46,17 @@
 </script>
 
 <style>
-  #radarEcharts, #lineEcharts, .card {
+  #SexEcharts, #cityEcharts, .card {
     background: #fff;
     -webkit-box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     border-color: rgba(0, 0, 0, 0.2);
   }
-  #radarEcharts .title, #lineEcharts .title, .card .title {
+  #SexEcharts .title, #cityEcharts .title, .card .title {
     font-size: 14px;
     padding: 10px;
   }
-  #radarEcharts .title i, #lineEcharts .title i, .card .title i {
+  #SexEcharts .title i, #cityEcharts .title i, .card .title i {
     margin-right: 5px;
   }
 
@@ -96,12 +96,12 @@
     margin: 0px;
   }
 
-  #lineEcharts {
+  #cityEcharts {
     margin-top: 30px;
     padding-top: 30px;
   }
 
-  #radarEcharts {
+  #SexEcharts {
     margin-top: 30px;
     padding-top: 10px;
   }
