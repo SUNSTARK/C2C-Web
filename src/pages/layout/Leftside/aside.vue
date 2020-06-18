@@ -23,7 +23,10 @@
             <span>{{ site.name }}</span>
           </template>
           <el-menu-item-group v-if="site.children.length>0 && site.alone==false" v-for="(item,index) in site.children" :key="index">
-            <el-menu-item :index="item.path">{{ item.name }}</el-menu-item>
+            <el-menu-item :index="item.path">
+              <i :class="item.icon"></i>
+              <span>{{ item.name }}</span>
+            </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>

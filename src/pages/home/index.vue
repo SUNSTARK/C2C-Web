@@ -5,8 +5,22 @@
         <div class="card kjfs">
           <p class="title"><i class="fa fa-th-large"></i>快捷方式</p>
           <ul>
-            <li><router-link to="/alljobs" class="kjfs kjfs-bluee"><span><i class="fa fa-list-ul fa-2x"></i></span><span class="shortcut-character">任务大厅</span></router-link></li>
-            <li><router-link to="/filterTable" class="kjfs kjfs-grennn"><span><i class="fa fa-flag-checkered fa-2x"></i></span><span class="shortcut-character">任务审核</span></router-link></li>
+            <li><router-link to="/alljobs" class="kjfs kjfs-bluee">
+              <span><i class="fa fa-list-ul fa-2x"></i></span>
+              <span class="shortcut-character">任务大厅</span>
+            </router-link></li>
+            <li><router-link to="/filterTable" class="kjfs kjfs-grennn">
+              <span><i class="fa fa-check-square-o fa-2x"></i></span>
+              <span class="shortcut-character">任务审核</span>
+            </router-link></li>
+            <li><router-link to="/display/job_info" class="kjfs kjfs-pinkk">
+              <span><i class="fa fa-file-text fa-2x"></i></span>
+              <span class="shortcut-character">任务信息</span>
+            </router-link></li>
+            <li><router-link to="/display/user_info" class="kjfs kjfs-greyy">
+              <span><i class="fa fa-user fa-2x"></i></span>
+              <span class="shortcut-character">用户信息</span>
+            </router-link></li>
           </ul>
         </div>
       </el-col>
@@ -113,12 +127,20 @@
     font-weight: bold;
     font-size: 15px;
   }
+  /*快捷方式图标样式部分*/
   .card ul li .kjfs-bluee {
     color: #409eff;
   }
   .card ul li .kjfs-grennn {
     color: #89dda0;
   }
+  .card ul li .kjfs-pinkk{
+    color: pink;
+  }
+  .card ul li .kjfs-greyy{
+    color: grey;
+  }
+  /*快捷方式图标选中的样式*/
   .card ul li:hover .kjfs-bluee {
     color: #ffffff;
     background: #409eff;
@@ -126,6 +148,14 @@
   .card ul li:hover .kjfs-grennn {
     color: #ffffff;
     background: #89dda0;
+  }
+  .card ul li:hover .kjfs-pinkk {
+    color: #ffffff;
+    background: pink;
+  }
+  .card ul li:hover .kjfs-greyy {
+    color: #ffffff;
+    background: grey;
   }
   .card .table p {
     height: 52px;
