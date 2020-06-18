@@ -80,28 +80,20 @@ let adminRouter = [
   {
     path: "/display",
     component: Layout,
-    name: "可视化",
+    name: "信息可视化",
     icon: "fa fa-line-chart",
-    alone: false,
+    alone: true,
     children: [
       {
         path: "/display/alljbos",
-        name: "测试一",
+        //name: "测试一",
         component: AllJobs,
         meta:{
-          bread_name: ['测试一', "可视化"]
+          bread_name: ["信息可视化"]
         },
         children: []
       },
-      {
-        path: "/display/dragtable",
-        name: "测试二",
-        component: DragTable,
-        meta:{
-          bread_name: ['测试二', "可视化"]
-        },
-        children: []
-      }
+
     ]
   },
   {
