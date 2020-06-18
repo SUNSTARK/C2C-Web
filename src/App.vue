@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <transition name="fade" mode="out-in">
+    <transition name="fade" mode="in-out">
       <router-view></router-view>
     </transition>
   </div>
@@ -20,18 +20,15 @@
     font-size: 14px;
     -webkit-font-smoothing: antialiased;
   }
-
   #app {
     position: absolute;
     top: 0px;
     bottom: 0px;
     width: 100%;
   }
-
   a {
     color: #56a9ff;
   }
-
   #nprogress .bar {
     height: 3px !important;
     background: #56a9ff !important;

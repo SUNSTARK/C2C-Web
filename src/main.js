@@ -17,7 +17,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$fn = functions;
 
 NProgress.inc(0.2)
-NProgress.configure({ easing: "ease", speed: 500, showSpinner: false })
+NProgress.configure({ easing: "ease", speed: 500, showSpinner: true })
 
 // 路由设定
 router.beforeEach((to, from, next) => {

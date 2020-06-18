@@ -2,14 +2,13 @@
   <div id="login">
     <div class="loginConbox">
       <div class="header">
-<!--        <div class="logo">-->
-<!--        <img src="../../assets/logo.png">-->
-<!--        </div>-->
+        <!--        <div class="logo">-->
+        <!--        <img src="../../assets/logo.png">-->
+        <!--        </div>-->
       </div>
       <div class="loginBox">
         <div class="loginCon">
-          <p class="title">欢迎使用</p>
-          <p class="title">C2C众包平台</p>
+          <p class="title">C2C众包平台管理系统</p>
           <el-card shadow="always" class="login-module">
             <div slot="header" class="clearfix formTitlt">
               <span>密码登录</span>
@@ -27,7 +26,6 @@
               </el-form-item>
               <p class="smalltxt">
                 <router-link class="a" to="#">忘记密码</router-link>
-                <router-link class="a" to="#">免费注册</router-link>
               </p>
             </el-form>
           </el-card>
@@ -87,7 +85,7 @@
         this.$notify({
           title: "账号密码",
           message: h("i", {style: "color: teal"}, "账号密码随意填写，测试时被存储为临时假token"),
-          duration: 6000
+          duration: 3000
         })
       }
     },
@@ -102,6 +100,8 @@
     height: 100%;
     background-color: #2d3a4b;
     margin: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
   #login .loginConbox {
     background: #2d3a4b;
@@ -123,7 +123,7 @@
     height: 100%;
   }
   #login .loginBox {
-    padding: 74px 0 118px;
+    padding-left: 38%;
   }
   #login .loginBox .iconcolor {
     color: #409EFF;
@@ -142,25 +142,22 @@
     font-weight: 600;
     color: #ffffff;
     width: 500px;
-    float: left;
-    margin-top: 0px;
-  }
-  #login .loginBox .loginCon .title:first-child {
-    font-size: 34px;
-    margin-top: 40px;
+    margin-top: 50px;
     margin-bottom: 30px;
+    margin-left: 10px;
   }
   #login .loginBox .loginCon .login-module {
     width: 380px;
-    height: 325px;
+    height: 305px;
     margin-top: 20px;
     border: none;
-    position: absolute;
+    position: relative;
     right: 0;
   }
   #login .loginBox .loginCon .login-module .formTitlt {
     font-size: 18px;
     font-weight: 400;
+    text-align: center;
   }
   #login .loginBox .loginCon .login-module .formTitlt .titIconbox {
     float: right;
@@ -184,7 +181,7 @@
     width: 100%;
   }
   #login .loginBox .el-input__inner, #login .loginBox .el-button, #login .loginBox .el-card, #login .loginBox .el-message {
-    border-radius: 0px !important;
+    border-radius: 30px !important;
   }
   #login .loginBox .el-form-item__content .ico {
     position: absolute;
@@ -195,34 +192,5 @@
     height: 39px;
     text-align: center;
     border-right: 1px solid #ccc;
-  }
-  #login .loginBox .ewmbox {
-    width: 100%;
-    height: 240px;
-    margin-top: -25px;
-  }
-  #login .loginBox .ewmbox .ewm {
-    width: 140px;
-    height: 140px;
-    margin: 20px auto;
-  }
-  #login .loginBox .ewmbox .ewm p {
-    font-size: 12px;
-    padding-left: 40px;
-    margin: 0;
-  }
-  #login .loginBox .ewmbox .ewmicon {
-    width: 140px;
-    margin: 15px auto 0;
-  }
-  #login .loginBox .ewmbox .ewmicon .iconfont {
-    float: left;
-  }
-  #login .loginBox .ewmbox .ewmicon p {
-    font-size: 12px;
-    padding-left: 30px;
-    padding-top: 5px;
-    margin: 0;
-    text-align: center;
   }
 </style>
