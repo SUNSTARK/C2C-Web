@@ -8,7 +8,7 @@
   import echarts from "echarts"
   import westeros from "./theme/westeros"
   export default {
-    name: "lineEcharts",
+    name: "radarEcharts",
     props: {
       id: {
         type: String,
@@ -37,45 +37,38 @@
 
         this.chart.setOption({
           title: {
-            text: "近七天用户活跃度"
+            text: "任务类型饼图",
+            left: 'center'
           },
           tooltip: {
-            trigger: "axis"
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
           },
           legend: {
-            data: ["用户活跃度", "发布任务数"]
-          },
-          grid: {
-            left: "3%",
-            right: "4%",
-            bottom: "3%",
-            containLabel: true
-          },
-          toolbox: {
-            feature: {
-              saveAsImage: {}
-            }
-          },
-          xAxis: {
-            type: "category",
-            boundaryGap: false,
-            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
-          },
-          yAxis: {
-            type: "value"
+            orient: 'vertical',
+            left: 'left',
+            data: ['科技类', '教育类', '生活娱乐类', '降水量', '其他']
           },
           series: [
             {
-              name: "用户活跃度",
-              type: "line",
-              stack: "总量",
-              data: [8200, 6320, 5010, 4340, 3400, 2300, 1100]
-            },
-            {
-              name: "发布任务数",
-              type: "line",
-              stack: "总量",
-              data: [2200, 3820, 1910, 2340, 4900, 3300, 1100]
+              name: '访问来源',
+              type: 'pie',
+              radius: '55%',
+              center: ['50%', '60%'],
+              data: [
+                {value: 335, name: '科技类'},
+                {value: 310, name: '教育类'},
+                {value: 234, name: '生活娱乐类'},
+                {value: 135, name: '降水量'},
+                {value: 1548, name: '其他'}
+              ],
+              emphasis: {
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              }
             }
           ]
         })

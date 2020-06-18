@@ -11,25 +11,21 @@
     <br>
     <el-row>
       <el-col :span="24">
-        <line-echarts id="radarEcharts" height="300px" ref="echarts"></line-echarts>
+        <radar-echarts id="radarEcharts" height="300px" ref="echarts"></radar-echarts>
       </el-col>
     </el-row>
-
-    <el-row>
-      <el-col :span="24">
-        <maintable id="maintable"></maintable>
-      </el-col>
-    </el-row>
+    <br>
   </div>
 
 </template>
 
 <script>
   import LineEcharts from "../../components/ECharts/lineEcharts"
-  import Maintable from "../table/maintable"
+  import RadarEcharts from "../../components/ECharts/radarEcharts"
+
   export default {
     name: "mainIndex",
-    components: {Maintable, LineEcharts},
+    components: {RadarEcharts, LineEcharts},
     mounted () {
       this.selfAdaption()
     },
@@ -50,17 +46,17 @@
 </script>
 
 <style>
-  #maintable, #lineEcharts, .card {
+  #radarEcharts, #lineEcharts, .card {
     background: #fff;
     -webkit-box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     border-color: rgba(0, 0, 0, 0.2);
   }
-  #maintable .title, #lineEcharts .title, .card .title {
+  #radarEcharts .title, #lineEcharts .title, .card .title {
     font-size: 14px;
     padding: 10px;
   }
-  #maintable .title i, #lineEcharts .title i, .card .title i {
+  #radarEcharts .title i, #lineEcharts .title i, .card .title i {
     margin-right: 5px;
   }
 
@@ -105,24 +101,10 @@
     padding-top: 30px;
   }
 
-  #maintable {
+  #radarEcharts {
     margin-top: 30px;
     padding-top: 10px;
   }
 
-  /*雷达图部分*/
-  #maintable, #radarEcharts, .card {
-    background: #fff;
-    -webkit-box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
-    box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
-    border-color: rgba(0, 0, 0, 0.2);
-  }
-  #maintable .title, #lineEcharts .title, .card .title {
-    font-size: 14px;
-    padding: 10px;
-  }
-  #maintable .title i, #lineEcharts .title i, .card .title i {
-    margin-right: 5px;
-  }
 
 </style>
