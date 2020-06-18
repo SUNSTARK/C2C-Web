@@ -3,7 +3,7 @@
     <el-breadcrumb separator="/">
       <el-breadcrumb-item
         v-for="item in breadList"
-        :key="item.path" :to="item.path">{{item.meta && item.meta.bread_name[0]}}</el-breadcrumb-item>
+        :key="item.path" :to="item.path">{{ item.name }}</el-breadcrumb-item>
     </el-breadcrumb>
   </div>
 </template>
@@ -13,12 +13,18 @@
     name: "Breadcrumb",
     data() {
       return {
-        breadList: [] // 路由集合
+        breadList: []
       };
+    },
+    created() {
+      if (sessionStorage.getItem('breadlist')) {  // 如果sssion中能取到值则赋给页面初始化
+        this.breadList = JSON.parse(sessionStorage.getItem('breadlist'))
+      }
     },
     watch: {
       $route() {
         this.getBreadcrumb();
+        this.breadList = JSON.parse(sessionStorage.getItem('breadlist')) // 路由集合
       }
     },
     methods: {
@@ -35,7 +41,11 @@
         if (!this.isHome()) {
           matched = [{ path: "/index", meta:{bread_name: ["主页"]}}].concat(matched);
         }
-        this.breadList = matched;
+        const list = []
+        for (const item in matched) {
+          list.push({path:matched[item].path,name:matched[item].meta.bread_name[0]})
+        }
+        sessionStorage.setItem('breadlist',JSON.stringify(list))  // 将面包板数据存至本地，防止刷新丢失
       }
     }
   }
