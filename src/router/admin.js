@@ -4,6 +4,7 @@ import Layout from '@/pages/layout/index'
 
 // 非必须组件使用懒加载
 const AllJobs = () => import("@/pages/table/all_jobs")
+const InfoVisual = () => import("@/pages/table/infoVisual")
 const NotFound = () => import("@/pages/NotFound/page404")
 const FilterTable = () => import("@/pages/table/filterTable")
 const Home = () => import('@/pages/home/index')
@@ -78,16 +79,16 @@ let adminRouter = [
     ]
   },
   {
-    path: "/display",
+    path: "/",
     component: Layout,
     name: "信息可视化",
     icon: "fa fa-line-chart",
     alone: true,
     children: [
       {
-        path: "/display/alljbos",
+       path: "/infoVisual",
         //name: "测试一",
-        component: AllJobs,
+        component: InfoVisual,
         meta:{
           bread_name: ["信息可视化"]
         },
