@@ -22,7 +22,17 @@ let adminRouter = [
     component: () => import("../pages/personal_center"),
     meta: {
       title: '个人中心'
-    }
+    },
+    children:[
+      {
+        path: "/user/info",
+        name: "user_info",
+        component: () => import("../pages/personal_center/user_info"),
+        meta: {
+          title: '个人中心/用户信息'
+        },
+      }
+    ]
   }];
 
 let adminRouterGuard = (to, next) => {

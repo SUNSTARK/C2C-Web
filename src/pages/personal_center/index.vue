@@ -2,17 +2,20 @@
   <el-container>
     <el-header>Header</el-header>
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
+      <Aside/>
       <el-container>
-        <el-main>Main</el-main>
+        <router-view/>
       </el-container>
     </el-container>
   </el-container>
 </template>
 
 <script>
+  import Aside from './Aside'
+
   export default {
-    name: "index"
+    name: "index",
+    components: {Aside}
   }
 </script>
 
