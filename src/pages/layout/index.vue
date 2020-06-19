@@ -75,6 +75,7 @@ export default {
 
   #elmain {
     background-color: #f0f2f5;
+    overflow-x: hidden;
   }
 
   .avatar-uploader .el-upload {

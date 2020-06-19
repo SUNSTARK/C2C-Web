@@ -43,6 +43,7 @@ import Cookies from "js-cookie"
 import UserInfo from "../../../components/userForm/userInfo"
 import EditPassword from "../../../components/userForm/editPassword"
 import Breadcrumb from "./Breadcrumb";
+import selfAdaption from "@/pages/home"
 
 export default {
   name: "Header",

@@ -35,7 +35,6 @@
       initChart () {
         this.chart = echarts.init(document.getElementById(this.id), "westeros")
 
-
         var labelRight = {
           position: 'right'
         };

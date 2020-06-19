@@ -3,15 +3,14 @@
     <h3>用户省份分布</h3>
     <el-row>
       <el-col :span="24">
-        <city-echarts id="lineEcharts" height="500px" ref="echarts"></city-echarts>
+        <city-echarts id="cityEcharts" height="500px" ref="cityEcharts"></city-echarts>
       </el-col>
     </el-row>
     <br>
     <h3>用户性别占比</h3>
-    <br>
     <el-row>
       <el-col :span="24">
-        <sex-echarts id="radarEcharts" height="300px" ref="echarts"></sex-echarts>
+        <sex-echarts id="sexEcharts" height="300px" ref="sexEcharts"></sex-echarts>
       </el-col>
     </el-row>
     <br>
@@ -29,17 +28,33 @@
     mounted () {
       this.selfAdaption()
     },
+    computed: {
+      // 用于监听isCollapse值的改变
+      get_isCollapse() {
+        return this.$store.getters.isCollapse
+      }
+    },
+    watch: {
+      get_isCollapse: function () {
+        setTimeout(this.echart_resize, 280)
+      }
+    },
     methods: {
-      // echart自适应
+      // echart窗体改变自适应，$refs后为echart标签的ref
       selfAdaption () {
         let that = this
         setTimeout(() => {
           window.onresize = function () {
-            if (that.$refs.echarts) {
-              that.$refs.echarts.chart.resize()
-            }
+            that.$refs.cityEcharts.chart.resize()
+            that.$refs.sexEcharts.chart.resize()
           }
         }, 10)
+      },
+      // echart折叠展开导航自适应
+      echart_resize() {
+        let that = this
+        that.$refs.cityEcharts.chart.resize()
+        that.$refs.sexEcharts.chart.resize()
       }
     }
   }

@@ -34,11 +34,11 @@
         </div>
       </el-col>
     </el-row>
-    <el-row>
-      <el-col :span="24">
-        <line-echarts id="lineEcharts" height="300px" ref="echarts"></line-echarts>
-      </el-col>
-    </el-row>
+      <el-row>
+        <el-col :span="24">
+          <line-echarts id="lineEcharts" height="300px" ref="echarts"></line-echarts>
+        </el-col>
+      </el-row>
     <el-row>
       <el-col :span="24">
         <maintable id="maintable"></maintable>
@@ -50,23 +50,36 @@
 <script>
   import LineEcharts from "../../components/ECharts/lineEcharts"
   import Maintable from "../table/maintable"
+
   export default {
     name: "mainIndex",
     components: {Maintable, LineEcharts},
     mounted () {
       this.selfAdaption()
     },
+    computed: {
+      // 用于监听isCollapse值的改变
+      get_isCollapse() {
+        return this.$store.getters.isCollapse
+      }
+    },
+    watch: {
+      get_isCollapse: function () {
+        setTimeout(this.echart_resize, 280)
+      }
+    },
     methods: {
-      // echart自适应
+      // echart窗体改变自适应，$refs后为echart标签的ref
       selfAdaption () {
-        let that = this
         setTimeout(() => {
           window.onresize = function () {
-            if (that.$refs.echarts) {
-              that.$refs.echarts.chart.resize()
-            }
+            this.$refs.echarts.chart.resize()
           }
         }, 10)
+      },
+      // echart折叠展开导航自适应
+      echart_resize() {
+        this.$refs.echarts.chart.resize()
       }
     }
   }

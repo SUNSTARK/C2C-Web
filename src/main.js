@@ -7,15 +7,12 @@ import store from "./store";
 
 
 import "element-ui/lib/theme-chalk/index.css";
-import * as functions from "./app/modules/functions";
 import "font-awesome/css/font-awesome.css";
 import 'element-ui/lib/theme-chalk/display.css';
 import "nprogress/nprogress.css";
-import fi from "element-ui/src/locale/lang/fi";
 
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
-Vue.prototype.$fn = functions;
 
 NProgress.inc(0.2)
 NProgress.configure({ easing: "ease", speed: 500, showSpinner: true })
