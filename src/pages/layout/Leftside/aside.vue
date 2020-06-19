@@ -9,9 +9,9 @@
         :default-active="$route.path"
         class="el-menu-vertical"
         router
-        background-color="#020f1d"
-        text-color="#fff"
-        active-text-color="#ffd04b"
+        background-color="#21282E"
+        text-color="#999999"
+        active-text-color="#FFFFFF"
         :collapse="$store.getters.isCollapse">
         <el-menu-item v-if="site.children.length>0 && site.alone==true" v-for="(site,i) in navList" :key="i" :index="site.children[0].path">
           <i :class="site.icon"></i>
@@ -61,8 +61,9 @@ export default {
     border-right: solid 1px #e6e6e6;
   }
   #asideNav .logo-name {
-    background-color: #03152A !important;
-    font-weight: 300;
+    background-color: #21282E !important;
+    font-weight: 600;
+    font-family: 微软雅黑;
     z-index: 999;
   }
   #asideNav .logo-name p {
@@ -73,9 +74,8 @@ export default {
     color: white;
   }
   #asideNav .el-menu-vertical:not(.el-menu--collapse) {
-    width: 200px;
+    width: 180px;
     overflow-y: scroll;
-    overflow-x: hidden;
   }
   #asideNav .el-menu {
     flex: 1;
@@ -93,11 +93,12 @@ export default {
     font-size: 18px;
   }
   #asideNav .el-menu .el-menu-item {
-    background-color: #020f1d !important;
-    border-bottom: 1px solid #020f1d;
+    background-color: #21282E !important;
+    border-bottom: 1px solid #21282E;
   }
   #asideNav .el-menu .el-menu-item:hover {
     color: #ffffff !important;
+    font-weight: bold;
     background-color: #375573 !important;
   }
   #asideNav .el-menu .el-menu-item.is-active {
