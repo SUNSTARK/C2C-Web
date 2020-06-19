@@ -1,6 +1,6 @@
 <template>
     <div>
-      <p class="title"><i class="el-icon-tickets"></i>用户积分排名</p>
+      <p class="title"><i class="fa fa-th-large"></i>用户积分前十名</p>
       <el-table
         border
         :data="tableData"
@@ -10,7 +10,7 @@
         </el-table-column>
         <el-table-column
           sortable
-          prop="odd"
+          prop="uid"
           label="用户ID">
         </el-table-column>
         <el-table-column
@@ -18,35 +18,19 @@
           label="用户名称">
         </el-table-column>
         <el-table-column
-          prop="status"
-          label="订单状态"
+          prop="stars"
+          label="用户积分"
           width="130">
         </el-table-column>
         <el-table-column
-          prop="amount"
-          label="积分">
+          prop="city"
+          label="用户地域">
         </el-table-column>
         <el-table-column
-          prop="date"
-          label="下单时间"
-          sortable
-          :filters="[{text: '2018-01-01', value: '2018-01-01'}, {text: '2018-01-02', value: '2018-01-02'}, {text: '2018-01-03', value: '2018-01-03'}, {text: '2018-01-04', value: '2018-01-04'}, {text: '2018-01-05', value: '2018-01-05'}]"
-          :filter-method="filterHandler"
-        >
+          prop="activity"
+          label="用户活跃度">
         </el-table-column>
-        <el-table-column
-          prop="tag"
-          label="订单分类"
-          width="150"
-          :filters="[{ text: '虚拟', value: '虚拟' }, { text: '实物', value: '实物' }]"
-          :filter-method="filterTag"
-          filter-placement="bottom-end">
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.tag === '虚拟' ? 'primary' : 'success'"
-              disable-transitions>{{scope.row.tag}}</el-tag>
-          </template>
-        </el-table-column>
+
 
       </el-table>
     </div>
@@ -58,75 +42,75 @@ export default {
   data () {
     return {
       tableData: [{
-        odd: "201801012345601",
+        uid: "201801012345601",
         name: "王小虎",
-        status: "已付款",
-        amount: "580元",
+        stars: "2000分",
+        city: "山东",
         date: "2018-01-01",
-        tag: "虚拟"
+        activity: "高"
       }, {
-        odd: "201801012345602",
+        uid: "201801012345602",
         name: "王小虎",
-        status: "已付款",
-        amount: "130元",
+        stars: "2000分",
+        city: "山东",
         date: "2018-01-02",
-        tag: "实物"
+        activity: "低"
       }, {
-        odd: "201801012345603",
+        uid: "201801012345603",
         name: "王小虎",
-        status: "已付款",
-        amount: "680元",
+        stars: "2000分",
+        city: "山东",
         date: "2018-01-03",
-        tag: "虚拟"
+        activity: "高"
       }, {
-        odd: "201801012345604",
+        uid: "201801012345604",
         name: "王小虎",
-        status: "已付款",
-        amount: "190元",
+        stars: "2000分",
+        city: "山东",
         date: "2018-01-03",
-        tag: "虚拟"
+        activity: "高"
       }, {
-        odd: "201801012345605",
+        uid: "201801012345605",
         name: "王小虎",
-        status: "已付款",
-        amount: "170元",
+        stars: "2000分",
+        city: "山东",
         date: "2018-01-04",
-        tag: "实物"
+        activity: "低"
       }, {
-        odd: "201801012345606",
+        uid: "201801012345606",
         name: "王小虎",
-        status: "已付款",
-        amount: "670元",
+        stars: "2000分",
+        city: "山东",
         date: "2018-01-04",
-        tag: "虚拟"
+        activity: "高"
       }, {
-        odd: "201801012345607",
+        uid: "201801012345607",
         name: "王小虎",
-        status: "已付款",
-        amount: "1780元",
+        stars: "2000分",
+        city: "山东",
         date: "2018-01-04",
-        tag: "实物"
+        activity: "低"
       }, {
-        odd: "201801012345608",
+        uid: "201801012345608",
         name: "王小虎",
-        status: "已付款",
-        amount: "3180元",
+        stars: "2000分",
+        city: "山东",
         date: "2018-01-04",
-        tag: "虚拟"
+        activity: "高"
       }, {
-        odd: "201801012345609",
+        uid: "201801012345609",
         name: "王小虎",
-        status: "已付款",
-        amount: "780元",
+        stars: "2000分",
+        city: "山东",
         date: "2018-01-05",
-        tag: "实物"
+        activity: "低"
       }, {
-        odd: "201801012345610",
+        uid: "201801012345610",
         name: "王小虎",
-        status: "已付款",
-        amount: "2130元",
+        stars: "2000分",
+        city: "山东",
         date: "2018-01-05",
-        tag: "虚拟"
+        activity: "高"
       }]
     }
   },
@@ -148,12 +132,6 @@ export default {
         row,
         type: "success"
       })
-    },
-    formatter (row, column) {
-      return row.address
-    },
-    filterTag (value, row) {
-      return row.tag === value
     },
     filterHandler (value, row, column) {
       const property = column["property"]
