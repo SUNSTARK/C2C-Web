@@ -36,7 +36,7 @@
     </el-row>
       <el-row>
         <el-col :span="24">
-          <line-echarts id="lineEcharts" height="300px" ref="echarts"></line-echarts>
+          <line-echarts id="lineEcharts" height="300px" ref="mainecharts"></line-echarts>
         </el-col>
       </el-row>
     <el-row>
@@ -72,14 +72,16 @@
       // echart窗体改变自适应，$refs后为echart标签的ref
       selfAdaption () {
         setTimeout(() => {
+          let that = this
           window.onresize = function () {
-            this.$refs.echarts.chart.resize()
+            that.$refs.mainecharts.chart.resize()
           }
         }, 10)
       },
       // echart折叠展开导航自适应
       echart_resize() {
-        this.$refs.echarts.chart.resize()
+        let that = this
+        that.$refs.mainecharts.chart.resize()
       }
     }
   }
