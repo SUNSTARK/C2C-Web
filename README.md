@@ -1,7 +1,7 @@
 # C2C-Web-admin
-C2C众包项目Web端后台
-🏠[github在线预览](https://sunstark.github.io/C2C-Web-admin/dist/#) (速度较慢)
-🏠[gitee在线预览](http://sunstark.gitee.io/c2c-web-admin/#) (速度较快)
+C2C众包项目Web端后台  
+🏠[github在线预览](https://sunstark.github.io/C2C-Web-admin/dist/#) (速度较慢)  
+🏠[gitee在线预览](http://sunstark.gitee.io/c2c-web-admin/#) (速度较快)  
 
 ## 更新日志
 ### v1.4

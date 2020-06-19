@@ -1,265 +1,99 @@
 <template>
   <div>
-    <h3 >待审核任务</h3>
+    <h3>待审核任务</h3>
+    <p>对表格进行筛选，可快速查找到自己想看的数据。</p>
     <template>
-      <div class="title">
-        <div class="container_table">
-          <el-table
-            :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-            stripe
-            style="width: 100%"
-            :default-sort = "{prop: 'date', order: 'descending'}"
-          >
-            <el-table-column
-              prop="taskId"
-              label="任务ID"
-              sortable
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="intro"
-              label="任务简介"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="taskContent"
-              label="任务内容">
-            </el-table-column>
-            <el-table-column
-              prop="update_date"
-              sortable
-              label="上传时间">
-            </el-table-column>
-            <el-table-column label="操作">
-              <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                <el-button
-                  size="mini"
-                  type="danger"
-                  @click="handleDelete(scope.$index, scope.row)">下架</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-          <el-pagination class="fy"
-                         layout="prev, pager, next"
-                         @current-change="current_change"
-                         :total="total"
-                         background
-          >
-          </el-pagination>
-        </div>
-      </div>
+      <el-table
+        :data="tableData5"
+        style="width: 100%">
+        <el-table-column
+          prop="date"
+          label="日期"
+          sortable
+          width="180"
+          :filters="[{text: '2016-05-01', value: '2016-05-01'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"
+          :filter-method="filterHandler"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="用户名"
+          width="180">
+        </el-table-column>
+        <el-table-column
+          prop="address"
+          label="任务简介"
+          :formatter="formatter">
+        </el-table-column>
+        <el-table-column
+          prop="tag"
+          label="标签"
+          width="100"
+          :filters="[{ text: '家', value: '家' }, { text: '公司', value: '公司' }]"
+          :filter-method="filterTag"
+          filter-placement="bottom-end">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.tag === '家' ? 'primary' : 'success'"
+              disable-transitions>{{scope.row.tag}}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              @click="handleEdit(scope.$index, scope.row)">上架</el-button>
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)">退回</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </template>
+    <div class="block"> <!--分页模块-->
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="1"
+        :page-sizes="[100, 200, 300, 400]"
+        :page-size="100"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="400">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
-    name:'list11',
-    data() {
+    name: "filterTable",
+    data () {
       return {
-        total:1000,//默认数据总数
-        pagesize:9,//每页的数据条数
-        currentPage:1,//默认开始页面
-        istag: true,
-        input:"",
-        input21: '',
-        value5: [],
-        tableData: [
-          {
-            taskId: '1123',
-            intro: '1介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '3视频直播',
-            comp_name: '1广大科技公司',
-            taskContent: '1内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '12016-05-02',
-            download_num: '123.6'
-          },
-          {
-            taskId: '2123',
-            intro: '2介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '2视频直播',
-            comp_name: '2广大科技公司',
-            taskContent: '2内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '22016-05-02',
-            download_num: '223.6'
-          },
-          {
-            taskId: '3123',
-            intro: '1介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '3视频直播',
-            comp_name: '3广大科技公司',
-            taskContent: '3内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '32016-05-02',
-            download_num: '323.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '增加测试',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '增加测试',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '增加测试',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '增加测试',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-        ]
-      };
-    } ,
+        tableData5: [{
+          date: "2016-05-02",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄",
+          tag: "家"
+        }, {
+          date: "2016-05-04",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1517 弄",
+          tag: "公司"
+        }, {
+          date: "2016-05-01",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1519 弄",
+          tag: "家"
+        }, {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄",
+          tag: "公司"
+        }]
+      }
+    },
     methods: {
       handleEdit (index, row) {
         console.log(index, row)
@@ -279,29 +113,31 @@
           type: "success"
         })
       },
-
-      tableRowClassName({row, rowIndex}) {
-        if (rowIndex === 0) {
-          return 'th';
-        }
-        return '';
+      filterHandler (value, row, column) {
+        const property = column["property"]
+        return row[property] === value
       },
-
-      current_change:function(currentPage){
-        this.currentPage = currentPage;
+      formatter (row, column) {
+        return row.address
+      },
+      filterTag (value, row) {
+        return row.tag === value
+      },
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
       }
-    },
-    created:function(){
-      this.total=this.tableData.length;
-    },
-  };
+    }
+  }
 </script>
 
 <style scoped>
   h3{
     margin: 25px 0 20px;
-    font-weight: 800;
-    color: #409eff;
+    font-weight: 400;
+    color: #1f2f3d;
     font-size: 22px;
   }
   p{
@@ -311,17 +147,5 @@
   }
   .block{
     text-align: center;
-  }
-
-  .fl{
-    float: right;
-    margin-right:20px;
-  }
-  .fy{
-    text-align:center;
-    margin-top:30px;
-  }
-  .title{
-    height:100%;
   }
 </style>
