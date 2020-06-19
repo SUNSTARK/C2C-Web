@@ -6,10 +6,9 @@ import Layout from '@/pages/layout/index'
 const AllJobs = () => import("@/pages/table/all_jobs")
 const InfoVisual = () => import("@/pages/table/infoVisual")
 const UserInfoVisual = () => import("@/pages/table/userInfoVisual")
-const NotFound = () => import("@/pages/NotFound/page404")
+const Page404 = () => import("@/pages/error/page404")
 const FilterTable = () => import("@/pages/table/filterTable")
 const Home = () => import('@/pages/home/index')
-const DragTable = () => import("@/pages/table/dragTabe")
 
 let adminRouter = [
   {
@@ -120,8 +119,8 @@ let adminRouter = [
   },
   {
     path: "/404",
-    name: "PageNotFound",
-    component:NotFound,
+    name: "Page404",
+    component: Page404,
     alone: true,
     children: [],
     meta: {

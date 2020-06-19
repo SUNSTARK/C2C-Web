@@ -1,12 +1,12 @@
 <template>
   <div class="page404">
     <div class="i404">
-      <img src="../../../static/i404.png"/>
+      <img src="@/assets/404_images/i404.png"/>
       <p>您的访问页面可能被删除或者不存在</p>
       <a href="/">返回首页</a>
     </div>
     <div class="sign">
-      <img src="../../../static/sign.png" />
+      <img src="@/assets/404_images/sign.png" />
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
   .page404 {
     width: 100%;
     height: 100%;
-    background: url("../../../static/bg404.jpg") no-repeat;
+    background: url("/src/assets/404_images/bg404.jpg") no-repeat;
     background-size: cover;
     overflow: hidden;
   }

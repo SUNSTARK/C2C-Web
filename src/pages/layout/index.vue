@@ -1,5 +1,5 @@
 <template>
-  <div id="loyout">
+  <div id="layout">
     <el-container>
       <layoutAside></layoutAside>
       <el-container>
@@ -33,6 +33,9 @@ export default {
 </script>
 
 <style>
+  #layout {
+    background-color: #F2F6FC;
+  }
   .main-enter, .main-leave-to {
     opacity: 0;
     transform: translateY(30px);
@@ -66,7 +69,7 @@ export default {
     text-decoration: none;
   }
 
-  html, body, #loyout, .el-container, #asideNav, ul.el-menu {
+  html, body, #layout, .el-container, #asideNav, ul.el-menu {
     height: 100%;
   }
 
