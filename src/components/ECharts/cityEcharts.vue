@@ -7,14 +7,12 @@
 <script>
   import echarts from "echarts"
   import westeros from "./theme/westeros"
-  import "./map/china"
-  export default {
 
+  export default {
     name: "cityEcharts",
     props: {
       id: {
         type: String,
-        default: "myChart"
       },
       width: {
         type: String,
@@ -35,7 +33,8 @@
     },
     methods: {
       initChart () {
-        this.chart = echarts.init(document.getElementById(this.id), "westeros")
+        var myChart = this.chart
+        myChart = echarts.init(document.getElementById(this.id), "westeros")
         var dataAxis =[
           '江苏', '北京', '上海','重庆','河北','河南','云南','辽宁','黑龙江','湖南',
           '安徽','山东','新疆','江苏','浙江', '江西','湖北','广西','甘肃', '山西','内蒙古',
@@ -50,18 +49,23 @@
           dataShadow.push(yMax);
         }
 
-        this.chart.setOption({
+        myChart.setOption({
           title: {
             text: '用户省份分布图',
             subtext: '鼠标滑动可放缩移动',
-
+            x: 'center',
+            textStyle: {
+              fontSize: 20
+            }
           },
           xAxis: {
             data: dataAxis,
             axisLabel: {
               inside: true,
               textStyle: {
-                color: '#000'
+                color: '#000',
+                fontWeight: 600,
+                fontSize: 13
               }
             },
             axisTick: {

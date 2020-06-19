@@ -25,7 +25,7 @@
                     <el-button class="subBtn" type="primary" @click="submitForm">登录</el-button>
                   </el-form-item>
                   <p class="smalltxt">
-                    <router-link class="a" to="#">忘记密码</router-link>
+                    <router-link class="a" to="/404">忘记密码</router-link>
                   </p>
                 </el-form>
               </el-card>
@@ -120,7 +120,7 @@
   }
   /*width要和el-card一致才能居中*/
   #login .loginBox .loginCon {
-    width: 380px;
+    width: 360px;
     margin: 0 auto;
     position: relative;
   }
@@ -128,13 +128,11 @@
     font-size: 36px;
     font-weight: 600;
     color: #ffffff;
-    width: 500px;
+    width: 360px;
     margin-top: 150px;
-    margin-bottom: 30px;
-    margin-left: 10px;
   }
   #login .loginBox .loginCon .login-module {
-    width: 380px;
+    width: 360px;
     height: 305px;
     margin-top: 20px;
     position: relative;
@@ -151,14 +149,16 @@
     text-decoration: none;
     color: #999999;
     font-size: 12px;
-    margin-left: 8px;
+    font-weight: 500;
   }
   #login .loginBox .loginCon .el-form-item__content {
     margin-left: 0px !important;
   }
+  /*登录按钮的长度*/
   #login .loginBox .loginCon .el-form-item__content .subBtn {
     width: 100%;
   }
+  /*el-card的边框弧度*/
   #login .loginBox .el-input__inner, #login .loginBox .el-button, #login .loginBox .el-card, #login .loginBox .el-message {
     border-radius: 30px !important;
   }

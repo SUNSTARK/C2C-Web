@@ -38,7 +38,10 @@
         this.chart.setOption({
           title: {
             text: "任务类型饼图",
-            left: 'center'
+            x: 'center',
+            textStyle: {
+              fontSize: 20
+            }
           },
           tooltip: {
             trigger: 'item',

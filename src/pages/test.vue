@@ -1,70 +1,128 @@
-<!--该页面仅用于测试功能-->
 <template>
-  <div class="test">
-    <el-row>
-      <el-col :xs="12" :sm="15" :md="18" :lg="24">
-    <el-card shadow="always" class="login-module">
-      <div slot="header" class="clearfix formTitlt">
-        <span>密码登录</span>
-      </div>
-      <el-form :model="loginForm" status-icon label-width="100px" class="demo-ruleForm">
-        <el-form-item>
-          <el-input prefix-icon="el-icon-user" type="text" v-model="loginForm.username" auto-complete="off" placeholder="请输入登录账号" clearable></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input prefix-icon="el-icon-lock" type="password" v-model="loginForm.password" auto-complete="off"
-                    placeholder="请输入登录密码" show-password></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button class="subBtn" type="primary" @click="submitForm">登录</el-button>
-        </el-form-item>
-        <p class="smalltxt">
-          <router-link class="a" to="#">忘记密码</router-link>
-        </p>
-      </el-form>
-    </el-card>
-      </el-col>
-    </el-row>
-  </div>
+  <el-table
+    :data="tableData5"
+    style="width: 100%"
+    row-key="id"
+    :expand-row-keys="expands"
+    @row-click="rowClick">
+    <el-table-column type="expand">
+      <template slot-scope="props">
+        <el-form label-position="left" inline class="demo-table-expand">
+          <el-form-item label="商品名称">
+            <span>{{ props.row.name }}</span>
+          </el-form-item>
+          <el-form-item label="所属店铺">
+            <span>{{ props.row.shop }}</span>
+          </el-form-item>
+          <el-form-item label="商品 ID">
+            <span>{{ props.row.id }}</span>
+          </el-form-item>
+          <el-form-item label="店铺 ID">
+            <span>{{ props.row.shopId }}</span>
+          </el-form-item>
+          <el-form-item label="商品分类">
+            <span>{{ props.row.category }}</span>
+          </el-form-item>
+          <el-form-item label="店铺地址">
+            <span>{{ props.row.address }}</span>
+          </el-form-item>
+          <el-form-item label="商品描述">
+            <span>{{ props.row.desc }}</span>
+          </el-form-item>
+        </el-form>
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="商品 ID"
+      prop="id">
+    </el-table-column>
+    <el-table-column
+      label="商品名称"
+      prop="name">
+    </el-table-column>
+    <el-table-column
+      label="描述"
+      prop="desc">
+    </el-table-column>
+  </el-table>
 </template>
 
-<script>
-    export default {
-      name: "test",
-      data() {
-        return {
-          loginForm: {
-            username: "test",
-            password: "test"
-          }
-        }
-      }
-    }
-</script>
-
-<style scoped>
-  .test {
-    margin-left: 37%;
+<style>
+  .demo-table-expand {
+    font-size: 0;
   }
-  .login-module {
-    width: 380px;
-    height: 305px;
-    margin-top: 20px;
-    border: none;
-    position: relative;
+  .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
   }
-  .login-module .formTitlt {
-    font-size: 18px;
-    font-weight: 400;
-    text-align: center;
-  }
-  .login-module .smalltxt {
-    text-align: right;
-  }
-  .login-module .smalltxt .a {
-    text-decoration: none;
-    color: #999999;
-    font-size: 12px;
-    margin-left: 8px;
+  .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
   }
 </style>
+
+<script>
+  export default {
+    data() {
+      return {
+        tableData5: [{
+          id: '12987122',
+          name: '好滋好味鸡蛋仔',
+          category: '江浙小吃、小吃零食',
+          desc: '荷兰优质淡奶，奶香浓而不腻',
+          address: '上海市普陀区真北路',
+          shop: '王小虎夫妻店',
+          shopId: '10333'
+        }, {
+          id: '12987123',
+          name: '好滋好味鸡蛋仔',
+          category: '江浙小吃、小吃零食',
+          desc: '荷兰优质淡奶，奶香浓而不腻',
+          address: '上海市普陀区真北路',
+          shop: '王小虎夫妻店',
+          shopId: '10333'
+        }, {
+          id: '12987125',
+          name: '好滋好味鸡蛋仔',
+          category: '江浙小吃、小吃零食',
+          desc: '荷兰优质淡奶，奶香浓而不腻',
+          address: '上海市普陀区真北路',
+          shop: '王小虎夫妻店',
+          shopId: '10333'
+        }, {
+          id: '12987126',
+          name: '好滋好味鸡蛋仔',
+          category: '江浙小吃、小吃零食',
+          desc: '荷兰优质淡奶，奶香浓而不腻',
+          address: '上海市普陀区真北路',
+          shop: '王小虎夫妻店',
+          shopId: '10333'
+        }],
+
+
+        // 要展开的行，数值的元素是row的key值
+        expands: []
+      }
+    },
+    methods:{
+      //在<table>里，我们已经设置row的key值设置为每行数据id：row-key="id"
+      rowClick(row, event, column) {
+        Array.prototype.remove = function (val) {
+          let index = this.indexOf(val);
+          if (index > -1) {
+            this.splice(index, 1);
+          }
+        };
+
+        if (this.expands.indexOf(row.id) < 0) {
+          this.expands.push(row.id);
+        } else {
+          this.expands.remove(row.id);
+        }
+
+      }
+    }
+
+  }
+</script>

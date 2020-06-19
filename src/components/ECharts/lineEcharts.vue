@@ -37,7 +37,10 @@ export default {
 
       this.chart.setOption({
         title: {
-          text: "近七天用户活跃度"
+          text: "近七天用户活跃度",
+          textStyle: {
+            fontSize: 14
+          }
         },
         tooltip: {
           trigger: "axis"
@@ -50,11 +53,6 @@ export default {
           right: "4%",
           bottom: "3%",
           containLabel: true
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
         },
         xAxis: {
           type: "category",

@@ -43,7 +43,10 @@
           title: {
             text: '用户性别比例',
             subtext: '正负仅代表性别区分',
-            sublink: 'http://e.weibo.com/1341556070/AjwF2AgQm'
+            x: 'center',
+            textStyle: {
+              fontSize: 20
+            }
           },
           tooltip: {
             trigger: 'axis',

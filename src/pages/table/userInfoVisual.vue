@@ -61,17 +61,17 @@
 </script>
 
 <style>
-  #SexEcharts, #cityEcharts, .card {
+  #sexEcharts, #cityEcharts, .card {
     background: #fff;
     -webkit-box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     border-color: rgba(0, 0, 0, 0.2);
   }
-  #SexEcharts .title, #cityEcharts .title, .card .title {
+  #sexEcharts .title, #cityEcharts .title, .card .title {
     font-size: 14px;
     padding: 10px;
   }
-  #SexEcharts .title i, #cityEcharts .title i, .card .title i {
+  #sexEcharts .title i, #cityEcharts .title i, .card .title i {
     margin-right: 5px;
   }
 
@@ -98,27 +98,15 @@
   .card ul li a span {
     height: 44px;
   }
-  /*数据概览汉字部分*/
-  .data-characters {
-    font-weight: bold;
-    font-size: 15px;
-  }
-  /*数据概览数字部分*/
-  .num {
-    line-height: 30px;
-    font-size: 42px;
-    color: #409eff;
-    margin: 0px;
-  }
 
   #cityEcharts {
     margin-top: 30px;
-    padding-top: 30px;
+    padding-top: 5px;
   }
 
-  #SexEcharts {
+  #sexEcharts {
     margin-top: 30px;
-    padding-top: 10px;
+    padding-top: 5px;
   }
 
 

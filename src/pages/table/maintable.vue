@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="title"><i class="fa fa-th-large"></i>用户积分前十名</p>
+    <p class="title"><i class="fa fa-sort-amount-desc"></i>用户积分前十名</p>
     <el-table
       border
       :data="tableData"

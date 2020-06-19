@@ -96,13 +96,16 @@ export default {
     background-color: #21282E !important;
     border-bottom: 1px solid #21282E;
   }
+  /*导航项悬浮特效*/
   #asideNav .el-menu .el-menu-item:hover {
     color: #ffffff !important;
     font-weight: bold;
     background-color: #375573 !important;
   }
+  /*选中特效*/
   #asideNav .el-menu .el-menu-item.is-active {
     background-color: #56a9ff !important;
+    font-weight: bold;
   }
   #asideNav .el-menu .is-opened > .el-submenu__title > .el-icon-arrow-down {
     color: #ffffff;

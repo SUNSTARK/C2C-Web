@@ -3,7 +3,7 @@
     <h3>用户活跃度</h3>
     <el-row>
       <el-col :span="24">
-        <line-echarts id="lineEcharts" height="300px" ref="lineEcharts"></line-echarts>
+        <line-echarts id="lineEcharts-page" height="300px" ref="lineEcharts"></line-echarts>
       </el-col>
     </el-row>
     <br>
@@ -61,17 +61,17 @@
 </script>
 
 <style>
-  #radarEcharts, #lineEcharts, .card {
+  #radarEcharts, #lineEcharts-page, .card {
     background: #fff;
     -webkit-box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     border-color: rgba(0, 0, 0, 0.2);
   }
-  #radarEcharts .title, #lineEcharts .title, .card .title {
+  #radarEcharts .title, #lineEcharts-page .title, .card .title {
     font-size: 14px;
     padding: 10px;
   }
-  #radarEcharts .title i, #lineEcharts .title i, .card .title i {
+  #radarEcharts .title i, #lineEcharts-page .title i, .card .title i {
     margin-right: 5px;
   }
 
@@ -111,14 +111,14 @@
     margin: 0px;
   }
 
-  #lineEcharts {
+  #lineEcharts-page {
     margin-top: 30px;
-    padding-top: 30px;
+    padding-top: 5px;
   }
 
   #radarEcharts {
     margin-top: 30px;
-    padding-top: 10px;
+    padding-top: 5px;
   }
 
 

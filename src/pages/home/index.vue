@@ -96,7 +96,7 @@
   }
   #maintable .title, #lineEcharts .title, .card .title {
     font-size: 14px;
-    padding: 10px;
+    padding: 3px;
   }
   #maintable .title i, #lineEcharts .title i, .card .title i {
     margin-right: 5px;
@@ -205,12 +205,12 @@
   }
 
   #lineEcharts {
-    margin-top: 30px;
-    padding-top: 30px;
+    margin-top: 20px;
+    padding-top: 5px;
   }
 
   #maintable {
-    margin-top: 30px;
-    padding-top: 10px;
+    margin-top: 20px;
+    padding-top: 5px;
   }
 </style>

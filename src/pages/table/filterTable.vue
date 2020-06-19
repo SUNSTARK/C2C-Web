@@ -1,13 +1,15 @@
 <template>
   <div>
+    <div class="title">
     <h3 >待审核任务</h3>
+    </div>
     <template>
-      <div class="title">
         <div class="container_table">
           <el-table
             :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
             stripe
             style="width: 100%"
+            height="480"
             :default-sort = "{prop: 'date', order: 'descending'}"
           >
             <el-table-column
@@ -30,15 +32,16 @@
               sortable
               label="上传时间">
             </el-table-column>
-            <el-table-column label="操作">
+            <el-table-column label="操作" align="center">
               <template slot-scope="scope">
                 <el-button
                   size="mini"
-                  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                  type="success"
+                  @click="handleEdit(scope.$index, scope.row)">通过</el-button>
                 <el-button
                   size="mini"
                   type="danger"
-                  @click="handleDelete(scope.$index, scope.row)">下架</el-button>
+                  @click="handleDelete(scope.$index, scope.row)">拒绝</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -50,7 +53,6 @@
           >
           </el-pagination>
         </div>
-      </div>
     </template>
   </div>
 </template>
@@ -299,7 +301,7 @@
 
 <style scoped>
   h3{
-    margin: 25px 0 20px;
+    margin: 0px 0 20px;
     font-weight: 800;
     color: #409eff;
     font-size: 22px;
@@ -320,8 +322,5 @@
   .fy{
     text-align:center;
     margin-top:30px;
-  }
-  .title{
-    height:100%;
   }
 </style>
