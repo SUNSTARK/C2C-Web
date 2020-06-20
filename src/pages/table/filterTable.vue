@@ -13,31 +13,35 @@
             :default-sort = "{prop: 'date', order: 'descending'}"
           >
             <el-table-column
-              prop="taskId"
+              prop="creatid"
               label="任务ID"
               sortable
               width="180">
             </el-table-column>
             <el-table-column
-              prop="intro"
+              prop="overview"
               label="任务简介"
               width="180">
             </el-table-column>
             <el-table-column
-              prop="taskContent"
+              prop="detail"
               label="任务内容">
             </el-table-column>
             <el-table-column
-              prop="update_date"
+              prop="release_time"
               sortable
               label="上传时间">
+            </el-table-column>
+            <el-table-column
+              prop="check_state"
+              label="任务状态">
             </el-table-column>
             <el-table-column label="操作" align="center">
               <template slot-scope="scope">
                 <el-button
                   size="mini"
                   type="success"
-                  @click="handleEdit(scope.$index, scope.row)">通过</el-button>
+                  @click="handlePost(scope.$index, scope.row)">通过</el-button>
                 <el-button
                   size="mini"
                   type="danger"
@@ -69,201 +73,35 @@
         input:"",
         input21: '',
         value5: [],
-        tableData: [
-          {
-            taskId: '1123',
-            intro: '1介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '3视频直播',
-            comp_name: '1广大科技公司',
-            taskContent: '1内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '12016-05-02',
-            download_num: '123.6'
-          },
-          {
-            taskId: '2123',
-            intro: '2介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '2视频直播',
-            comp_name: '2广大科技公司',
-            taskContent: '2内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '22016-05-02',
-            download_num: '223.6'
-          },
-          {
-            taskId: '3123',
-            intro: '1介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '3视频直播',
-            comp_name: '3广大科技公司',
-            taskContent: '3内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '32016-05-02',
-            download_num: '323.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '4123',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '增加测试',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '增加测试',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '增加测试',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-          {
-            taskId: '增加测试',
-            intro: '4介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍',
-            type: '4视频直播',
-            comp_name: '4广大科技公司',
-            taskContent: '4内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容',
-            update_date: '42016-05-02',
-            download_num: '423.6'
-          },
-        ]
+        tableData: []
       };
     } ,
     methods: {
-      handleEdit (index, row) {
+
+      getTask(){
+        this.$axios.get('http://39.105.177.71:8080/api/admin/task/unchecking')
+          .then(this.getTaskSuc)
+
+
+      },
+
+      getTaskSuc(res){
+        //测试
+        this.$message({
+          showClose: true,
+          message: res,
+          type: "success"
+        })
+        if (res.data) {
+
+          const data = res.data
+          this.tableData=data
+
+
+        }
+      },
+
+      handlePost (index, row) {
         console.log(index, row)
         this.$message({
           showClose: true,
@@ -282,20 +120,19 @@
         })
       },
 
-      tableRowClassName({row, rowIndex}) {
-        if (rowIndex === 0) {
-          return 'th';
-        }
-        return '';
-      },
-
       current_change:function(currentPage){
         this.currentPage = currentPage;
       }
     },
     created:function(){
       this.total=this.tableData.length;
+      this.getTask();
+
     },
+
+    mounted() {
+     // this.getTask()
+    }
   };
 </script>
 

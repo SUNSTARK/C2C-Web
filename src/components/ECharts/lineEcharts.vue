@@ -7,7 +7,9 @@
 <script>
 import echarts from "echarts"
 import westeros from "./theme/westeros"
+var taskNum
 export default {
+
   name: "lineEcharts",
   props: {
     id: {
@@ -25,16 +27,46 @@ export default {
   },
   data () {
     return {
-      chart: null
+      chart: null,
+      dataNum1: 2
+      // dataNum:[]
     }
   },
   mounted () {
+
     this.initChart()
   },
   methods: {
-    initChart () {
-      this.chart = echarts.init(document.getElementById(this.id), "westeros")
+    getNum(data){
 
+     this.$axios.get('http://39.105.177.71:8080/api/admin/visual/taskDayNum/{'+data+'}')
+        .then(this.getRangeSuc)
+
+    },
+
+    getRangeSuc(res){
+
+      res=res.data
+      const day1 = res.data
+      this.dataNum1 = day1
+     },
+
+    initChart () {
+      //获取日期
+      let nowDate = new Date();
+      let year=nowDate.getFullYear()
+      let month=nowDate.getMonth()
+      let date=nowDate.getDate()
+
+      let day1=this.getNum(year + '-' +month+ '-' + date)
+
+      this.$message({
+        showClose: true,
+        message: this.dataNum1,
+        type: "success"
+      })
+
+      this.chart = echarts.init(document.getElementById(this.id), "westeros")
       this.chart.setOption({
         title: {
           text: "近七天用户活跃度",
@@ -46,7 +78,7 @@ export default {
           trigger: "axis"
         },
         legend: {
-          data: ["用户活跃度", "发布任务数"]
+          data: ["发布任务数"]
         },
         grid: {
           left: "3%",
@@ -57,22 +89,17 @@ export default {
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+          data: [date-6+'号', date-5+'号', date-4+'号', date-3+'号', date-2+'号', date-1+'号', date+'号']
         },
         yAxis: {
           type: "value"
         },
         series: [
           {
-            name: "用户活跃度",
-            type: "line",
-            stack: "总量",
-            data: [8200, 6320, 5010, 4340, 3400, 2300, 1100]
-          },
-          {
             name: "发布任务数",
             type: "line",
             stack: "总量",
+
             data: [2200, 3820, 1910, 2340, 4900, 3300, 1100]
           }
         ]
