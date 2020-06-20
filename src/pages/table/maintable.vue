@@ -37,7 +37,9 @@
 </template>
 
 <script>
+  //import axios from '/src/api/axios';
   export default {
+
     name: "maintable",
     data () {
       return {
@@ -102,31 +104,33 @@
           city: "暂时未开放功能",
           points_level: "高"
         }]
+
       }
     },
     methods: {
-      handleEdit (index, row) {
-        console.log(index, row)
-        this.$message({
-          showClose: true,
-          message: index,
-          row,
-          type: "success"
-        })
+
+      getRange () {
+        axios.get('http://39.105.177.71:8080/api/admin/visual/points')
+          .then(this.getRangeSuc)
       },
-      handleDelete (index, row) {
-        console.log(index, row)
-        this.$message({
-          showClose: true,
-          message: index,
-          row,
-          type: "success"
-        })
-      },
-      filterHandler (value, row, column) {
-        const property = column["property"]
-        return row[property] === value
+
+      getRangeSuc(res){
+         res=res.data
+        if (res.data) {
+          const data = res.data
+          for(key=0;key<10;key++)
+          {
+            this.data[key].user_id=data[key].user_id,
+            this.data[key].user_name=data[key].user_name,
+            this.data[key].total_points=data[key].total_points,
+            this.data[key].city="暂时未开放此功能",
+            this.data[key].points_level=data[key].points_level
+          }
+        }
       }
+    },
+    mounted() {
+     // this.getRange ();
     }
   }
 </script>
