@@ -4,6 +4,7 @@ import router from './router'
 import ElementUI from "element-ui";
 import NProgress from "nprogress"
 import store from "./store";
+import Axios from "axios";
 
 
 import "element-ui/lib/theme-chalk/index.css";
@@ -13,7 +14,10 @@ import "nprogress/nprogress.css";
 
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
+Vue.prototype.$axios=Axios
 
+Axios.defaults.baseURL = '/api'
+Axios.defaults.headers.post['Content-Type'] = 'application/json';
 NProgress.inc(0.2)
 NProgress.configure({ easing: "ease", speed: 500, showSpinner: true })
 

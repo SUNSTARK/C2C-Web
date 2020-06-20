@@ -45,16 +45,20 @@
         let that = this
         setTimeout(() => {
           window.onresize = function () {
-            that.$refs.cityEcharts.chart.resize()
-            that.$refs.sexEcharts.chart.resize()
+            if (that.$refs.cityEcharts && that.$refs.sexEcharts.chart){
+              that.$refs.cityEcharts.chart.resize()
+              that.$refs.sexEcharts.chart.resize()
+            }
           }
         }, 10)
       },
       // echart折叠展开导航自适应
       echart_resize() {
         let that = this
-        that.$refs.cityEcharts.chart.resize()
-        that.$refs.sexEcharts.chart.resize()
+        if (that.$refs.cityEcharts && that.$refs.sexEcharts.chart){
+          that.$refs.cityEcharts.chart.resize()
+          that.$refs.sexEcharts.chart.resize()
+        }
       }
     }
   }

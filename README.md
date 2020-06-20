@@ -1,6 +1,6 @@
 # C2C-Web-admin
-C2C众包项目Web端后台  
-🏠[github在线预览](https://sunstark.github.io/C2C-Web-admin/dist/#) (速度较慢)  
+C2C众包项目Web端后台
+🏠[github在线预览](https://sunstark.github.io/C2C-Web-admin/dist/#) (速度较慢)
 🏠[gitee在线预览](http://sunstark.gitee.io/c2c-web-admin/#) (速度较快)
 
 ## 更新日志
@@ -48,7 +48,6 @@ C2C众包项目Web端后台
 |   |-- |-- |-- functions 全局函数，已挂载到$fn
 |   |-- router vue-router 配置
 |   |--store 全局状态管理目录
-|-- vue.config.js 打包和跨域配置
 ```
 ## 注意事项
 ```bash

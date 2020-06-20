@@ -74,14 +74,18 @@
         setTimeout(() => {
           let that = this
           window.onresize = function () {
-            that.$refs.mainecharts.chart.resize()
+            if (that.$refs.mainecharts) {
+              that.$refs.mainecharts.chart.resize()
+            }
           }
         }, 10)
       },
       // echart折叠展开导航自适应
       echart_resize() {
         let that = this
-        that.$refs.mainecharts.chart.resize()
+        if (that.$refs.mainecharts){
+          that.$refs.mainecharts.chart.resize()
+        }
       }
     }
   }

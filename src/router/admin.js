@@ -4,7 +4,7 @@ import Layout from '@/pages/layout/index'
 
 // 非必须组件使用懒加载
 const AllJobs = () => import("@/pages/table/alljobsTable")
-const InfoVisual = () => import("@/pages/table/infoVisual")
+const InfoVisual = () => import("@/pages/table/taskinfoVisual")
 const UserInfoVisual = () => import("@/pages/table/userInfoVisual")
 const Page404 = () => import("@/pages/error/page404")
 const FilterTable = () => import("@/pages/table/filterTable")
