@@ -9,16 +9,16 @@
         type="index">
       </el-table-column>
       <el-table-column
-        sortable
-        prop="uid"
+        prop="user_id"
         label="用户ID">
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="user_name"
         label="用户名称">
       </el-table-column>
       <el-table-column
-        prop="stars"
+        sortable
+        prop="total_points"
         label="用户积分"
         width="130">
       </el-table-column>
@@ -27,8 +27,8 @@
         label="用户地域">
       </el-table-column>
       <el-table-column
-        prop="activity"
-        label="用户活跃度">
+        prop="points_level"
+        label="用户活跃度水平">
       </el-table-column>
 
 
@@ -42,75 +42,65 @@
     data () {
       return {
         tableData: [{
-          uid: "201801012345601",
-          name: "王小虎",
-          stars: "2000分",
-          city: "山东",
-          date: "2018-01-01",
-          activity: "高"
+          user_id: "201801012345601",
+          user_name: "王小虎",
+          total_points: "2000分",
+          city: "暂时未开放功能",
+          points_level: "高"
         }, {
-          uid: "201801012345602",
-          name: "王小虎",
-          stars: "2000分",
-          city: "山东",
-          date: "2018-01-02",
-          activity: "低"
+          user_id: "201801012345602",
+          user_name: "王小虎",
+          total_points: "2000分",
+          city: "暂时未开放功能",
+          points_level: "低"
         }, {
-          uid: "201801012345603",
-          name: "王小虎",
-          stars: "2000分",
-          city: "山东",
-          date: "2018-01-03",
-          activity: "高"
+          user_id: "201801012345603",
+          user_name: "王小虎",
+          total_points: "2000分",
+          city: "暂时未开放功能",
+          points_level: "高"
         }, {
-          uid: "201801012345604",
-          name: "王小虎",
-          stars: "2000分",
-          city: "山东",
-          date: "2018-01-03",
-          activity: "高"
+          user_id: "201801012345604",
+          user_name: "王小虎",
+          total_points: "2000分",
+          city: "暂时未开放功能",
+          points_level: "高"
         }, {
-          uid: "201801012345605",
-          name: "王小虎",
-          stars: "2000分",
-          city: "山东",
-          date: "2018-01-04",
-          activity: "低"
+          user_id: "201801012345605",
+          user_name: "王小虎",
+          total_points: "2000分",
+          city: "暂时未开放功能",
+          points_level: "低"
         }, {
-          uid: "201801012345606",
-          name: "王小虎",
-          stars: "2000分",
-          city: "山东",
-          date: "2018-01-04",
-          activity: "高"
+          user_id: "201801012345606",
+          user_name: "王小虎",
+          total_points: "2000分",
+          city: "暂时未开放功能",
+          points_level: "高"
         }, {
-          uid: "201801012345607",
-          name: "王小虎",
-          stars: "2000分",
-          city: "山东",
-          date: "2018-01-04",
-          activity: "低"
+          user_id: "201801012345607",
+          user_name: "王小虎",
+          total_points: "2000分",
+          city: "暂时未开放功能",
+          points_level: "低"
         }, {
-          uid: "201801012345608",
-          name: "王小虎",
-          stars: "2000分",
-          city: "山东",
-          date: "2018-01-04",
-          activity: "高"
+          user_id: "201801012345608",
+          user_name: "王小虎",
+          total_points: "2000分",
+          city: "暂时未开放功能",
+          points_level: "高"
         }, {
-          uid: "201801012345609",
-          name: "王小虎",
-          stars: "2000分",
-          city: "山东",
-          date: "2018-01-05",
-          activity: "低"
+          user_id: "201801012345609",
+          user_name: "王小虎",
+          total_points: "2000分",
+          city: "暂时未开放功能",
+          points_level: "低"
         }, {
-          uid: "201801012345610",
-          name: "王小虎",
-          stars: "2000分",
-          city: "山东",
-          date: "2018-01-05",
-          activity: "高"
+          user_id: "201801012345610",
+          user_name: "王小虎",
+          total_points: "2000分",
+          city: "暂时未开放功能",
+          points_level: "高"
         }]
       }
     },
