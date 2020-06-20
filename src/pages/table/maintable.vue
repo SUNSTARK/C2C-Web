@@ -37,6 +37,7 @@
 </template>
 
 <script>
+  import {fetch_points} from "../../api/apis";
   export default {
 
     name: "maintable",
@@ -48,26 +49,30 @@
     },
     methods: {
 
-      getRange () {
-        this.$axios.get('http://39.105.177.71:8080/api/admin/visual/points')
-          .then(this.getRangeSuc)
-      },
-
-      getRangeSuc(res){
-        //测试
-         res=res.data
-        if (res.data) {
-          const data = res.data
-            this.tableData=data
+      getRange() {
+        fetch_points().then(res => {
+          console.log(res)
+          res = res.data
+          this.tableData=res
           this.$message({
             showClose: true,
-            message: "用户积分排名已更新",
+            message: "用户积分已更新",
             type: "success"
           })
 
-        }
+        }).catch((err) => {
+          console.log(err)
+        }).catch(res => {
+          this.$message({
+            showClose: true,
+            message: res.msg,
+            type: "error"
+          })
+        })
+
       }
-    },
+      },
+
     mounted() {
      this.getRange ();
     }

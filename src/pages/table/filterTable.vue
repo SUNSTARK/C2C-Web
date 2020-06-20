@@ -62,7 +62,9 @@
 </template>
 
 <script>
+  import {fetch_uncheck} from "../../api/apis";
   export default {
+
     name:'list11',
     data() {
       return {
@@ -77,29 +79,19 @@
       };
     } ,
     methods: {
-
-      getTask(){
-        this.$axios.get('http://39.105.177.71:8080/api/admin/task/unchecking')
-          .then(this.getTaskSuc)
-
-
-      },
-
-      getTaskSuc(res){
-        //测试
+    getTask(){
+      fetch_uncheck().then(res => {
+        console.log(res)
+        //res = res.data
+        //this.tableData=res
         this.$message({
           showClose: true,
           message: res,
           type: "success"
         })
-        if (res.data) {
 
-          const data = res.data
-          this.tableData=data
-
-
-        }
-      },
+      })
+    },
 
       handlePost (index, row) {
         console.log(index, row)
