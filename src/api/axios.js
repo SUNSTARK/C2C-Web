@@ -10,7 +10,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 // http 请求 拦截器
 axios.interceptors.request.use(config => {
     if (Cookies.get("token")) {  // 存在cookie则在请求头加上token
-      config.headers.Authorization = 'Bearer' + Cookies.get("token")
+      config.headers.token = Cookies.get("token")
     }
     return config
   },
