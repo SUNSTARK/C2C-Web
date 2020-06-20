@@ -33,8 +33,7 @@
     },
     methods: {
       initChart () {
-        var myChart = this.chart
-        myChart = echarts.init(document.getElementById(this.id), "westeros")
+        this.chart = echarts.init(document.getElementById(this.id), "westeros")
         var dataAxis =[
           '江苏', '北京', '上海','重庆','河北','河南','云南','辽宁','黑龙江','湖南',
           '安徽','山东','新疆','江苏','浙江', '江西','湖北','广西','甘肃', '山西','内蒙古',
@@ -49,7 +48,7 @@
           dataShadow.push(yMax);
         }
 
-        myChart.setOption({
+        this.chart.setOption({
           title: {
             text: '用户省份分布图',
             subtext: '鼠标滑动可放缩移动',
@@ -134,9 +133,9 @@
           ]
         });
         var zoomSize = 6;
-        myChart.on('click', function (params) {
+        this.chart.on('click', function (params) {
           console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
-          myChart.dispatchAction({
+          this.chart.dispatchAction({
             type: 'dataZoom',
             startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
             endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]

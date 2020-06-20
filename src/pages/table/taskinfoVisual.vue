@@ -45,16 +45,20 @@
         let that = this
         setTimeout(() => {
           window.onresize = function () {
-            that.$refs.lineEcharts.chart.resize()
-            that.$refs.radarEcharts.chart.resize()
+            if (that.$refs.lineEcharts){
+              that.$refs.lineEcharts.chart.resize()
+              that.$refs.radarEcharts.chart.resize()
+            }
           }
         }, 10)
       },
       // echart折叠展开导航自适应
       echart_resize() {
         let that = this
-        that.$refs.lineEcharts.chart.resize()
-        that.$refs.radarEcharts.chart.resize()
+        if (that.$refs.lineEcharts){
+          that.$refs.lineEcharts.chart.resize()
+          that.$refs.radarEcharts.chart.resize()
+        }
       }
     }
   }
