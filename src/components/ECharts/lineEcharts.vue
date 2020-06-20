@@ -7,7 +7,7 @@
 <script>
 import echarts from "echarts"
 import westeros from "./theme/westeros"
-var taskNum
+import {fetch_task1Day} from "../../api/apis";
 export default {
 
   name: "lineEcharts",
@@ -38,18 +38,10 @@ export default {
   },
   methods: {
     getNum(data){
-
-     this.$axios.get('http://39.105.177.71:8080/api/admin/visual/taskDayNum/{'+data+'}')
-        .then(this.getRangeSuc)
+      fetch_task1Day()
 
     },
 
-    getRangeSuc(res){
-
-      res=res.data
-      const day1 = res.data
-      this.dataNum1 = day1
-     },
 
     initChart () {
       //获取日期
