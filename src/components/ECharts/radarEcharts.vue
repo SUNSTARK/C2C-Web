@@ -50,7 +50,7 @@
           legend: {
             orient: 'vertical',
             left: 'left',
-            data: ['科技类', '教育类', '生活娱乐类', '降水量', '其他']
+            data: ['科技类', '教育类', '生活娱乐类', '新闻类', '其他']
           },
           series: [
             {
@@ -61,9 +61,9 @@
               data: [
                 {value: 335, name: '科技类'},
                 {value: 310, name: '教育类'},
-                {value: 234, name: '生活娱乐类'},
-                {value: 135, name: '降水量'},
-                {value: 1548, name: '其他'}
+                {value: 1548, name: '生活娱乐类'},
+                {value: 135, name: '新闻类'},
+                {value: 234, name: '其他'}
               ],
               emphasis: {
                 itemStyle: {
