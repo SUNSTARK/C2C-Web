@@ -6,20 +6,16 @@
 
 </style>
 <script>
+  import {pass_task} from "../api/apis";
   export default {
     methods:{
       submitForm () {
         // 真实请求参考
-        this.$axios.get('/admin/task/display/allTask').then(res => {
+        let data = 17
+        pass_task(data).then(res => {
           console.log(res)
-        }).catch((err) => {
+        }).catch(err => {
           console.log(err)
-        }).catch(res => {
-          this.$message({
-            showClose: true,
-            message: res,
-            type: "error"
-          })
         })
       },
       message () {

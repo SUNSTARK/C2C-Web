@@ -1,18 +1,16 @@
 import axios from "axios"
 import Cookies from "js-cookie"
-import NProgress from "nprogress"
 import { Message } from "element-ui"
 
 // axios默认配置
 axios.defaults.timeout = 10000 // 超时时间
-axios.defaults.baseURL = process.env.API_HOST
+axios.defaults.baseURL = '/api'
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
-// http request 拦截器
+// http 请求 拦截器
 axios.interceptors.request.use(config => {
-    NProgress.start()
-    config.headers["Content-Type"] = "application/json;charset=UTF-8"
-    if (Cookies.get("access_token")) {
-      config.headers.Authorization = "Bearer" + Cookies.get("access_token")
+    if (Cookies.get("token")) {  // 存在cookie则在请求头加上token
+      config.headers.Authorization = 'Bearer' + Cookies.get("token")
     }
     return config
   },
@@ -20,12 +18,11 @@ axios.interceptors.request.use(config => {
     return Promise.reject(error.response)
   })
 
-// http response 拦截器
+// http 响应 拦截器
 axios.interceptors.response.use(
   response => {
-    NProgress.done()
     if (response.data.code === 11000) {
-      Cookies.set("access_token", response.data.message, { expires: 1 / 12 })
+      Cookies.set("token", response.data.message, { expires: 1 / 12 })
       return Promise.resolve()
     } else if (response.data.code === 10000) { // 约定报错信息
       Message({
@@ -45,14 +42,45 @@ axios.interceptors.response.use(
       })
     } else if (error.response.status === 401) {
       Message({
-        message: error.response.data.message,
+        message: "你没有权限",
         type: "warning"
       })
-      Cookies.remove("access_token")
+      Cookies.remove("token")
       setTimeout(() => {
         location.reload()
       }, 3000)
     }
     return Promise.reject(error.response) // 返回接口返回的错误信息
   })
+
+// 返回一个Promise(发送post请求)
+export function fetchPost(url, params) {
+  return new Promise((resolve, reject) => {
+    axios.post(url, params)
+      .then(response => {
+        resolve(response.data);
+      }, err => {
+        reject(err);
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+
+// 返回一个Promise(发送get请求)
+export function fetchGet(url, param) {
+  return new Promise((resolve, reject) => {
+    axios.get(url, {params: param})
+      .then(response => {
+        resolve(response.data)
+      }, err => {
+        reject(err)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+
 export default axios

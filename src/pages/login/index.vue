@@ -35,12 +35,13 @@
   </div>
 </template>
 <script>
+  import {fetch_login} from "../../api/apis";
   export default {
     data () {
       return {
         loginForm: {
-          username: "test",
-          password: "test"
+          username: "admin1",
+          password: "admin1"
         }
       }
     },
@@ -55,26 +56,18 @@
           })
           return false
         } else {
-          // 真实请求参考
-          // this.$request.fetchLogin({
-          //   username: that.loginForm.username,
-          //   password: that.loginForm.password
-          // }).then(res => {
-          //   that.$restBack(res.data, () => {
-          //     that.$store.dispatch("setToken", res.data.data.access_token).then(res => {
-          //       that.$router.push({path: "/"})
-          //     })
-          //   }, "登录成功")
-          // }).catch((err) => {
-          //   console.log(err)
-          // })
-          // 将 username 设置为 token 存储在 store，仅为测试效果，实际存储 token 以后台返回为准
-          that.$store.dispatch("setToken", that.loginForm.username).then(() => {
-            this.$router.push({path: "/index"}) // 登录成功后，重定向至首页
+          let data = {'useraccount': that.loginForm.username, 'userpasswd': that.loginForm.password}
+          // 登录参考
+          fetch_login(data).then(res => {
+            that.$store.dispatch("setToken", res.data).then(res => {
+              that.$router.push({path: "/"})
+            })
+          }).catch((err) => {
+            console.log(err)
           }).catch(res => {
-            that.$message({
+            this.$message({
               showClose: true,
-              message: res,
+              message: res.msg,
               type: "error"
             })
           })
@@ -84,8 +77,8 @@
         const h = this.$createElement
         this.$notify({
           title: "账号密码",
-          message: h("i", {style: "color: teal"}, "账号密码随意填写，测试时被存储为临时假token"),
-          duration: 3000
+          message: h("i", {style: "color: teal"}, "已接后端，账号密码均为admin1"),
+          duration: 4000
         })
       }
     },
