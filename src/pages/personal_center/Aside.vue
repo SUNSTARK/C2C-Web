@@ -7,14 +7,18 @@
           <span slot="title">个人信息</span>
         </el-menu-item>
       </router-link>
-      <el-menu-item index="1">
-        <i class="el-icon-document"></i>
-        <span slot="title">导航2</span>
-      </el-menu-item>
-      <el-menu-item index="2">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航3</span>
-      </el-menu-item>
+      <router-link to="/user/task/list">
+        <el-menu-item index="/task/list">
+          <i class="el-icon-document"></i>
+          <span slot="title">任务列表</span>
+        </el-menu-item>
+      </router-link>
+      <router-link to="/user/task/history">
+        <el-menu-item index="/task/history">
+          <i class="el-icon-document"></i>
+          <span slot="title">历史任务</span>
+        </el-menu-item>
+      </router-link>
     </el-menu>
   </el-aside>
 </template>
@@ -22,7 +26,7 @@
 <script>
   export default {
     name: "Aside",
-    data(){
+    data() {
       return {
         act: window.location.pathname
       }
@@ -39,7 +43,7 @@
 </script>
 
 <style>
-a {
-  text-decoration: none;
-}
+  a {
+    text-decoration: none;
+  }
 </style>
