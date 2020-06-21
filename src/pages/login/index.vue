@@ -2,9 +2,9 @@
   <div id="login">
     <div class="loginConbox">
       <div class="header">
-<!--        <div class="logo">-->
-<!--        <img src="../../assets/logo.png">-->
-<!--        </div>-->
+        <!--        <div class="logo">-->
+        <!--        <img src="../../assets/logo.png">-->
+        <!--        </div>-->
       </div>
       <div class="loginBox">
         <div class="loginCon">
@@ -31,7 +31,7 @@
               </el-form-item>
               <p class="smalltxt">
                 <router-link class="a" to="#">忘记密码</router-link>
-                <router-link class="a" to="#">免费注册</router-link>
+                <router-link class="a" to="register">免费注册</router-link>
               </p>
             </el-form>
           </el-card>
@@ -46,14 +46,14 @@
             </div>
             <div class="ewmbox">
               <div class="ewm">
-                <img src='static/ewm.png' height="140" width="140">
+<!--                <img src='./static/ewm.png' height="140" width="140">-->
               </div>
               <div class="ewmicon">
                 <i class="iconfont xu-saomadenglu fa-2x iconcolor"></i>
                 <p>打开 微信 扫码登录</p>
               </div>
               <p class="smalltxt">
-                <router-link class="a" to="#">免费注册</router-link>
+                <router-link class="a" to="register">免费注册</router-link>
               </p>
             </div>
           </el-card>
@@ -68,8 +68,8 @@
       return {
         smdl: true,
         loginForm: {
-          username: "test",
-          password: "test"
+          username: "123ti1me3",
+          password: "123456"
         }
       }
     },
@@ -84,6 +84,70 @@
           })
           return false
         } else {
+          console.log("login success")
+          that.axios.post('http://39.105.177.71:8080/api/user/login',
+            {
+              useraccount:that.loginForm.username,
+              userpasswd:that.loginForm.password,
+            })
+            .then(res => {
+              this.content = res.data.data;
+              console.log('数据是:', res.data);
+              if(res.data.msg=="成功！")
+              {
+                // alert("登陆成功");
+                sessionStorage.setItem('token',this.content);
+                // sessionStorage.setItem('uuid',res.data.data.uuid);
+                // sessionStorage.setItem('username',this.loginForm.username);
+
+                this.messages();
+
+                // that.$router.push({path: "/add"});
+              }else
+              {
+                this.unmessages();
+              }
+
+            })
+            .catch((e) => {
+              console.log('获取数据失败');
+              this.errmessages();
+            });
+          // that.axios.post('./api/?s=App.User.LoginExt' +
+          //   '&app_key=FE90D9A3ED981D3036ED7417B798891B' +
+          //   '&sign=E9527F2F89012F8E9E9CC342B1F8F488',{
+          //   username:that.loginForm.username,
+          //   password:that.loginForm.password,
+          // })
+          //   .then(res => {
+          //     this.content=res.data.data.token;
+          //     console.log('数据是:', res);
+          //     if(res.data.data.err_code==0)
+          //     {
+          //       // alert("登陆成功");
+          //       sessionStorage.setItem('token',this.content);
+          //       sessionStorage.setItem('uuid',res.data.data.uuid);
+          //       sessionStorage.setItem('username',this.loginForm.username);
+          //
+          //       this.messages();
+          //
+          //       that.$router.push({path: "/add"});
+          //     }else
+          //     {
+          //       this.unmessages();
+          //     }
+          //
+          //
+          //
+          //   })
+          //   .catch((e) => {
+          //     console.log('获取数据失败');
+          //     this.errmessages();
+          //   });
+
+
+
+
           // 真实请求参考
           // this.$request.fetchLogin({
           //   username: that.loginForm.username,
@@ -98,29 +162,44 @@
           //   console.log(err)
           // })
           // 将 username 设置为 token 存储在 store，仅为测试效果，实际存储 token 以后台返回为准
-          that.$store.dispatch("setToken", that.loginForm.username).then(() => {
-            that.$router.push({path: "/"})
-          }).catch(res => {
-            that.$message({
-              showClose: true,
-              message: res,
-              type: "error"
-            })
-          })
+          // that.$store.dispatch("setToken", that.loginForm.username).then(() => {
+          //   that.$router.push({path: "/"})
+          // }).catch(res => {
+          //   that.$message({
+          //     showClose: true,
+          //     message: res,
+          //     type: "error"
+          //   })
+          // })
         }
       },
-      message () {
-        const h = this.$createElement
-        this.$notify({
-          title: "账号密码",
-          message: h("i", {style: "color: teal"}, "账号密码可以随意填写，为了测试效果填写的账号将会被存储为临时假 token"),
-          duration: 6000
-        })
-      }
+      messages()
+      {
+        this.$message({
+          showClose: true,
+          message: '登陆成功，进入发布任务界面',
+          type: 'success'
+        });
+      },
+      unmessages()
+      {
+        this.$message({
+          showClose: true,
+          message: '登陆失败，检查用户名密码',
+          type: 'error'
+        });
+      },
+      errmessages()
+      {
+        this.$message({
+          showClose: true,
+          message: '出bug了,联系管理员',
+          type: 'warning'
+        });
+      },
+
     },
-    mounted () {
-      this.message()
-    }
+
   }
 </script>
 <style>
