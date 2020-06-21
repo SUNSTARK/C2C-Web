@@ -32,5 +32,7 @@ yarn start
 
 # 打包发布
 yarn build
+
+#登陆界面已经完善，登陆成功后会生成token，连接后端时请求头要加token
 ```
 
