@@ -6,14 +6,14 @@
 
 </style>
 <script>
-  import {fetch_taskState, fetch_points, fetch_allTask, fetch_uncheck, stop_task} from "../api/apis";
+  import {stop_task,pass_task,reject_task,fetch_task1Day} from "../api/apis";
   import Cookies from "js-cookie"
   export default {
     methods:{
       submitForm () {
         console.log('当前cookie:\n'+Cookies.get('token'))
-        let params = {'test':1}
-        stop_task(params).then(res => {
+        let data = {'task_id':2}
+        stop_task(data).then(res => {
           console.log(res)
         }).catch(err => {
           console.log(err)
