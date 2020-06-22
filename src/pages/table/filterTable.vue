@@ -69,7 +69,7 @@
     data() {
       return {
         total:1000,//默认数据总数
-        pagesize:9,//每页的数据条数
+        pagesize:30,//每页的数据条数
         currentPage:1,//默认开始页面
         istag: true,
         input:"",
