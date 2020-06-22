@@ -40,6 +40,8 @@ export default {
   methods: {
 
     initChart () {
+
+      this.chart = echarts.init(document.getElementById(this.id), "westeros")
       //获取日期
       let nowDate = new Date();
       let year=nowDate.getFullYear()
@@ -54,8 +56,6 @@ export default {
         console.log(err)
         })
 
-
-      this.chart = echarts.init(document.getElementById(this.id), "westeros")
       this.chart.setOption({
         title: {
           text: "近七天用户活跃度",
