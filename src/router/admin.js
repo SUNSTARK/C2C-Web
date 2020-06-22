@@ -1,19 +1,19 @@
 /**管理员路由*/
 import Login from '@/pages/login/index'
-import Layout from '@/pages/layout/index'
+import Layout from '@/pages/admin_layout/index'
 
 // 非必须组件使用懒加载
-const AllJobs = () => import("@/pages/table/allTasks")
-const InfoVisual = () => import("@/pages/table/taskinfoVisual")
-const UserInfoVisual = () => import("@/pages/table/userInfoVisual")
+const AllJobs = () => import("@/pages/admin_table/allTasks")
+const InfoVisual = () => import("@/pages/admin_table/taskinfoVisual")
+const UserInfoVisual = () => import("@/pages/admin_table/userInfoVisual")
 const Page404 = () => import("@/pages/error/page404")
-const FilterTable = () => import("@/pages/table/filterTable")
-const Home = () => import('@/pages/home/index')
+const FilterTable = () => import("@/pages/admin_table/filterTable")
+const Home = () => import('@/pages/admin_home/index')
 
 let adminRouter = [
   {
     path: '/',
-    redirect: {path:'/index'}, // 重定向到主页
+    redirect: {path:'/admin_home'}, // 重定向到主页
     children: []
   },
   {
@@ -31,11 +31,11 @@ let adminRouter = [
     path: "/",
     component: Layout,
     name: "主页",  // 定义该地址导航名称
-    icon:"fa fa-home",  // 定义该地址所用的导航图标
+    icon:"fa fa-admin_home",  // 定义该地址所用的导航图标
     alone: true,  // 定义该页面是否含有子菜单，用于导航生成子菜单
     children: [
       {
-        path: '/index',
+        path: '/admin_home',
         component: Home,
         meta:{
           bread_name: ["主页"]  // 定义面包屑名称，用于生成面包屑导航

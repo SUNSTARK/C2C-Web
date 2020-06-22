@@ -111,7 +111,7 @@ export default {
     }
   },
   mounted () {
-    let el = document.querySelectorAll(".el-table__body-wrapper > table > tbody")[0]
+    let el = document.querySelectorAll(".el-table__body-wrapper > admin_table > tbody")[0]
     this.sortable = Sortable.create(el)
   }
 }

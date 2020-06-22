@@ -42,5 +42,5 @@ export function fetch_allTask () {
 
 // 叫停任务 GET
 export function stop_task (params) {
-  return fetchGet('/admin/task/stopping/', params)
+  return fetchGet('/admin/task/stopping', params)
 }

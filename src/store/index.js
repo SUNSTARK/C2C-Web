@@ -26,9 +26,10 @@ const store = new Vuex.Store({
   },
   getters: {
     token: state => state.token,  // 登录后token
-    logoShow: state => state.layout.logoShow,  // 展示logo
-    isCollapse: state => state.layout.isCollapse,  // 折叠菜单
-    routers: state => state.routerData.routers,  // 导航缓存
+    logoShow: state => state.layout.logoShow,  // 管理页面展示logo
+    isCollapse: state => state.layout.isCollapse,  // 管理页面折叠菜单
+    routers: state => state.routerData.routers,  // 管理页面导航缓存
+    perDayTask: state => state.layout.perDayTask // 管理页面用于保存linechart数据
   },
   modules: {
     layout,  // 存储布局相关状态

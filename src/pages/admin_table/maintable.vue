@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import {fetch_points} from "../../api/apis";
+  import {fetch_points} from "../../api/admin_apis";
   export default {
 
     name: "maintable",

@@ -49,7 +49,7 @@
 
 <script>
   import LineEcharts from "../../components/ECharts/lineEcharts"
-  import Maintable from "../table/maintable"
+  import Maintable from "../admin_table/maintable"
 
   export default {
     name: "mainIndex",
