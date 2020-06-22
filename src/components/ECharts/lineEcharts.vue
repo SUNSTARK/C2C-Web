@@ -1,6 +1,7 @@
 <template>
     <div>
-      <div :id="id" :style="{width: width, height: height}"></div>
+      <div :id="id" :style="{width: width, height: height}"
+           :data="tableData"></div>
     </div>
 </template>
 
@@ -8,6 +9,7 @@
 import echarts from "echarts"
 import westeros from "./theme/westeros"
 import {fetch_task1Day} from "../../api/apis";
+import Cookies from "js-cookie"
 export default {
 
   name: "lineEcharts",
@@ -28,8 +30,7 @@ export default {
   data () {
     return {
       chart: null,
-      dataNum1: 2
-      // dataNum:[]
+      tableData: []
     }
   },
   mounted () {
@@ -37,26 +38,22 @@ export default {
     this.initChart()
   },
   methods: {
-    getNum(data){
-      fetch_task1Day()
-
-    },
-
 
     initChart () {
       //获取日期
       let nowDate = new Date();
       let year=nowDate.getFullYear()
-      let month=nowDate.getMonth()
+      let month=("0" + (nowDate.getMonth() + 1)).slice(-2);
       let date=nowDate.getDate()
 
-      let day1=this.getNum(year + '-' +month+ '-' + date)
+      let params={'dateStart':'2020-06-19'}
+      fetch_task1Day(params).then(res=> {
+        console.log(res)
+        }
+      ).catch(err=> {
+        console.log(err)
+        })
 
-      this.$message({
-        showClose: true,
-        message: this.dataNum1,
-        type: "success"
-      })
 
       this.chart = echarts.init(document.getElementById(this.id), "westeros")
       this.chart.setOption({
