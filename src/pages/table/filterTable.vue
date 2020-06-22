@@ -82,32 +82,32 @@
     getTask(){
       fetch_uncheck().then(res => {
         console.log(res)
-        //res = res.data
-        //this.tableData=res
-        this.$message({
-          showClose: true,
-          message: res,
-          type: "success"
-        })
+        res = res.data
+        this.tableData=res
+        // this.$message({
+        //   showClose: true,
+        //   message: res,
+        //   type: "success"
+        // })
 
       })
     },
 
       handlePost (index, row) {
-        console.log(index, row)
+        console.log(index,row)
+       let id = this.tableData[index].creatid
         this.$message({
           showClose: true,
-          message: index,
-          row,
+          message: '此任务的id为'+id,
           type: "success"
         })
       },
       handleDelete (index, row) {
         console.log(index, row)
+        let id = this.tableData[index].creatid
         this.$message({
           showClose: true,
-          message: index,
-          row,
+          message: '此任务的id为'+id,
           type: "success"
         })
       },
