@@ -9,25 +9,6 @@
   import {stop_task,pass_task,reject_task,fetch_task1Day} from "../api/admin_apis";
   export default {
     methods:{
-      submitForm () {
-        let dates = ['2020-06-18', '2020-06-19']
-        let result = []
-        for (let item in dates) {
-          let params = {'dateStart':dates[item]}
-          fetch_task1Day(params).then(res => {
-            // console.log(res.data)
-            // result.push(res.data)
-            result[item] = res.data
-            console.log(result)
-          }).catch(err => {
-            console.log(err)
-          })
-        }
-        console.log('当前数组：'+result.length)
-        this.$store.dispatch("setperDayTask", result)
-        console.log('store里的数组为：'+this.$store.getters.perDayTask)
-        // console.log('当前cookie:\n'+Cookies.get('token'))
-      },
       submitForm1 () {
           let params = {'dateStart': '2020-06-18'}
           fetch_task1Day(params).then(res => {
@@ -35,6 +16,7 @@
           }).catch(err => {
             console.log(err)
           })
+        console.log(this.$store.getters.role)
       },
       message () {
         const h = this.$createElement

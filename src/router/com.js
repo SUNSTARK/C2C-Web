@@ -1,4 +1,6 @@
 /**普通用户路由 */
+import userHome from '@/pages/user_home/index'
+import user_layout from '@/pages/user_layout/index'
 
 let comRouter = [
   {
@@ -7,20 +9,28 @@ let comRouter = [
     children: []
   },
   {
-    path: "/home",
-    name: "home",
-    component: () => import("../pages/user_home"),
+    path: "/",
+    name: "主页",
+    component: user_layout,
     meta: {
       title: 'C2C众包平台',
-    }
+    },
+    children: [
+      {
+        path: '/home',
+        component: userHome,
+        children: []
+      }
+    ]
   },
   {
     path: "/login",
-    name: "login",
+    name: "登录",
     component: () => import("../pages/login"),
     meta: {
       title: '登录页面'
-    }
+    },
+    children: []
   },
   {
     path: "/register",
@@ -28,7 +38,8 @@ let comRouter = [
     component: () => import("../pages/register/register"),
     meta: {
       title: '注册页面'
-    }
+    },
+    children: []
   },
   {
     path: "/user",
@@ -45,6 +56,7 @@ let comRouter = [
         meta: {
           title: '用户信息'
         },
+        children: []
       },
       {
         path: "/user/task/list",
@@ -53,6 +65,7 @@ let comRouter = [
         meta: {
           title: '任务列表'
         },
+        children: []
       },
       {
         path: "/user/task/history",
@@ -61,6 +74,7 @@ let comRouter = [
         meta: {
           title: '历史任务'
         },
+        children: []
       }
     ]
   }

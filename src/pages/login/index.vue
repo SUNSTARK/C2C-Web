@@ -68,7 +68,7 @@
       return {
         isWechat: false,
         loginForm: {
-          username: "admin1",
+          username: "admin",
           password: "admin1"
         }
       }
@@ -76,7 +76,7 @@
     methods: {
       submitForm () {
         let that = this
-        if (this.loginForm.username === "" || this.loginForm.password === "") {
+        if (that.loginForm.username === "" || that.loginForm.password === "") {
           this.$message({
             showClose: true,
             message: "账号或密码不能为空",
@@ -100,6 +100,11 @@
           //   })
           // })
           // 将 username 设置为 token 存储在 store，仅为测试效果，实际存储 token 以后台返回为准
+          if (that.loginForm.username === 'admin') {
+            this.$store.dispatch("setRole", 'admin')
+          }else if (that.loginForm.username === 'user') {
+            this.$store.dispatch("setRole", 'user')
+          }
           that.$store.dispatch("setToken", that.loginForm.username).then(() => {
             that.$router.push({path: "/"})
           }).catch(res => {
@@ -115,31 +120,34 @@
         const h = this.$createElement
         this.$notify({
           title: "账号密码",
-          message: h("i", {style: "color: teal"}, "测试阶段，使用假token"),
-          duration: 4000
+          message: h("i", {style: "color: teal"}, "测试阶段，使用假token，用户名admin为管理员身份，user为用户身份。"),
+          duration: 10000
         })
       }
     },
     mounted () {
       this.message()
-    }
+    },
+    //创建前设置
+    beforeCreate () {
+      document.querySelector('body').setAttribute('style', 'background-color:#21282E;')
+    },
+//销毁前清除
+    beforeDestroy () {
+      document.querySelector('body').removeAttribute('style')
+    },
   }
 </script>
 <style>
   #login {
     width: 100%;
     height: 100%;
-    background-color: #21282E;
     overflow-x: auto;
     overflow-y: auto;
-  }
-  #login .loginConbox {
-    background: #21282E;
   }
   #login .header {
     height: 60px;
     position: relative;
-    background: #21282E;
     /*border-bottom: 1px solid rgba(255, 255, 255, 0.3);*/
   }
   #login .header .logo {

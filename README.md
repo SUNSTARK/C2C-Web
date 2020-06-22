@@ -1,6 +1,12 @@
 # C2C-Web
 C2C众包项目Web端
 
+## 补充说明
+1. 管理员接口已通过测试，封装参考在src/api/admin_apis/index.js，引用参考test.vue
+2. $store新增role变量，使用sessionStorage存储用户的身份标识
+3. 目前仅做了是否登录的权限路由，未加入用户身份标识
+4. 用户界面user_layout引用参考router/com.js，父组件使用layout，在children属性中引入所需要的页面
+
 ## 更新日志
 ### v1.6
 1. 目前所有管理员接口已通过测试，具体方法都封装在src/api/admin_apis/index.js中

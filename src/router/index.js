@@ -20,25 +20,27 @@ Router.prototype.push = function push(location) {
 // 路由设定
 router.beforeEach((to, from, next) => {
   let isLogin = store.state.token; // 获取登录状态
+  let role = store.state.role;  // 获取登录身份
+  // console.log("from "+from.path+" to "+to.path)
+  // console.log(isLogin)
   NProgress.start()
   // 改变标题
   if (to.meta.title) {
     document.title = to.meta.title
   }
-  // if (isLogin) {
-  //   if (to.path === "/login") {
-  //     next({path: "/"})
-  //   } else {
-  //     next()
-  //   }
-  // } else {
-  //   if (to.path === "/login" || to.path === "/404") {
-  //     next()
-  //   }
-  //   next({path: "/login"})
-  //   NProgress.done()
-  // }
-  next()
+  if(to.path === '/login') {  //如果是登录页，则跳过验证
+    next()
+    return
+  }
+  if (isLogin != null) {
+    if (to.path === "/login") {
+      next({path: "/"})
+    } else {
+      next()
+    }
+  } else {
+    next({path:"/login"})
+  }
 });
 
 router.afterEach(() => {
