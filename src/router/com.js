@@ -9,7 +9,7 @@ let comRouter = [
   {
     path: "/home",
     name: "home",
-    component: () => import(/* webpackChunkName: "index" */ "../pages/admin_home"),
+    component: () => import("../pages/admin_home"),
     meta: {
       title: 'C2C众包平台',
     }
@@ -45,14 +45,16 @@ let comRouter = [
         meta: {
           title: '用户信息'
         },
-      }, {
+      },
+      {
         path: "/user/task/list",
         name: "task_list",
         component: () => import("../pages/personal_center/task_list"),
         meta: {
           title: '任务列表'
         },
-      }, {
+      },
+      {
         path: "/user/task/history",
         name: "task_history",
         component: () => import("../pages/personal_center/task_history"),
@@ -62,7 +64,7 @@ let comRouter = [
       }
     ]
   }
-];
+]
 
 
 export {comRouter};
