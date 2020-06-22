@@ -28,9 +28,10 @@ export default {
     }
   },
   data () {
+
     return {
       chart: null,
-      tableData: []
+      structArray: [],
     }
   },
   mounted () {
@@ -41,25 +42,25 @@ export default {
 
     initChart () {
 
-      var servicedata=[];
       this.chart = echarts.init(document.getElementById(this.id), "westeros")
       //获取日期
       let nowDate = new Date();
       let year=nowDate.getFullYear()
       let month=("0" + (nowDate.getMonth() + 1)).slice(-2);
       let date=nowDate.getDate()
+      let i=0
 
-
-      let params={'dateStart':'2020-06-19'}
-      fetch_task1Day(params).then(res=> {
-        console.log(res)
-        servicedata[0]=res.data
-
-        }
-      ).catch(err=> {
-        console.log(err)
+      for(i;i<8;i++) {
+        let params = {'dateStart': year + '-' + month + '-' + (date-i)}
+        fetch_task1Day(params).then(res => {
+            console.log(res)
+            this.structArray[i]=res.data
+          }
+        ).catch(err => {
+          console.log(err)
         })
 
+      }
 
       this.chart.setOption({
         title: {
@@ -94,9 +95,9 @@ export default {
             type: "line",
             stack: "总量",
 
-            data: [2200, 3820, 1910, 2340, 4900, 3300, 1100]
+            data: [8, 3, 4, 5, 7, 1, 4]
           }
-        ]
+         ]
       })
     }
   }

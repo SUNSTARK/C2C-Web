@@ -110,6 +110,7 @@
               message: '任务上架成功',
               type: "success"
             })
+          //window.reload()
           }
         ).catch(err=> {
           console.log(err)
