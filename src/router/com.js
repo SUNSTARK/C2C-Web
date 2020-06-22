@@ -2,6 +2,35 @@
 
 let comRouter = [
   {
+    path: '/',
+    redirect: {path:'/home'}, // 重定向到主页
+    children: []
+  },
+  {
+    path: "/home",
+    name: "home",
+    component: () => import(/* webpackChunkName: "index" */ "../pages/admin_home"),
+    meta: {
+      title: 'C2C众包平台',
+    }
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () => import("../pages/login/user_login"),
+    meta: {
+      title: '登录页面'
+    }
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: () => import("../pages/register/register"),
+    meta: {
+      title: '注册页面'
+    }
+  },
+  {
     path: "/user",
     name: "personal_center",
     component: () => import("../pages/personal_center"),
@@ -35,7 +64,5 @@ let comRouter = [
   }
 ];
 
-let comRouterGuard = (to, next) => {
-};
 
-export {comRouter, comRouterGuard};
+export {comRouter};

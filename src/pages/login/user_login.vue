@@ -46,7 +46,7 @@
             </div>
             <div class="ewmbox">
               <div class="ewm">
-<!--                <img src='./static/ewm.png' height="140" width="140">-->
+                <img src='/static/ewm.png' height="140" width="140">
               </div>
               <div class="ewmicon">
                 <i class="iconfont xu-saomadenglu fa-2x iconcolor"></i>
@@ -91,12 +91,13 @@
               userpasswd:that.loginForm.password,
             })
             .then(res => {
-              this.content = res.data.data;
+              let token = res.data.data;
               console.log('数据是:', res.data);
               if(res.data.msg=="成功！")
               {
                 // alert("登陆成功");
-                sessionStorage.setItem('token',this.content);
+                that.$store.dispatch("setToken",token); // token存到vuex的store状态管理器，在getters中
+                console.log(this.$store.getters.token)
                 // sessionStorage.setItem('uuid',res.data.data.uuid);
                 // sessionStorage.setItem('username',this.loginForm.username);
 

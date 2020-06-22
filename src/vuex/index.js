@@ -24,10 +24,9 @@ const store = new Vuex.Store({
     }
   },
   getters: {
-    token: state => state.token,
-    info: state => state.role.info,
-    logoShow: state => state.layout.logoShow,
-    isCollapse: state => state.layout.isCollapse
+    token: state => state.token,  // 登录后token
+    logoShow: state => state.layout.logoShow,  // 展示logo
+    isCollapse: state => state.layout.isCollapse,  // 折叠菜单
   },
   modules: {
     layout
