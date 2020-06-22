@@ -1,6 +1,6 @@
 <template>
   <el-header class="header">
-    <div class="title">c2c 众包</div>
+    <div class="title">C2C众包平台</div>
     <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="1">发布需求</el-menu-item>
       <el-menu-item index="2">项目大厅</el-menu-item>

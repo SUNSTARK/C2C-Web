@@ -168,7 +168,7 @@
     font-size: 36px;
     font-weight: 600;
     color: #ffffff;
-    margin-top: 120px;
+    margin-top: 100px;
     text-align: center;
   }
   #login .loginBox .loginCon .login-module {

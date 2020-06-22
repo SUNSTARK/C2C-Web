@@ -3,11 +3,11 @@ import Login from '@/pages/login/index'
 import Layout from '@/pages/admin_layout/index'
 
 // 非必须组件使用懒加载
-const AllJobs = () => import("@/pages/admin_table/allTasks")
+const allTask = () => import("@/pages/admin_table/allTask")
 const InfoVisual = () => import("@/pages/admin_table/taskinfoVisual")
 const UserInfoVisual = () => import("@/pages/admin_table/userInfoVisual")
 const Page404 = () => import("@/pages/error/page404")
-const FilterTable = () => import("@/pages/admin_table/filterTable")
+const checkTask = () => import("@/pages/admin_table/checkTask")
 const Home = () => import('@/pages/admin_home/index')
 
 let adminRouter = [
@@ -31,7 +31,7 @@ let adminRouter = [
     path: "/",
     component: Layout,
     name: "主页",  // 定义该地址导航名称
-    icon:"fa fa-admin_home",  // 定义该地址所用的导航图标
+    icon:"fa fa-home",  // 定义该地址所用的导航图标
     alone: true,  // 定义该页面是否含有子菜单，用于导航生成子菜单
     children: [
       {
@@ -52,8 +52,8 @@ let adminRouter = [
     alone: true,
     children: [
       {
-        path: "/alljobs",
-        component: AllJobs,
+        path: "/alltask",
+        component: allTask,
         meta:{
           bread_name: ["任务大厅"]
         },
@@ -69,8 +69,8 @@ let adminRouter = [
     alone: true,
     children: [
       {
-        path: "/filterTable",
-        component: FilterTable,
+        path: "/checktask",
+        component: checkTask,
         meta:{
           bread_name: ["待审任务"]
         },

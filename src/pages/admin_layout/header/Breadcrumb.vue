@@ -29,7 +29,7 @@
     },
     methods: {
       isHome() {
-        return this.$route.path === "/index";
+        return this.$route.path === "/admin_home";
       },
       getBreadcrumb() {
         let matched = this.$route.matched.slice(1) // 截取掉localhost的router
@@ -39,7 +39,7 @@
         }
         // 如果不是首页
         if (!this.isHome()) {
-          matched = [{ path: "/index", meta:{bread_name: ["主页"]}}].concat(matched);
+          matched = [{ path: "/admin_home", meta:{bread_name: ["主页"]}}].concat(matched);
         }
         const list = []
         for (const item in matched) {
