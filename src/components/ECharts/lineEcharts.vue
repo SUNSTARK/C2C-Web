@@ -41,6 +41,7 @@ export default {
 
     initChart () {
 
+      var servicedata=[];
       this.chart = echarts.init(document.getElementById(this.id), "westeros")
       //获取日期
       let nowDate = new Date();
@@ -48,13 +49,17 @@ export default {
       let month=("0" + (nowDate.getMonth() + 1)).slice(-2);
       let date=nowDate.getDate()
 
+
       let params={'dateStart':'2020-06-19'}
       fetch_task1Day(params).then(res=> {
         console.log(res)
+        servicedata[0]=res.data
+
         }
       ).catch(err=> {
         console.log(err)
         })
+
 
       this.chart.setOption({
         title: {

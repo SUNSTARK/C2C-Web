@@ -13,7 +13,7 @@
             :default-sort = "{prop: 'date', order: 'descending'}"
           >
             <el-table-column
-              prop="creatid"
+              prop="task_id"
               label="任务ID"
               sortable
               width="180">
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-  import {fetch_uncheck} from "../../api/apis";
+  import {fetch_uncheck, pass_task,reject_task} from "../../api/apis";
   export default {
 
     name:'list11',
@@ -78,6 +78,12 @@
         tableData: []
       };
     } ,
+    watch:{
+      name:function(){
+        console.log("changed");
+        this.show();
+      }
+    },
     methods: {
     getTask(){
       fetch_uncheck().then(res => {
@@ -92,25 +98,53 @@
 
       })
     },
-
+       //上架任务
       handlePost (index, row) {
         console.log(index,row)
-       let id = this.tableData[index].creatid
-        this.$message({
-          showClose: true,
-          message: '此任务的id为'+id,
-          type: "success"
+       let id ={'task_id': this.tableData[index].task_id}
+
+        pass_task(id).then(res=> {
+            console.log(res)
+            this.$message({
+              showClose: true,
+              message: '任务上架成功',
+              type: "success"
+            })
+          }
+        ).catch(err=> {
+          console.log(err)
+          this.$message({
+            showClose: true,
+            message: '请重试',
+            type: "error"
+          })
         })
       },
+
+
       handleDelete (index, row) {
         console.log(index, row)
-        let id = this.tableData[index].creatid
-        this.$message({
-          showClose: true,
-          message: '此任务的id为'+id,
-          type: "success"
+        let id ={'task_id': this.tableData[index].task_id}
+
+        reject_task(id).then(res=> {
+            console.log(res)
+            this.$message({
+              showClose: true,
+              message: '任务退回成功',
+              type: "success"
+            })
+          window.reload()
+          }
+        ).catch(err=> {
+          console.log(err)
+          this.$message({
+            showClose: true,
+            message: '请重试',
+            type: "error"
+          })
         })
       },
+
 
       current_change:function(currentPage){
         this.currentPage = currentPage;
