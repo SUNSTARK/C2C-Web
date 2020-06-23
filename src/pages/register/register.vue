@@ -8,32 +8,26 @@
       </div>
       <div class="registerBox">
         <div class="registerCon">
-          <p class="title">欢迎使用</p>
-          <p class="title">C2C众包平台</p>
-          <el-card shadow="always" class="register-module" v-if="smdl">
+          <p class="title">欢迎注册C2C众包平台</p>
+
+          <el-card shadow="always" class="register-module" >
             <div slot="header" class="clearfix formTitlt">
               <span>注册</span>
-              <span class="titIconbox">
 
-            </span>
             </div>
             <el-form :model="registerForm" status-icon label-width="100px" class="demo-ruleForm">
-              <el-form-item :rules="[{ type: 'number', message: '用户名必须为数字值'}]">
+              <el-form-item >
                 <el-input prefix-icon="el-icon-user" type="text" v-model.number="registerForm.username" auto-complete="off" placeholder="用户名" clearable></el-input>
               </el-form-item>
-              <el-form-item>
+              <el-form-item prop="pass">
                 <el-input prefix-icon="el-icon-lock" type="password" v-model="registerForm.password" auto-complete="off"
                           placeholder="密码" show-password></el-input>
               </el-form-item>
-              <el-form-item>
-                <el-input prefix-icon="el-icon-phone" type="text" v-model="registerForm.userphone" auto-complete="off" placeholder="手机号（选填）" clearable></el-input>
+              <el-form-item prop="checkPass">
+                <el-input prefix-icon="el-icon-lock" type="password" v-model="registerForm.checkpassword" auto-complete="off"
+                          placeholder="确认密码" show-password></el-input>
               </el-form-item>
-              <el-form-item>
-                <el-input prefix-icon="el-icon-male" type="text" v-model="registerForm.usergender" auto-complete="off" placeholder="性别（选填）" clearable></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-input prefix-icon="el-icon-date" type="text" v-model="registerForm.userbirthday" auto-complete="off" placeholder="生日（选填）" clearable></el-input>
-              </el-form-item>
+
               <el-form-item>
                 <el-button class="subBtn" type="primary" @click="submitForm">注册</el-button>
               </el-form-item>
@@ -51,18 +45,15 @@
   </div>
 </template>
 <script>
+  import {fetch_register} from "../../api/user_apis";
+
   export default {
     data () {
       return {
-        smdl: true,
         registerForm: {
           username: "",
-          usergender: "",
           password:"",
-          userbirthday: "",
-          userphone: "",
-
-
+          checkpassword:"",
         }
       }
     },
@@ -78,33 +69,33 @@
           return false
         } else {
           console.log("submit auccess!")
-
-          this.axios.post('http://39.105.177.71:8080/api/user/registering',{
-              user_account:this.registerForm.username,
-              user_passwd:this.registerForm.password,
-
-            }
-          )
-            .then(res => {
-              console.log('数据是:', res);
-              if(res.data.msg=="成功！")
-              {
-
-                this.messages();
-
-                //that.$router.push({path: "/add"});
-              }else  if(res.data.msg=="注册失败，用户名已存在")
-              {
-                this.unmessages();
-              }
-
-
-
+          if(this.registerForm.password!=this.registerForm.checkpassword)
+          {
+            this.$message({
+              showClose: true,
+              message: "两次密码输入不一致",
+              type: "error"
             })
-            .catch((e) => {
-              console.log('获取数据失败');
-              this.errmessages();
-            })
+          }
+        else{
+          let data ={'user_account':this.registerForm.username,'user_passwd':this.registerForm.password};
+          fetch_register(data)
+              .then(res => {
+                console.log('数据是:', res);
+
+                if(res.msg=="成功！")
+                {
+                  this.messages();
+                }else  if(res.msg=="注册失败，用户名已存在")
+                {
+                  this.unmessages();
+                }
+              })
+              .catch((e) => {
+                console.log('获取数据失败');
+                this.errmessages();
+              })
+          }
 
 
         }
@@ -142,11 +133,12 @@
   #register {
     width: 100%;
     height: 100%;
-    background-color: #2d3a4b;
-    margin: 0;
+    overflow-x: auto;
+    overflow-y: auto;
   }
   #register .registerConbox {
     background: #2d3a4b;
+
   }
   #register .header {
     height: 60px;
@@ -171,10 +163,14 @@
     color: #409EFF;
   }
   #register .registerBox .registerCon {
-    width: 990px;
-    margin: auto;
+    /*width: 990px;*/
+    /*margin: auto;*/
+    /*position: relative;*/
+    /*height: 900px;*/
+    width: 360px;
+    margin: 0 auto;
     position: relative;
-    height: 388px;
+    height: 900px;
   }
   #register .registerBox .registerCon .el-card__header {
     border-bottom: 0px;
@@ -187,18 +183,12 @@
     float: left;
     margin-top: 0px;
   }
-  #register .registerBox .registerCon .title:first-child {
-    font-size: 34px;
-    margin-top: 40px;
-    margin-bottom: 30px;
-  }
+
   #register .registerBox .registerCon .register-module {
-    width: 380px;
-    height: 480px;
+    width: 360px;
+    height: 360px;
     margin-top: 20px;
-    border: none;
-    position: absolute;
-    right: 0;
+    position: relative;
   }
   #register .registerBox .registerCon .register-module .formTitlt {
     font-size: 18px;
