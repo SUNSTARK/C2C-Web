@@ -9,17 +9,22 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     token: Cookies.get("token"),  // 存储用户登录状态
-    role: sessionStorage.getItem("role")  // 当前用户的登录身份
+    role: Cookies.get("role"),  // 当前用户的登录身份
+    account: Cookies.get("account")  // 登录的用户名
   },
   mutations: {
     setToken (state, token) {
       state.token = token
-      Cookies.set("token", token, { expires: 1 / 24 })  // 保留一个小时
+      Cookies.set("token", token, { expires: 5 / 24 })  // 保留5个小时
     },
     setRole (state, role) {
       state.role = role
-      sessionStorage.setItem("role", role)
-    }
+      Cookies.set("role", role, { expires: 5 / 24 })  // 保留5个小时
+    },
+    setAccount (state, account) {
+      state.account = account
+      Cookies.set("account", account, { expires: 5 / 24 })  // 保留5个小时
+    },
   },
   actions: {
     setToken ({commit}, token) {
@@ -33,6 +38,12 @@ const store = new Vuex.Store({
         commit("setRole", role)
         resolve()
       })
+    },
+    setAccount ({commit}, account) {
+      return new Promise((resolve, reject) => {
+        commit("setAccount", account)
+        resolve()
+      })
     }
   },
   getters: {
@@ -41,7 +52,8 @@ const store = new Vuex.Store({
     isCollapse: state => state.layout.isCollapse,  // 管理页面折叠菜单
     routers: state => state.routerData.routers,  // 管理页面导航缓存
     perDayTask: state => state.layout.perDayTask, // 管理页面用于保存linechart数据
-    role: state => state.role  // 登录后的用户身份
+    role: state => state.role,  // 登录后的用户身份
+    account : state => state.account // 登录使用的用户名
   },
   modules: {
     layout,  // 存储布局相关状态

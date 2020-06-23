@@ -3,12 +3,18 @@ C2C众包项目Web端
 
 ## 补充说明
 1. 管理员接口已通过测试，封装参考在src/api/admin_apis/index.js，引用参考test.vue
-2. $store新增role变量，使用sessionStorage存储用户的身份标识
-3. 目前仅做了是否登录的权限路由，未加入用户身份标识
-4. 用户界面user_layout引用参考router/com.js，父组件使用layout，在children属性中引入所需要的页面
+2. $store新增role、account变量，存储用户的身份标识、登录账号
+3. 目前所用权限路由方法比较简单，只是在路由前判断to.path中的meta.roles是否包含当前用户身份，具体查看admin.js和com.js
+4. 用户界面user_layout引用参考router/com.js，父组件使用layout，在children属性中引入所需要的页面组件
 
 ## 更新日志
-### v1.6
+### v2.1
+1. 引入身份权限路由，新增路由地址请参考admin.js和com.js的meta属性
+2. 统一登录注册界面风格
+3. $store内存中加入了role身份标识变量，account登录账号变量
+4. 用户导航新增v-if、v-else，用于显示登录注册按钮和当前登录账号名
+
+### v2.0
 1. 目前所有管理员接口已通过测试，具体方法都封装在src/api/admin_apis/index.js中
 2. 项目整合，管理员项目和普通用户项目合并
 

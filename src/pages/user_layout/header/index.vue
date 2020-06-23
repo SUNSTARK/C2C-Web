@@ -2,6 +2,7 @@
   <div>
     <el-header id="userheader">
       <el-menu
+        :default-active="activeIndex"
         class="el-menu-demo"
         mode="horizontal"
         router
@@ -10,8 +11,8 @@
         text-color="#999999"
         active-text-color="#FFFFFF">
         <div class="logo-title"><p>C2C众包平台</p></div>
-        <el-menu-item index="1">发布需求</el-menu-item>
-        <el-menu-item index="2">测试1</el-menu-item>
+        <el-menu-item index="1">首页</el-menu-item>
+        <el-menu-item index="2">发布需求</el-menu-item>
         <el-menu-item index="3">测试2</el-menu-item>
         <el-submenu index="4">
           <template slot="title">更多</template>
@@ -19,11 +20,11 @@
           <el-menu-item index="4-2">选项2</el-menu-item>
           <el-menu-item index="4-3">选项3</el-menu-item>
         </el-submenu>
-        <ul class="personal">
+        <ul class="personal" v-if="this.$store.getters.token">
           <li>
             <el-dropdown @command="handleCommand">
                   <span class="el-dropdown-link" @click="handleClick">
-                    登录用户名<i class="el-icon-arrow-down el-icon--right"></i>
+                    {{account}}<i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="info">基本资料</el-dropdown-item>
@@ -32,6 +33,10 @@
             </el-dropdown>
           </li>
         </ul>
+        <div class="showLogin" v-else>
+          <router-link class="link" to="/login">登录</router-link>
+          <router-link class="link" to="/login">注册</router-link>
+        </div>
       </el-menu>
     </el-header>
   </div>
@@ -44,6 +49,7 @@
       name: "userheader",
       data() {
         return {
+          account: this.$store.getters.account,
           activeIndex: '1'
         };
       },
@@ -61,6 +67,8 @@
             // this.userId = this.$store.getters.info.uid
           } else if (command === "logout") {
             Cookies.remove("token")
+            this.$store.dispatch("setRole", '')  // 清空$store内存相关信息
+            this.$store.dispatch("setAccount", '')
             location.reload()
           }
         }
@@ -134,5 +142,16 @@
   #userheader .el-dropdown-link {
     color: white;
     cursor: pointer;
+  }
+  #userheader .showLogin {
+    position: fixed;
+    right: 38px;
+    top: 19px;
+  }
+  #userheader .showLogin .link {
+    font-size: 15px;
+    color: white;
+    margin-left: 13px;
+    text-decoration: none;
   }
 </style>

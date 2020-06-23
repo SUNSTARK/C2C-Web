@@ -7,16 +7,17 @@
 </style>
 <script>
   import {stop_task,pass_task,reject_task,fetch_task1Day} from "../api/admin_apis";
+  import {fetch_login} from "../api/user_apis";
+
   export default {
     methods:{
       submitForm1 () {
-          let params = {'dateStart': '2020-06-18'}
-          fetch_task1Day(params).then(res => {
+          let data = {'admin1': 'admin1'}
+          fetch_login(data).then(res => {
             console.log(res)
           }).catch(err => {
             console.log(err)
           })
-        console.log(this.$store.getters.role)
       },
       message () {
         const h = this.$createElement

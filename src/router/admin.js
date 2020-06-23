@@ -32,7 +32,8 @@ let adminRouter = [
         path: '/admin_home',
         component: Home,
         meta:{
-          bread_name: ["主页"]  // 定义面包屑名称，用于生成面包屑导航
+          bread_name: ["主页"],  // 定义面包屑名称，用于生成面包屑导航
+          roles: ['admin']
         },
         children: []
       }
@@ -49,7 +50,8 @@ let adminRouter = [
         path: "/alltask",
         component: allTask,
         meta:{
-          bread_name: ["任务大厅"]
+          bread_name: ["任务大厅"],
+          roles: ['admin']
         },
         children: []
       }
@@ -66,7 +68,8 @@ let adminRouter = [
         path: "/checktask",
         component: checkTask,
         meta:{
-          bread_name: ["待审任务"]
+          bread_name: ["待审任务"],
+          roles: ['admin']
         },
         children: []
       }
@@ -85,7 +88,8 @@ let adminRouter = [
         icon: "fa fa-file-text",  // 定义子菜单的导航图标，可直接使用fontawesome或element-ui图标
         component: InfoVisual,
         meta:{
-          bread_name: ["任务信息","信息可视化"]  // 用于面包屑生成，依次为子菜单、父菜单名称
+          bread_name: ["任务信息","信息可视化"], // 用于面包屑生成，依次为子菜单、父菜单名称
+          roles: ['admin']
         },
         children: []
       },
@@ -95,7 +99,8 @@ let adminRouter = [
         icon: "fa fa-user",
         component: UserInfoVisual,
         meta:{
-          bread_name: ["用户信息","信息可视化"]
+          bread_name: ["用户信息","信息可视化"],
+          roles: ['admin']
         },
         children: []
       },
@@ -108,7 +113,8 @@ let adminRouter = [
     children: [],
     alone: true,
     meta: {
-      title: "测试页面"
+      title: "测试页面",
+      roles: ['admin', 'user']
     }
   },
   {
@@ -117,7 +123,8 @@ let adminRouter = [
     children: [],
     alone: true,
     meta: {
-      title: "测试页面"
+      title: "测试页面",
+      roles: ['admin', 'user']
     }
   },
   {
@@ -128,6 +135,7 @@ let adminRouter = [
     children: [],
     meta: {
       title: "您所访问的页面不存在",
+      roles: ['admin', 'user']
     }
   }
   ]

@@ -1,10 +1,5 @@
 import {fetchGet,fetchPost} from "../axios";
 
-// 账号密码登陆 POST
-export function fetch_login (data) {
-    return fetchPost('/admin/logining', data)
-}
-
 // 获取全部待审任务 GET
 export function fetch_uncheck () {
   return fetchGet('/admin/task/unchecking')

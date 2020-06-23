@@ -4,6 +4,7 @@ import {adminRouter} from "./admin";
 import {comRouter} from "./com";
 import store from "../store";
 import NProgress from "nprogress";
+import el from "element-ui/src/locale/lang/el";
 
 Vue.use(Router);
 
@@ -21,14 +22,13 @@ Router.prototype.push = function push(location) {
 router.beforeEach((to, from, next) => {
   let isLogin = store.state.token; // 获取登录状态
   let role = store.state.role;  // 获取登录身份
-  // console.log("from "+from.path+" to "+to.path)
-  // console.log(isLogin)
   NProgress.start()
   // 改变标题
   if (to.meta.title) {
     document.title = to.meta.title
   }
-  if(to.path === '/login' || to.path === '/register') {  //如果是登录、注册，则跳过验证
+  // 如果是登录、注册、主页，则跳过验证
+  if(to.path === '/login' || to.path === '/register' || to.path === '/home') {
     next()
     return
   }
@@ -36,7 +36,11 @@ router.beforeEach((to, from, next) => {
     if (to.path === "/login") {
       next({path: "/"})
     } else {
-      next()
+      if (to.meta.roles.includes(role)){
+        next()  // 已登录且是该身份可以访问，则放行
+      }else {
+        next({path:"/404"})
+      }
     }
   } else {
     next({path:"/login"})

@@ -10,11 +10,8 @@ let comRouter = [
   },
   {
     path: "/",
-    name: "主页",
+    name: "用户主页",
     component: user_layout,
-    meta: {
-      title: 'C2C众包平台',
-    },
     children: [
       {
         path: '/home',
@@ -22,6 +19,7 @@ let comRouter = [
         children: [],
         meta: {
           title: 'C2C众包平台',
+          roles: ['admin', 'user']
         }
       }
     ]
@@ -31,7 +29,8 @@ let comRouter = [
     name: "登录",
     component: () => import("../pages/login"),
     meta: {
-      title: '登录页面'
+      title: '登录页面',
+      roles: ['admin', 'user']
     },
     children: []
   },
@@ -40,7 +39,8 @@ let comRouter = [
     name: "register",
     component: () => import("../pages/register/register"),
     meta: {
-      title: '注册页面'
+      title: '注册页面',
+      roles: ['admin', 'user']
     },
     children: []
   },

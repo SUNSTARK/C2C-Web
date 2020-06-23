@@ -68,8 +68,8 @@
       return {
         isWechat: false,
         loginForm: {
-          username: "admin",
-          password: "admin1"
+          username: "",
+          password: "12345"
         }
       }
     },
@@ -102,27 +102,38 @@
           // 将 username 设置为 token 存储在 store，仅为测试效果，实际存储 token 以后台返回为准
           if (that.loginForm.username === 'admin') {
             this.$store.dispatch("setRole", 'admin')
+            this.$store.dispatch("setAccount", that.loginForm.username)
+            that.$store.dispatch("setToken", that.loginForm.username).then(() => {
+              that.$router.push({path: "/admin_home"})
+            })
           }else if (that.loginForm.username === 'user') {
             this.$store.dispatch("setRole", 'user')
-          }
-          that.$store.dispatch("setToken", that.loginForm.username).then(() => {
-            that.$router.push({path: "/"})
-          }).catch(res => {
-            that.$message({
-              showClose: true,
-              message: res,
-              type: "error"
+            this.$store.dispatch("setAccount", that.loginForm.username)
+            that.$store.dispatch("setToken", that.loginForm.username).then(() => {
+              that.$router.push({path: "/"})
             })
-          })
+          }
         }
       },
-      message () {
-        const h = this.$createElement
-        this.$notify({
-          title: "账号密码",
-          message: h("i", {style: "color: teal"}, "测试阶段，使用假token，用户名admin为管理员身份，user为用户身份。"),
-          duration: 10000
-        })
+      message() {
+        this.$confirm('项目已引入身份权限路由，admin是管理员，user是普通用户，请按需选择将自动填写用户名', '提示', {
+          confirmButtonText: '编写用户界面',
+          cancelButtonText: '编写管理员界面',
+          type: 'warning',
+          center: true
+        }).then(() => {
+          this.loginForm.username = 'user'
+          this.$message({
+            type: 'success',
+            message: '已填写用户账号!'
+          });
+        }).catch(() => {
+          this.loginForm.username = 'admin'
+          this.$message({
+            type: 'success',
+            message: '已填写管理员账号!'
+          });
+        });
       }
     },
     mounted () {
