@@ -8,7 +8,7 @@
       </div>
       <div class="loginBox">
         <div class="loginCon">
-          <p class="title">C2C众包平台</p>
+          <p class="title">欢迎登陆C2C众包平台</p>
           <el-card shadow="always" class="login-module" v-if="!isWechat">
             <div slot="header" class="clearfix formTitlt">
               <span>密码登录</span>
@@ -19,18 +19,18 @@
             </div>
             <el-form :model="loginForm" status-icon label-width="100px" class="demo-ruleForm">
               <el-form-item>
-                <el-input prefix-icon="el-icon-user" type="text" v-model="loginForm.username" auto-complete="off" placeholder="请输入登录账号" clearable></el-input>
+                <el-input prefix-icon="el-icon-user" type="text" v-model="loginForm.username" auto-complete="off" placeholder="用户名" clearable></el-input>
               </el-form-item>
               <el-form-item>
                 <el-input prefix-icon="el-icon-lock" type="password" v-model="loginForm.password" auto-complete="off"
-                          placeholder="请输入登录密码" show-password></el-input>
+                          placeholder="密码" show-password></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button class="subBtn" type="primary" @click="submitForm">登录</el-button>
               </el-form-item>
               <p class="smalltxt">
-                <router-link class="a" to="#">忘记密码</router-link>
-                <router-link class="a" to="register">免费注册</router-link>
+                <router-link class="a" to="/404">忘记密码</router-link>
+                <router-link class="a" to="/register">免费注册</router-link>
               </p>
             </el-form>
           </el-card>
@@ -127,15 +127,7 @@
     },
     mounted () {
       this.message()
-    },
-    //创建前设置
-    beforeCreate () {
-      document.querySelector('body').setAttribute('style', 'background-color:#21282E;')
-    },
-//销毁前清除
-    beforeDestroy () {
-      document.querySelector('body').removeAttribute('style')
-    },
+    }
   }
 </script>
 <style>
@@ -144,21 +136,12 @@
     height: 100%;
     overflow-x: auto;
     overflow-y: auto;
+    background-color: #21282E;
   }
   #login .header {
     height: 60px;
     position: relative;
     /*border-bottom: 1px solid rgba(255, 255, 255, 0.3);*/
-  }
-  #login .header .logo {
-    margin-left: 30px;
-    width: 500px;
-    float: left;
-    height: 40px;
-    padding-top: 10px;
-  }
-  #login .header .logo img {
-    height: 100%;
   }
   #login .loginBox .iconcolor {
     color: #409EFF;

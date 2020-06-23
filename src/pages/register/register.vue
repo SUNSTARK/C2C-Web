@@ -9,11 +9,9 @@
       <div class="registerBox">
         <div class="registerCon">
           <p class="title">欢迎注册C2C众包平台</p>
-
           <el-card shadow="always" class="register-module" >
             <div slot="header" class="clearfix formTitlt">
-              <span>注册</span>
-
+              <span>账号注册</span>
             </div>
             <el-form :model="registerForm" status-icon label-width="100px" class="demo-ruleForm">
               <el-form-item >
@@ -27,18 +25,14 @@
                 <el-input prefix-icon="el-icon-lock" type="password" v-model="registerForm.checkpassword" auto-complete="off"
                           placeholder="确认密码" show-password></el-input>
               </el-form-item>
-
               <el-form-item>
                 <el-button class="subBtn" type="primary" @click="submitForm">注册</el-button>
               </el-form-item>
               <p class="smalltxt">
-                <router-link class="a" to="login">登陆</router-link>
-
+                <router-link class="a" to="/login">已有帐号？点击登陆</router-link>
               </p>
             </el-form>
           </el-card>
-
-
         </div>
       </div>
     </div>
@@ -82,7 +76,6 @@
           fetch_register(data)
               .then(res => {
                 console.log('数据是:', res);
-
                 if(res.msg=="成功！")
                 {
                   this.messages();
@@ -96,8 +89,6 @@
                 this.errmessages();
               })
           }
-
-
         }
       },
       messages()
@@ -123,10 +114,8 @@
           message: '出bug了,联系管理员',
           type: 'warning'
         });
-      },
-
-    },
-
+      }
+    }
   }
 </script>
 <style>
@@ -135,42 +124,17 @@
     height: 100%;
     overflow-x: auto;
     overflow-y: auto;
-  }
-  #register .registerConbox {
-    background: #2d3a4b;
-
+    background-color: #21282E;
   }
   #register .header {
     height: 60px;
     position: relative;
-    background: #2d3a4b;
     /*border-bottom: 1px solid rgba(255, 255, 255, 0.3);*/
   }
-  #register .header .logo {
-    margin-left: 30px;
-    width: 500px;
-    float: left;
-    height: 40px;
-    padding-top: 10px;
-  }
-  #register .header .logo img {
-    height: 100%;
-  }
-  #register .registerBox {
-    padding: 74px 0 118px;
-  }
-  #register .registerBox .iconcolor {
-    color: #409EFF;
-  }
   #register .registerBox .registerCon {
-    /*width: 990px;*/
-    /*margin: auto;*/
-    /*position: relative;*/
-    /*height: 900px;*/
     width: 360px;
     margin: 0 auto;
     position: relative;
-    height: 900px;
   }
   #register .registerBox .registerCon .el-card__header {
     border-bottom: 0px;
@@ -179,9 +143,8 @@
     font-size: 36px;
     font-weight: 600;
     color: #ffffff;
-    width: 500px;
-    float: left;
-    margin-top: 0px;
+    margin-top: 100px;
+    text-align: center;
   }
 
   #register .registerBox .registerCon .register-module {
@@ -208,6 +171,7 @@
     color: #999999;
     font-size: 12px;
     margin-left: 8px;
+    font-weight: 500;
   }
   #register .registerBox .registerCon .el-form-item__content {
     margin-left: 0px !important;
@@ -216,7 +180,7 @@
     width: 100%;
   }
   #register .registerBox .el-input__inner, #register .registerBox .el-button, #register .registerBox .el-card, #register .registerBox .el-message {
-    border-radius: 0px !important;
+    border-radius: 30px !important;
   }
   #register .registerBox .el-form-item__content .ico {
     position: absolute;
@@ -227,34 +191,5 @@
     height: 39px;
     text-align: center;
     border-right: 1px solid #ccc;
-  }
-  #register .registerBox .ewmbox {
-    width: 100%;
-    height: 240px;
-    margin-top: -25px;
-  }
-  #register .registerBox .ewmbox .ewm {
-    width: 140px;
-    height: 140px;
-    margin: 20px auto;
-  }
-  #register .registerBox .ewmbox .ewm p {
-    font-size: 12px;
-    padding-left: 40px;
-    margin: 0;
-  }
-  #register .registerBox .ewmbox .ewmicon {
-    width: 140px;
-    margin: 15px auto 0;
-  }
-  #register .registerBox .ewmbox .ewmicon .iconfont {
-    float: left;
-  }
-  #register .registerBox .ewmbox .ewmicon p {
-    font-size: 12px;
-    padding-left: 30px;
-    padding-top: 5px;
-    margin: 0;
-    text-align: center;
   }
 </style>

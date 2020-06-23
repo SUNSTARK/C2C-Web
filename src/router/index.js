@@ -28,7 +28,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title
   }
-  if(to.path === '/login') {  //如果是登录页，则跳过验证
+  if(to.path === '/login' || to.path === '/register') {  //如果是登录、注册，则跳过验证
     next()
     return
   }

@@ -19,7 +19,10 @@ let comRouter = [
       {
         path: '/home',
         component: userHome,
-        children: []
+        children: [],
+        meta: {
+          title: 'C2C众包平台',
+        }
       }
     ]
   },

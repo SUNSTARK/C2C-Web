@@ -21,13 +21,12 @@
         </el-submenu>
         <ul class="personal">
           <li>
-            <el-dropdown>
+            <el-dropdown @command="handleCommand">
                   <span class="el-dropdown-link" @click="handleClick">
                     登录用户名<i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="info">历史任务</el-dropdown-item>
-                <el-dropdown-item command="editPassword">基本资料</el-dropdown-item>
+                <el-dropdown-item command="info">基本资料</el-dropdown-item>
                 <el-dropdown-item command="logout" divided>退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -39,6 +38,8 @@
 </template>
 
 <script>
+    import Cookies from "js-cookie";
+
     export default {
       name: "userheader",
       data() {
@@ -52,6 +53,16 @@
         },
         handleClick() {
           alert('个人中心');
+        },
+        handleCommand (command) {
+          if (command === "info") {
+            this.dialogInfoVisible = true
+            this.title = "编辑信息"
+            // this.userId = this.$store.getters.info.uid
+          } else if (command === "logout") {
+            Cookies.remove("token")
+            location.reload()
+          }
         }
       }
     }
@@ -63,7 +74,7 @@
     background-color: #21282E !important;
     z-index: 999;
     left: 30px;
-    position: fixed;
+    position: absolute;
     top: 2px;
   }
   .logo-title p {

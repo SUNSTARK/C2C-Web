@@ -1,5 +1,5 @@
 <template>
-  <el-carousel :interval="4000" type="card" height="600px">
+  <el-carousel :interval="4000" type="card" height="500px">
     <el-carousel-item v-for="item in 6" :key="item">
       <h3 class="medium" align="center">{{ "测试"+item }}</h3>
     </el-carousel-item>
