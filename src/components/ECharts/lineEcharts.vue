@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div :id="id" :style="{width: width, height: height}"
-         :data="tableData"></div>
+    <div :id="id" :style="{width: width, height: height}"></div>
   </div>
 </template>
 
@@ -48,37 +47,37 @@
         let month=("0" + (nowDate.getMonth() + 1)).slice(-2);
         let date=nowDate.getDate()
 
-        let dates1 = year + '-' + month + '-' + (date-6)
-        let dates2 = year + '-' + month + '-' + (date-5)
-        let dates3 = year + '-' + month + '-' + (date-4)
-        let dates4 = year + '-' + month + '-' + (date-3)
-        let dates5 = year + '-' + month + '-' + (date-2)
-        let dates6 = year + '-' + month + '-' + (date-1)
-        let dates7 = year + '-' + month + '-' + date
-
-        let dates=[dates1,dates2,dates3,dates4,dates5,dates6,dates7]
-        //let dates=['2020-06-18','2020-06-19']
-
-        for(let item in dates){
-          let params={'dateStart':dates[item]}
-          fetch_task1Day(params).then(res => {
-            console.log(res.data)
-            let num=res.data
-            this.chart.setOption({
-              series: [
-                {
-                  name: "发布任务数",
-                  type: "line",
-                  stack: "总量",
-                  data: [0,1,6, 1, 6, 1, 19]
-                }
-              ]
-            })
-          }).catch(err => {
-            console.log(err)
-          })
-
-        }
+        // let dates1 = year + '-' + month + '-' + (date-6)
+        // let dates2 = year + '-' + month + '-' + (date-5)
+        // let dates3 = year + '-' + month + '-' + (date-4)
+        // let dates4 = year + '-' + month + '-' + (date-3)
+        // let dates5 = year + '-' + month + '-' + (date-2)
+        // let dates6 = year + '-' + month + '-' + (date-1)
+        // let dates7 = year + '-' + month + '-' + date
+        //
+        // let dates=[dates1,dates2,dates3,dates4,dates5,dates6,dates7]
+        // //let dates=['2020-06-18','2020-06-19']
+        //
+        // for(let item in dates){
+        //   let params={'dateStart':dates[item]}
+        //   fetch_task1Day(params).then(res => {
+        //     console.log(res.data)
+        //     let num=res.data
+        //     this.chart.setOption({
+        //       series: [
+        //         {
+        //           name: "发布任务数",
+        //           type: "line",
+        //           stack: "总量",
+        //           data: [0,1,6, 1, 6, 1, 19]
+        //         }
+        //       ]
+        //     })
+        //   }).catch(err => {
+        //     console.log(err)
+        //   })
+        //
+        // }
 
 
 
@@ -110,15 +109,15 @@
           yAxis: {
             type: "value"
           },
-          // series: [
-          //   {
-          //     name: "发布任务数",
-          //     type: "line",
-          //     stack: "总量",
-          //
-          //     data: [8, 3, 4, 5, 7, 1, 4]
-          //   }
-          //  ]
+          series: [
+            {
+              name: "发布任务数",
+              type: "line",
+              stack: "总量",
+
+              data: [8, 3, 4, 5, 7, 1, 4]
+            }
+           ]
         })
       }
     }

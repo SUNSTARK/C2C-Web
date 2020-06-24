@@ -50,7 +50,9 @@
     methods: {
 
       getRange() {
+
         fetch_points().then(res => {
+
           console.log(res)
           res = res.data
           this.tableData=res
