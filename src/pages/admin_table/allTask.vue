@@ -36,7 +36,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="商品 ID"
+            label="任务 ID"
             prop="id">
           </el-table-column>
           <el-table-column
@@ -80,6 +80,8 @@
 </template>
 
 <script>
+  import {fetch_allTask} from "../../api/admin_apis";
+
   export default {
     data() {
       return {
@@ -109,7 +111,7 @@
           shopId: '10333'
         }, {
           id: '12987126',
-          name: '滋味鸡蛋仔',
+          name: '好滋好味鸡蛋仔',
           category: '江浙小吃、小吃零食',
           desc: '荷兰优质淡奶，奶香浓而不腻',
           address: '上海市普陀区真北路',
@@ -121,12 +123,23 @@
       }
     },
     methods: {
+      getTableData:function() {
+        fetch_allTask().then(res => {
+          console.log(res.data)
+          for (let item in res.data) {
+            console.log(res.data[item])
+          }
+          console.log(this.tableData)
+        }).catch(err => {
+          console.log(err)
+        })
+      },
       getRowKeys:function(row){
         return row.id
       },
       // 折叠面板每次只能展开一行，用于点击按钮操作
       expandSelect:function(row, expandedRows) {
-        var that = this
+        let that = this
         if (expandedRows.length) {
           that.expands = []
           if (row) {
@@ -192,6 +205,9 @@
     },
     mounted () {
       this.message()
+    },
+    created() {
+      this.getTableData()
     }
   }
 </script>
