@@ -86,16 +86,23 @@
     },
     methods: {
       getTask(){
+
         fetch_uncheck().then(res => {
           console.log(res)
           res = res.data
           this.tableData=res
-          // this.$message({
-          //   showClose: true,
-          //   message: res,
-          //   type: "success"
-          // })
+          this.$message({
+            showClose: true,
+            message: res,
+            type: "success"
+          })
 
+        }).catch(res => {
+          this.$message({
+            showClose: true,
+            message: res,
+            type: "error"
+          })
         })
       },
       //上架任务
