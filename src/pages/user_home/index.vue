@@ -1,31 +1,49 @@
 <template>
-  <el-carousel :interval="4000" type="card" height="500px">
-    <el-carousel-item v-for="item in 6" :key="item">
-      <h3 class="medium" align="center">{{ "测试"+item }}</h3>
+  <el-carousel type="card" indicator-position="inside" :height="imgHeight-450+'px'">
+    <el-carousel-item v-for="item in imgList" :key="item.id">
+      <img ref="imgHeight" :src='item.url' @load="imgLoad"/>
     </el-carousel-item>
   </el-carousel>
 </template>
 
 <script>
   export default {
-    name: "home"
+    name: "home",
+    data() {
+      return {
+        imgHeight:"",
+        imgList: [
+          {id: 0, url: require('@/assets/carousel/carousel01.jpg')},
+          {id: 1, url: require('@/assets/carousel/carousel02.jpg')},
+          {id: 2, url: require('@/assets/carousel/carousel03.jpg')},
+          {id: 3, url: require('@/assets/carousel/carousel04.jpg')},
+          {id: 4, url: require('@/assets/carousel/carousel05.jpg')},
+          {id: 5, url: require('@/assets/carousel/carousel06.jpg')}
+        ]
+      }
+      let that = this
+      that.imgHeight = '620px';
+      window.onresize = function temp() { // 通过点语法获取img的height属性值
+        that.imgHeight = `${that.$refs.imgHeight['0'].height}px`
+        console.log(`${that.$refs.imgHeight['0'].height}px`)
+      }
+    },
+    methods: {
+      imgLoad() {
+        this.$nextTick(() => {
+          this.imgHeight = this.$refs.imgHeight[0].height
+        })
+      }
+    },
+    mounted() {
+      this.imgLoad();
+      window.addEventListener('resize', () => {
+        this.imgHeight = this.$refs.imgHeight[0].height
+        this.imgLoad();
+      }, false);
+    }
   }
 </script>
 
 <style>
-  .el-carousel__item h3 {
-    color: #475669;
-    font-size: 14px;
-    opacity: 0.75;
-    line-height: 200px;
-    margin: 0;
-  }
-
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-  }
-
-  .el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
-  }
 </style>

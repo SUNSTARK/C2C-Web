@@ -13,7 +13,7 @@
     methods:{
       submitForm1 () {
           let params = {'task_id': 56}
-        stop_task(params).then(res => {
+        fetch_allTask().then(res => {
             console.log(res)
           }).catch(err => {
             console.log(err)

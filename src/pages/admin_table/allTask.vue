@@ -1,13 +1,17 @@
 <template>
     <div>
+      <div class="title">
+        <h3>任务大厅</h3>
+      </div>
       <template>
         <el-table
-          :data="tableData.filter(data => !search || data.task_name.toLowerCase().includes(search.toLowerCase()))"
+          :data="tableData.slice((current_page-1) * page_size, current_page * page_size)"
           style="width: 100%"
           :row-key="getRowKeys"
           :expand-row-keys="expands"
           @expand-change="expandSelect"
-          @row-click="rowClick">
+          @row-click="rowClick"
+          :row-class-name="tableRowClassName">
           <el-table-column type="expand">
             <template slot-scope="props">
               <el-form label-position="left" inline class="demo-table-expand">
@@ -44,14 +48,7 @@
             label="地点"
             prop="location">
           </el-table-column>
-          <el-table-column
-            align="center">
-            <template slot="header" slot-scope="scope">
-              <el-input
-                v-model="search"
-                size="mini"
-                placeholder="输入关键字搜索" clearable/>
-            </template>
+          <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button
                 size="mini"
@@ -66,11 +63,13 @@
           background
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="1"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="400">
+          :current-page="current_page"
+          :page-sizes="[10, 15, 20]"
+          :page-size="page_size"
+          layout="total, sizes, prev, pager, next"
+          :total='tableData.length'
+          prev-text="上一页"
+          next-text="下一页">
         </el-pagination>
       </div>
     </div>
@@ -82,9 +81,11 @@
   export default {
     data() {
       return {
-        tableData:[],
+        current_page: 1,
+        page_size: 10,
+        tableData: [],
         search: '',
-        expands:[] // 要展开的行，元素是row的key值
+        expands: [] // 要展开的行，元素是row的key值
       }
     },
     methods: {
@@ -96,6 +97,14 @@
         }).catch(err => {
           console.log(err)
         })
+      },
+      tableRowClassName({row}) {
+        if (row.task_state === 1) {
+          return 'warning-row';
+        } else if (row.task_id  === 2) {
+          return 'success-row';
+        }
+        return '';
       },
       getRowKeys:function(row){
         return row.task_id
@@ -160,15 +169,15 @@
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消!'
+            message: '您已取消!'
           });
         });
       },
       handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
+        this.page_size = val
       },
       handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
+        this.current_page = val
       },
       message () {
         const h = this.$createElement
@@ -188,7 +197,13 @@
   }
 </script>
 
-<style scoped>
+<style>
+  h3{
+    margin: 0px 0 20px;
+    font-weight: 800;
+    color: #409eff;
+    font-size: 22px;
+  }
   .demo-table-expand {
     font-size: 0;
   }
@@ -203,5 +218,16 @@
   }
   .block{
     text-align: center;
+  }
+  .el-table .warning-row {
+    background: oldlace;
+  }
+  .el-table .success-row {
+    background: #f0f9eb;
+  }
+  .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
+    font-weight: 600;
   }
 </style>

@@ -9,9 +9,7 @@
           :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
           stripe
           style="width: 100%"
-          height="480"
-          :default-sort = "{prop: 'date', order: 'descending'}"
-        >
+          :default-sort = "{prop: 'date', order: 'descending'}">
           <el-table-column
             prop="task_id"
             label="任务ID"
@@ -51,12 +49,13 @@
         </el-table>
         <div class="pagination">
           <el-pagination
+            background
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="currentPage"
             :page-sizes="[5, 10, 20, 40]"
             :page-size="pagesize"
-            layout="total, sizes,prev, pager, next"
+            layout="total, sizes, prev, pager, next"
             :total="tableData.length"
             prev-text="上一页"
             next-text="下一页">
@@ -70,13 +69,12 @@
 <script>
   import {fetch_uncheck, pass_task,reject_task} from "../../api/admin_apis";
   export default {
-
     name:'list11',
     data() {
       return {
-        currentPage: 1, //默认显示页面为1
-        pagesize: 5, //    每页的数据条数
-        tableData: [], //需要data定义一些，tableData定义一个空数组，请求的数据都是存放这里面
+        currentPage: 1,  // 默认显示页面为1
+        pagesize: 5,  // 每页的数据条数
+        tableData: []  //需要data定义一些，tableData定义一个空数组，请求的数据都是存放这里面
       }
     } ,
     watch:{
@@ -87,7 +85,6 @@
     },
     methods: {
       getTask(){
-
         fetch_uncheck().then(res => {
           console.log(res)
           res = res.data
@@ -97,7 +94,6 @@
           //   message: res,
           //   type: "success"
           // })
-
         }).catch(res => {
           this.$message({
             showClose: true,
@@ -110,7 +106,6 @@
       handlePost (index, row) {
         console.log(index,row)
         let id ={'task_id': this.tableData[index].task_id}
-
         pass_task(id).then(res=> {
             console.log(res)
             this.$message({
@@ -129,12 +124,9 @@
           })
         })
       },
-
-
       handleDelete (index, row) {
         console.log(index, row)
         let id ={'task_id': this.tableData[index].task_id}
-
         reject_task(id).then(res=> {
             console.log(res)
             this.$message({
@@ -153,8 +145,7 @@
           })
         })
       },
-
-//每页下拉显示数据
+      //每页下拉显示数据
       handleSizeChange: function(size) {
         this.pagesize = size;
         /*console.log(this.pagesize) */
@@ -163,19 +154,11 @@
       handleCurrentChange: function(currentPage) {
         this.currentPage = currentPage;
         /*console.log(this.currentPage) */
-      },
-
-
-      current_change:function(currentPage){
-        this.currentPage = currentPage;
       }
     },
     created:function(){
-      this.total=this.tableData.length;
       this.getTask();
-
     },
-
     mounted() {
       // this.getTask()
     }
@@ -194,7 +177,7 @@
     color: #5e6d82;
     line-height: 1.5em;
   }
-  .block{
+  .pagination{
     text-align: center;
   }
 
