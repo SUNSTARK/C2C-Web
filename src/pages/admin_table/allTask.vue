@@ -2,7 +2,7 @@
     <div>
       <template>
         <el-table
-          :data="testData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+          :data="tableData.filter(data => !search || data.task_name.toLowerCase().includes(search.toLowerCase()))"
           style="width: 100%"
           :row-key="getRowKeys"
           :expand-row-keys="expands"
@@ -20,17 +20,14 @@
                 <el-form-item label="详情">
                   <span>{{ props.row.detail }}</span>
                 </el-form-item>
-                <el-form-item label="需要份数">
-                  <span>{{ props.row.demand_num }}</span>
+                <el-form-item label="需要答案">
+                  <span>{{ props.row.target_num }} 份</span>
                 </el-form-item>
-                <el-form-item label="商品分类">
-                  <span>{{ props.row.category }}</span>
+                <el-form-item label="任务酬金">
+                  <span>{{ props.row.budget }} 元</span>
                 </el-form-item>
-                <el-form-item label="店铺地址">
-                  <span>{{ props.row.address }}</span>
-                </el-form-item>
-                <el-form-item label="商品描述">
-                  <span>{{ props.row.desc }}</span>
+                <el-form-item label="已收集答案">
+                  <span>{{ props.row.demand_num }} 份</span>
                 </el-form-item>
               </el-form>
             </template>
@@ -80,45 +77,12 @@
 </template>
 
 <script>
-  import {fetch_allTask} from "../../api/admin_apis";
+  import {fetch_allTask, stop_task} from "../../api/admin_apis";
 
   export default {
     data() {
       return {
-        testData:[],
-        tableData: [{
-          id: '12987122',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987123',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987125',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }, {
-          id: '12987126',
-          name: '好滋好味鸡蛋仔',
-          category: '江浙小吃、小吃零食',
-          desc: '荷兰优质淡奶，奶香浓而不腻',
-          address: '上海市普陀区真北路',
-          shop: '王小虎夫妻店',
-          shopId: '10333'
-        }],
+        tableData:[],
         search: '',
         expands:[] // 要展开的行，元素是row的key值
       }
@@ -126,17 +90,15 @@
     methods: {
       getTableData:function() {
         fetch_allTask().then(res => {
-          console.log(res.data)
           for (let item in res.data) {
-            this.testData.push(res.data[item])
+            this.tableData.push(res.data[item])
           }
-          console.log(this.testData)
         }).catch(err => {
           console.log(err)
         })
       },
       getRowKeys:function(row){
-        return row.id
+        return row.task_id
       },
       // 折叠面板每次只能展开一行，用于点击按钮操作
       expandSelect:function(row, expandedRows) {
@@ -144,7 +106,7 @@
         if (expandedRows.length) {
           that.expands = []
           if (row) {
-            that.expands.push(row.id)
+            that.expands.push(row.task_id)
           }
         }
         else {
@@ -153,17 +115,17 @@
       },
       // 折叠面板每次只能展开一行，用于点击行操作
       rowClick(row) {
-        var that = this
-        var firstClick = true // 用于判断是否重复点击该行
+        let that = this
+        let firstClick = true // 用于判断是否重复点击该行
         if (that.expands.length === 0) {
-          that.expands.push(row.id)
+          that.expands.push(row.task_id)
         } else {
-          if (that.expands[0] === row.id) {  // 已展开的行和点击的行相同
+          if (that.expands[0] === row.task_id) {  // 已展开的行和点击的行相同
             that.expands = []
             firstClick = !firstClick
           }
           if (firstClick) {  // 第一次点击该行，则展开
-            that.expands = [row.id];
+            that.expands = [row.task_id];
             firstClick = !firstClick
           }else {  // 重复点击该行，则收起所有
             that.expands = []
@@ -172,19 +134,32 @@
         }
       },
       handleDelete(row) {
-        console.log(row);
         this.$confirm('此操作将下架该任务, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '下架成功!'
-          });
+          let params = {'task_id': row.task_id};
+          stop_task(params).then(res => {
+            if (res.code === 200){
+              this.$message({
+                type: 'success',
+                message: '下架成功!'
+              });
+              this.tableData = []
+              this.getTableData()
+            }else {
+              this.$message({
+                type: 'warning',
+                message: '出现未知错误!'
+              });
+            }
+          }).catch(err => {
+            console.log(err)
+          })
         }).catch(() => {
           this.$message({
-            type: 'warning',
+            type: 'info',
             message: '已取消!'
           });
         });

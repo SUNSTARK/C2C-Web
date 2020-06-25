@@ -12,9 +12,9 @@
   export default {
     methods:{
       submitForm1 () {
-          let data = {'useraccount': 'test22', 'userpasswd':'test2222'}
-        fetch_uncheck().then(res => {
-            console.log(res.data.length)
+          let params = {'task_id': 56}
+        stop_task(params).then(res => {
+            console.log(res)
           }).catch(err => {
             console.log(err)
           })
