@@ -84,7 +84,7 @@
                 </el-input>
                 <el-popover
                   placement="right"
-                  title="请选择地址"
+                  title="选择地址"
                   width="600"
                   trigger="manual"
                   v-model="visible">
