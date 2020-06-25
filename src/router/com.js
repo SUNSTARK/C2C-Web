@@ -27,7 +27,7 @@ let comRouter = [
   {
     path: "/login",
     name: "登录",
-    component: () => import("../pages/login"),
+    component: () => import("../pages/login/user_login"),
     meta: {
       title: '登录页面',
       roles: ['admin', 'user']
@@ -49,7 +49,8 @@ let comRouter = [
     name: "personal_center",
     component: () => import("../pages/personal_center"),
     meta: {
-      title: '个人中心'
+      title: '个人中心',
+      roles: ['admin', 'user'],
     },
     children: [
       {
@@ -57,7 +58,8 @@ let comRouter = [
         name: "user_info",
         component: () => import("../pages/personal_center/user_info"),
         meta: {
-          title: '用户信息'
+          title: '用户信息',
+          roles: ['admin', 'user'],
         },
         children: []
       },
@@ -66,7 +68,8 @@ let comRouter = [
         name: "task_list",
         component: () => import("../pages/personal_center/task_list"),
         meta: {
-          title: '任务列表'
+          title: '任务列表',
+          roles: ['admin', 'user'],
         },
         children: []
       },
@@ -75,7 +78,8 @@ let comRouter = [
         name: "task_history",
         component: () => import("../pages/personal_center/task_history"),
         meta: {
-          title: '历史任务'
+          title: '历史任务',
+          roles: ['admin', 'user'],
         },
         children: []
       }

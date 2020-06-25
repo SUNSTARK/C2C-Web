@@ -1,5 +1,5 @@
 <template>
-  <el-aside width="200px">
+  <el-aside width="200px" class="aside">
     <el-menu default-active="act" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
       <router-link to="/user/info">
         <el-menu-item index="/user/info">
@@ -45,5 +45,13 @@
 <style>
   a {
     text-decoration: none;
+  }
+</style>
+
+<style scoped>
+  .aside {
+    padding: 20px 0;
+    overflow: hidden;
+    min-height: Calc(100vh - 80px);
   }
 </style>

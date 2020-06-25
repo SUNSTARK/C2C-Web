@@ -62,6 +62,7 @@
         },
         handleCommand (command) {
           if (command === "info") {
+            this.$router.push('/user/info')
             this.dialogInfoVisible = true
             this.title = "编辑信息"
             // this.userId = this.$store.getters.info.uid
