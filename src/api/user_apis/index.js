@@ -9,3 +9,8 @@ export function fetch_login (data) {
 export function fetch_register (data) {
   return fetchPost('/user/registering', data)
 }
+
+//用户发布任务 POST
+export function fetch_addtask(data) {
+  return fetchPost('/task/release',data)
+}

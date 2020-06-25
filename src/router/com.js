@@ -25,6 +25,23 @@ let comRouter = [
     ]
   },
   {
+    path: "/addtask",
+    name: "addtask",
+    component: user_layout,
+    children: [
+      {
+        path: '/addtask',
+        component: ()=>import("../pages/personal_center/add_task/AddTask"),
+        children: [],
+        meta: {
+          title: '发布任务',
+          roles: ['admin', 'user']
+        }
+      }
+    ]
+  },
+
+  {
     path: "/login",
     name: "登录",
     component: () => import("../pages/login"),
