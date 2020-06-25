@@ -49,13 +49,19 @@
             </template>
           </el-table-column>
         </el-table>
-        <el-pagination class="fy"
-                       layout="prev, pager, next"
-                       @current-change="current_change"
-                       :total="total"
-                       background
-        >
-        </el-pagination>
+        <div class="pagination">
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="[5, 10, 20, 40]"
+            :page-size="pagesize"
+            layout="total, sizes,prev, pager, next"
+            :total="tableData.length"
+            prev-text="上一页"
+            next-text="下一页">
+          </el-pagination>
+        </div>
       </div>
     </template>
   </div>
@@ -68,15 +74,10 @@
     name:'list11',
     data() {
       return {
-        total:1000,//默认数据总数
-        pagesize:30,//每页的数据条数
-        currentPage:1,//默认开始页面
-        istag: true,
-        input:"",
-        input21: '',
-        value5: [],
-        tableData: []
-      };
+        currentPage: 1, //默认显示页面为1
+        pagesize: 5, //    每页的数据条数
+        tableData: [], //需要data定义一些，tableData定义一个空数组，请求的数据都是存放这里面
+      }
     } ,
     watch:{
       name:function(){
@@ -91,11 +92,11 @@
           console.log(res)
           res = res.data
           this.tableData=res
-          this.$message({
-            showClose: true,
-            message: res,
-            type: "success"
-          })
+          // this.$message({
+          //   showClose: true,
+          //   message: res,
+          //   type: "success"
+          // })
 
         }).catch(res => {
           this.$message({
@@ -151,6 +152,17 @@
             type: "error"
           })
         })
+      },
+
+//每页下拉显示数据
+      handleSizeChange: function(size) {
+        this.pagesize = size;
+        /*console.log(this.pagesize) */
+      },
+      //点击第几页
+      handleCurrentChange: function(currentPage) {
+        this.currentPage = currentPage;
+        /*console.log(this.currentPage) */
       },
 
 
