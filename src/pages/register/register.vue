@@ -8,61 +8,46 @@
       </div>
       <div class="registerBox">
         <div class="registerCon">
-          <p class="title">欢迎使用</p>
-          <p class="title">C2C众包平台</p>
-          <el-card shadow="always" class="register-module" v-if="smdl">
+          <p class="title">欢迎注册C2C众包平台</p>
+          <el-card shadow="always" class="register-module" >
             <div slot="header" class="clearfix formTitlt">
-              <span>注册</span>
-              <span class="titIconbox">
-
-            </span>
+              <span>账号注册</span>
             </div>
             <el-form :model="registerForm" status-icon label-width="100px" class="demo-ruleForm">
-              <el-form-item :rules="[{ type: 'number', message: '用户名必须为数字值'}]">
+              <el-form-item >
                 <el-input prefix-icon="el-icon-user" type="text" v-model.number="registerForm.username" auto-complete="off" placeholder="用户名" clearable></el-input>
               </el-form-item>
-              <el-form-item>
+              <el-form-item prop="pass">
                 <el-input prefix-icon="el-icon-lock" type="password" v-model="registerForm.password" auto-complete="off"
                           placeholder="密码" show-password></el-input>
               </el-form-item>
-              <el-form-item>
-                <el-input prefix-icon="el-icon-phone" type="text" v-model="registerForm.userphone" auto-complete="off" placeholder="手机号（选填）" clearable></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-input prefix-icon="el-icon-male" type="text" v-model="registerForm.usergender" auto-complete="off" placeholder="性别（选填）" clearable></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-input prefix-icon="el-icon-date" type="text" v-model="registerForm.userbirthday" auto-complete="off" placeholder="生日（选填）" clearable></el-input>
+              <el-form-item prop="checkPass">
+                <el-input prefix-icon="el-icon-lock" type="password" v-model="registerForm.checkpassword" auto-complete="off"
+                          placeholder="确认密码" show-password></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button class="subBtn" type="primary" @click="submitForm">注册</el-button>
               </el-form-item>
               <p class="smalltxt">
-                <router-link class="a" to="login">登陆</router-link>
-
+                <router-link class="a" to="/login">已有帐号？点击登陆</router-link>
               </p>
             </el-form>
           </el-card>
-
-
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+  import {fetch_register} from "../../api/user_apis";
+
   export default {
     data () {
       return {
-        smdl: true,
         registerForm: {
           username: "",
-          usergender: "",
           password:"",
-          userbirthday: "",
-          userphone: "",
-
-
+          checkpassword:"",
         }
       }
     },
@@ -78,35 +63,32 @@
           return false
         } else {
           console.log("submit auccess!")
-
-          this.axios.post('http://39.105.177.71:8080/api/user/registering',{
-              user_account:this.registerForm.username,
-              user_passwd:this.registerForm.password,
-
-            }
-          )
-            .then(res => {
-              console.log('数据是:', res);
-              if(res.data.msg=="成功！")
-              {
-
-                this.messages();
-
-                //that.$router.push({path: "/add"});
-              }else  if(res.data.msg=="注册失败，用户名已存在")
-              {
-                this.unmessages();
-              }
-
-
-
+          if(this.registerForm.password!=this.registerForm.checkpassword)
+          {
+            this.$message({
+              showClose: true,
+              message: "两次密码输入不一致",
+              type: "error"
             })
-            .catch((e) => {
-              console.log('获取数据失败');
-              this.errmessages();
-            })
-
-
+          }
+        else{
+          let data ={'user_account':this.registerForm.username,'user_passwd':this.registerForm.password};
+          fetch_register(data)
+              .then(res => {
+                console.log('数据是:', res);
+                if(res.msg=="成功！")
+                {
+                  this.messages();
+                }else  if(res.msg=="注册失败，用户名已存在")
+                {
+                  this.unmessages();
+                }
+              })
+              .catch((e) => {
+                console.log('获取数据失败');
+                this.errmessages();
+              })
+          }
         }
       },
       messages()
@@ -132,49 +114,27 @@
           message: '出bug了,联系管理员',
           type: 'warning'
         });
-      },
-
-    },
-
+      }
+    }
   }
 </script>
 <style>
   #register {
     width: 100%;
     height: 100%;
-    background-color: #2d3a4b;
-    margin: 0;
-  }
-  #register .registerConbox {
-    background: #2d3a4b;
+    overflow-x: auto;
+    overflow-y: auto;
+    background-color: #21282E;
   }
   #register .header {
     height: 60px;
     position: relative;
-    background: #2d3a4b;
     /*border-bottom: 1px solid rgba(255, 255, 255, 0.3);*/
   }
-  #register .header .logo {
-    margin-left: 30px;
-    width: 500px;
-    float: left;
-    height: 40px;
-    padding-top: 10px;
-  }
-  #register .header .logo img {
-    height: 100%;
-  }
-  #register .registerBox {
-    padding: 74px 0 118px;
-  }
-  #register .registerBox .iconcolor {
-    color: #409EFF;
-  }
   #register .registerBox .registerCon {
-    width: 990px;
-    margin: auto;
+    width: 360px;
+    margin: 0 auto;
     position: relative;
-    height: 388px;
   }
   #register .registerBox .registerCon .el-card__header {
     border-bottom: 0px;
@@ -183,22 +143,15 @@
     font-size: 36px;
     font-weight: 600;
     color: #ffffff;
-    width: 500px;
-    float: left;
-    margin-top: 0px;
+    margin-top: 100px;
+    text-align: center;
   }
-  #register .registerBox .registerCon .title:first-child {
-    font-size: 34px;
-    margin-top: 40px;
-    margin-bottom: 30px;
-  }
+
   #register .registerBox .registerCon .register-module {
-    width: 380px;
-    height: 480px;
+    width: 360px;
+    height: 360px;
     margin-top: 20px;
-    border: none;
-    position: absolute;
-    right: 0;
+    position: relative;
   }
   #register .registerBox .registerCon .register-module .formTitlt {
     font-size: 18px;
@@ -218,6 +171,7 @@
     color: #999999;
     font-size: 12px;
     margin-left: 8px;
+    font-weight: 500;
   }
   #register .registerBox .registerCon .el-form-item__content {
     margin-left: 0px !important;
@@ -226,7 +180,7 @@
     width: 100%;
   }
   #register .registerBox .el-input__inner, #register .registerBox .el-button, #register .registerBox .el-card, #register .registerBox .el-message {
-    border-radius: 0px !important;
+    border-radius: 30px !important;
   }
   #register .registerBox .el-form-item__content .ico {
     position: absolute;
@@ -237,34 +191,5 @@
     height: 39px;
     text-align: center;
     border-right: 1px solid #ccc;
-  }
-  #register .registerBox .ewmbox {
-    width: 100%;
-    height: 240px;
-    margin-top: -25px;
-  }
-  #register .registerBox .ewmbox .ewm {
-    width: 140px;
-    height: 140px;
-    margin: 20px auto;
-  }
-  #register .registerBox .ewmbox .ewm p {
-    font-size: 12px;
-    padding-left: 40px;
-    margin: 0;
-  }
-  #register .registerBox .ewmbox .ewmicon {
-    width: 140px;
-    margin: 15px auto 0;
-  }
-  #register .registerBox .ewmbox .ewmicon .iconfont {
-    float: left;
-  }
-  #register .registerBox .ewmbox .ewmicon p {
-    font-size: 12px;
-    padding-left: 30px;
-    padding-top: 5px;
-    margin: 0;
-    text-align: center;
   }
 </style>

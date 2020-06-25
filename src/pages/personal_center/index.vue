@@ -12,7 +12,7 @@
 
 <script>
   import Aside from './Aside'
-
+  import userheader from '../user_layout/header'
   export default {
     name: "index",
     components: {Aside}

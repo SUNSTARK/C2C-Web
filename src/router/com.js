@@ -1,4 +1,6 @@
 /**普通用户路由 */
+import userHome from '@/pages/user_home/index'
+import user_layout from '@/pages/user_layout/index'
 
 let comRouter = [
   {
@@ -7,28 +9,40 @@ let comRouter = [
     children: []
   },
   {
-    path: "/home",
-    name: "home",
-    component: () => import("../pages/admin_home"),
-    meta: {
-      title: 'C2C众包平台',
-    }
+    path: "/",
+    name: "用户主页",
+    component: user_layout,
+    children: [
+      {
+        path: '/home',
+        component: userHome,
+        children: [],
+        meta: {
+          title: 'C2C众包平台',
+          roles: ['admin', 'user']
+        }
+      }
+    ]
   },
   {
     path: "/login",
-    name: "login",
-    component: () => import("../pages/login/user_login"),
+    name: "登录",
+    component: () => import("../pages/login"),
     meta: {
-      title: '登录页面'
-    }
+      title: '登录页面',
+      roles: ['admin', 'user']
+    },
+    children: []
   },
   {
     path: "/register",
     name: "register",
     component: () => import("../pages/register/register"),
     meta: {
-      title: '注册页面'
-    }
+      title: '注册页面',
+      roles: ['admin', 'user']
+    },
+    children: []
   },
   {
     path: "/user",
@@ -45,6 +59,7 @@ let comRouter = [
         meta: {
           title: '用户信息'
         },
+        children: []
       },
       {
         path: "/user/task/list",
@@ -53,6 +68,7 @@ let comRouter = [
         meta: {
           title: '任务列表'
         },
+        children: []
       },
       {
         path: "/user/task/history",
@@ -61,6 +77,7 @@ let comRouter = [
         meta: {
           title: '历史任务'
         },
+        children: []
       }
     ]
   }

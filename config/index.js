@@ -10,13 +10,15 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {'/api':{
-        target: "http://39.105.177.71:8080/api",  // 服务器接口
+    proxyTable: {
+      '/api':{
+        target: "http://39.101.212.197:8080/api",  // 服务器接口
         changeOrigin:true,  // 允许跨域
         pathRewrite: {
           '^/api':''
         }
-      }},
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
@@ -49,13 +51,13 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
      */
 
-    productionSourceMap: true,
+    productionSourceMap: false,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 
