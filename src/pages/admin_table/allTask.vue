@@ -2,7 +2,7 @@
     <div>
       <template>
         <el-table
-          :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+          :data="testData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
           style="width: 100%"
           :row-key="getRowKeys"
           :expand-row-keys="expands"
@@ -11,17 +11,17 @@
           <el-table-column type="expand">
             <template slot-scope="props">
               <el-form label-position="left" inline class="demo-table-expand">
-                <el-form-item label="商品名称">
-                  <span>{{ props.row.name }}</span>
+                <el-form-item label="开始时间">
+                  <span>{{ props.row.release_time }}</span>
                 </el-form-item>
-                <el-form-item label="所属店铺">
-                  <span>{{ props.row.shop }}</span>
+                <el-form-item label="结束时间">
+                  <span>{{ props.row.end_time }}</span>
                 </el-form-item>
-                <el-form-item label="商品 ID">
-                  <span>{{ props.row.id }}</span>
+                <el-form-item label="详情">
+                  <span>{{ props.row.detail }}</span>
                 </el-form-item>
-                <el-form-item label="店铺 ID">
-                  <span>{{ props.row.shopId }}</span>
+                <el-form-item label="需要份数">
+                  <span>{{ props.row.demand_num }}</span>
                 </el-form-item>
                 <el-form-item label="商品分类">
                   <span>{{ props.row.category }}</span>
@@ -37,15 +37,15 @@
           </el-table-column>
           <el-table-column
             label="任务 ID"
-            prop="id">
+            prop="task_id">
           </el-table-column>
           <el-table-column
-            label="商品名称"
-            prop="name">
+            label="任务名称"
+            prop="task_name">
           </el-table-column>
           <el-table-column
-            label="描述"
-            prop="desc">
+            label="地点"
+            prop="location">
           </el-table-column>
           <el-table-column
             align="center">
@@ -85,6 +85,7 @@
   export default {
     data() {
       return {
+        testData:[],
         tableData: [{
           id: '12987122',
           name: '好滋好味鸡蛋仔',
@@ -127,9 +128,9 @@
         fetch_allTask().then(res => {
           console.log(res.data)
           for (let item in res.data) {
-            console.log(res.data[item])
+            this.testData.push(res.data[item])
           }
-          console.log(this.tableData)
+          console.log(this.testData)
         }).catch(err => {
           console.log(err)
         })

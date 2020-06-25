@@ -12,7 +12,7 @@
         active-text-color="#FFFFFF">
         <div class="logo-title"><p>C2C众包平台</p></div>
         <el-menu-item index="1">首页</el-menu-item>
-        <el-menu-item index="addtask">发布需求</el-menu-item>
+        <el-menu-item index="/addtask">发布需求</el-menu-item>
         <el-menu-item index="3">测试2</el-menu-item>
         <el-submenu index="4">
           <template slot="title">更多</template>

@@ -6,6 +6,7 @@ C2C众包项目Web端
 2. $store新增role、account变量，存储用户的身份标识、登录账号
 3. 目前所用权限路由方法比较简单，只是在路由前判断to.path中的meta.roles是否包含当前用户身份，具体查看admin.js和com.js
 4. 用户界面user_layout引用参考router/com.js，父组件使用layout，在children属性中引入所需要的页面组件
+5. 登录界面已经接入后端，后续请求头都会自动加上真实token
 
 ## 更新日志
 ### v2.1

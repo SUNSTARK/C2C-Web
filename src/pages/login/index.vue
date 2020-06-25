@@ -62,14 +62,14 @@
   </div>
 </template>
 <script>
-  import {fetch_login} from "../../api/admin_apis";
+  import {fetch_login} from "../../api/user_apis";
   export default {
     data () {
       return {
         isWechat: false,
         loginForm: {
           username: "",
-          password: "12345"
+          password: ""
         }
       }
     },
@@ -84,35 +84,39 @@
           })
           return false
         } else {
-          // let data = {'useraccount': that.loginForm.username, 'userpasswd': that.loginForm.password}
-          // // 登录参考
-          // fetch_login(data).then(res => {
-          //   that.$store.dispatch("setToken", res.data).then(res => {
-          //     that.$router.push({path: "/"})
-          //   })
-          // }).catch((err) => {
-          //   console.log(err)
-          // }).catch(res => {
-          //   this.$message({
-          //     showClose: true,
-          //     message: res.msg,
-          //     type: "error"
-          //   })
-          // })
-          // 将 username 设置为 token 存储在 store，仅为测试效果，实际存储 token 以后台返回为准
-          if (that.loginForm.username === 'admin') {
-            this.$store.dispatch("setRole", 'admin')
-            this.$store.dispatch("setAccount", that.loginForm.username)
-            that.$store.dispatch("setToken", that.loginForm.username).then(() => {
-              that.$router.push({path: "/admin_home"})
+          let data = {'useraccount': that.loginForm.username, 'userpasswd': that.loginForm.password}
+          // 登录参考
+          fetch_login(data).then(res => {
+            if (res.data.length === 2) {  // 服务器返回了token和state，即成功登录
+              this.$store.dispatch("setAccount",that.loginForm.username)  // 把成功登录的用户名存下来
+              if (res.data[1] === '1') { // 服务器返回的是用户身份
+                this.$store.dispatch("setRole","user")
+                this.$store.dispatch("setToken", res.data[0]).then(res => {
+                  this.$router.push({path: "/"})
+                  this.success_msg()
+                })
+              }else if (res.data[1] === '0') {
+                this.$store.dispatch("setRole","admin")
+                this.$store.dispatch("setToken", res.data[0]).then(res => {
+                  this.$router.push({path: "/admin_home"})
+                  this.success_msg()
+                })
+              }
+            }else {
+              this.$notify.error({
+                title: '登录失败',
+                message: '用户名或密码错误!'
+              });
+            }
+          }).catch((err) => {
+            console.log(err)
+          }).catch(res => {
+            this.$message({
+              showClose: true,
+              message: res.msg,
+              type: "error"
             })
-          }else if (that.loginForm.username === 'user') {
-            this.$store.dispatch("setRole", 'user')
-            this.$store.dispatch("setAccount", that.loginForm.username)
-            that.$store.dispatch("setToken", that.loginForm.username).then(() => {
-              that.$router.push({path: "/"})
-            })
-          }
+          })
         }
       },
       message() {
@@ -122,17 +126,29 @@
           type: 'warning',
           center: true
         }).then(() => {
-          this.loginForm.username = 'user'
+          this.loginForm.username = 'test222'
+          this.loginForm.password = 'test2222'
           this.$message({
             type: 'success',
             message: '已填写用户账号!'
           });
         }).catch(() => {
-          this.loginForm.username = 'admin'
+          this.loginForm.username = 'admin1'
+          this.loginForm.password = 'admin1'
           this.$message({
             type: 'success',
             message: '已填写管理员账号!'
           });
+        });
+      },
+      success_msg() {
+        let that = this
+        this.$notify({
+          type: "success",
+          title: '登录成功',
+          message: '欢迎您，'+that.loginForm.username,
+          duration: 3000,
+          offset: 45
         });
       }
     },

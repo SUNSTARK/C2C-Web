@@ -19,7 +19,7 @@ let comRouter = [
         children: [],
         meta: {
           title: 'C2C众包平台',
-          roles: ['admin', 'user']
+          roles: ['admin', 'user']  // 用于权限判断
         }
       }
     ]

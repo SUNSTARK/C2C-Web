@@ -6,15 +6,15 @@
 
 </style>
 <script>
-  import {stop_task,pass_task,reject_task,fetch_task1Day,fetch_allTask} from "../api/admin_apis";
+  import {stop_task,pass_task,reject_task,fetch_task1Day,fetch_allTask,fetch_uncheck} from "../api/admin_apis";
   import {fetch_login} from "../api/user_apis";
 
   export default {
     methods:{
       submitForm1 () {
-          let data = {'useraccount': 'admin1', 'userpasswd':'admin1'}
-        fetch_allTask().then(res => {
-            console.log(res.data)
+          let data = {'useraccount': 'test22', 'userpasswd':'test2222'}
+        fetch_uncheck().then(res => {
+            console.log(res.data.length)
           }).catch(err => {
             console.log(err)
           })
