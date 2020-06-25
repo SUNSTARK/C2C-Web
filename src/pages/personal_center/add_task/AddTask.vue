@@ -57,7 +57,7 @@
                   filterable
                   allow-create
                   default-first-option
-                  placeholder="请至少添加一个任务标签，可自定义"
+                  placeholder="请至少添加一个任务标签，可自定义（回车添加）"
                 style="min-width: 400px">
                   <el-option
                     v-for="item in options"
@@ -80,10 +80,21 @@
           <el-row >
             <el-col :span="16">
               <el-form-item prop="location" label="任务地点" style="margin:0px 0px 0px 0px;max-width:400px" >
-                <el-input v-model="ruleForm.location" clearable maxlength="35" show-word-limit>
-
+                <el-input  placeholder="点击下方按钮添加地址" :disabled="iflocation" v-model="ruleForm.location" clearable maxlength="50" show-word-limit>
                 </el-input>
+                <el-popover
+                  placement="right"
+                  title="请选择地址"
+                  width="600"
+                  trigger="manual"
+                  v-model="visible">
+                  <Gdmap ref="chil"></Gdmap>
+                  <el-button type="success"  size="mini" round slot="reference" @click="visible = !visible"  >添加地址</el-button>
+                  <el-button type="primary"  @click="sublocation()" style="float: right">确定</el-button>
+                  <el-button type="danger" @click="visible = false" style="float: right">取消</el-button>
+                </el-popover>
               </el-form-item>
+
             </el-col>
             <el-col :span="8">
               <el-form-item prop="iffile" label="答案是否需要附件" style="margin:0px 0px 0px 0px">
@@ -94,25 +105,20 @@
               </el-form-item>
             </el-col>
           </el-row>
-<!--          <el-popover-->
-<!--            placement="right"-->
-<!--            width="400"-->
-<!--            trigger="click">-->
-<!--            <addt></addt>-->
-<!--            <el-button slot="reference">click 激活</el-button>-->
-<!--          </el-popover>-->
+
           <br>
           <el-row>
             <el-col :offset="8">
               <el-form-item>
+
                 <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
               </el-form-item>
             </el-col>
           </el-row>
         </el-card>
-
         </el-form>
+
       </div>
     </el-col>
     <el-col :span="5">
@@ -143,14 +149,14 @@
 
 <script>
   import {fetch_addtask, fetch_register} from "../../../api/user_apis";
-  import addt from "./add"
+  import Gdmap from "./addmap/map"
     export default {
       name: "Add_Task",
-      components:{
-        addt,
-      },
+      components :{Gdmap},
       data() {
         return {
+          iflocation:true,
+          visible:false,
           time1:[],
           time2:'',
           labelPosition:'top',
@@ -179,33 +185,33 @@
             iffile:'',
           },
            rules: {
-            task_name: [
-              {required: true, message: '请输入任务标题', trigger: 'blur'},
-              {min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
-            ],
-            budget: [
-              {required: true, message: '请输入任务薪酬', trigger: 'blur'},
-              {type: 'number', message: '薪酬必须为数字值'}
-            ],
-            time_limit: [
-              {required: true, message: '请输入任务时间', trigger: 'blur'},
-            ],
-            detail: [
-              {required: true, message: '请填写任务详情', trigger: 'blur'}
-            ],
-            tag: [
-              {required: true, message: '请至少添加一个标签', trigger: 'blur'}
-            ],
-            target_num: [
-              {required: true, message: '请输入任务人数', trigger: 'blur'},
-              {type: 'number', message: '人数必须为数字值'}
-            ],
-            location: [
-              {required: true, message: '请填写任务地点', trigger: 'blur'}
-            ],
-            iffile: [
-              {required: true, message: '请选择答案是否需要附件', trigger: 'blur'}
-            ],
+            // task_name: [
+            //   {required: true, message: '请输入任务标题', trigger: 'blur'},
+            //   {min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
+            // ],
+            // budget: [
+            //   {required: true, message: '请输入任务薪酬', trigger: 'blur'},
+            //   {type: 'number', message: '薪酬必须为数字值'}
+            // ],
+            // time_limit: [
+            //   {required: true, message: '请输入任务时间', trigger: 'blur'},
+            // ],
+            // detail: [
+            //   {required: true, message: '请填写任务详情', trigger: 'blur'}
+            // ],
+            // tag: [
+            //   {required: true, message: '请至少添加一个标签', trigger: 'blur'}
+            // ],
+            // target_num: [
+            //   {required: true, message: '请输入任务人数', trigger: 'blur'},
+            //   {type: 'number', message: '人数必须为数字值'}
+            // ],
+            // location: [
+            //   {required: true, message: '请填写任务地点', trigger: 'blur'}
+            // ],
+            // iffile: [
+            //   {required: true, message: '请选择答案是否需要附件', trigger: 'blur'}
+            // ],
           },
           options:[
             {
@@ -230,30 +236,54 @@
           submitForm(formName) {
             this.$refs[formName].validate((valid) => {
               if (valid) {
-                console.log("提交成功")
-                console.log("地址"+this.ruleForm.location);
-                console.log("人数"+this.ruleForm.target_num);
-                console.log("时间"+this.ruleForm.time_limit);
-                console.log("薪酬"+this.ruleForm.budget);
-                console.log("标题"+this.ruleForm.task_name);
-                console.log("附件"+this.ruleForm.iffile);
-                console.log("标签"+this.ruleForm.tag.join("-"));
-                console.log("详情"+this.ruleForm.detail);
+
+                var str=this.ruleForm.tag.join("\",\"");
+                str="[\""+str+"\"]";
+
+                // console.log("提交成功")
+                // console.log("地址:"+this.ruleForm.location);
+                // console.log("人数:"+this.ruleForm.target_num);
+                // console.log("时间:"+this.ruleForm.time_limit);
+                // console.log("薪酬:"+this.ruleForm.budget);
+                // console.log("标题:"+this.ruleForm.task_name);
+                // console.log("附件:"+this.ruleForm.iffile);
+                // console.log("标签:"+str);
+                // console.log("详情:"+this.ruleForm.detail);
+                // console.log("Lon:"+this.ruleForm.Lon);
+                // console.log("Lat:"+this.ruleForm.Lat);
+
+
+                //
+                // let data={
+                //   task_name: "食堂开门了吗",
+                //   detail: "食堂开门了吗",
+                //   task_tag:  "[\"食堂\"]",
+                //   Lon: 117.060109,
+                //   Lat: 36.675668,
+                //   location: "山东省济南市历城区山大路街道山东大学中心校区",
+                //   target_num:  1,
+                //   budget: 2,
+                //   release_time:  "2020-06-26 00:00:00",
+                //   end_time: "2020-06-27 00:00:00",
+                //   flag:"0"
+                // }
+
 
                 let data={
-                  'task_name':this.ruleForm.task_name,
-                  'detail':this.ruleForm.detail,
-                  'Lon':114.123456,
-                  'Lat':23.456789,
-                  'location':this.ruleForm.location,
-                  'target_num':this.ruleForm.target_num,
-                  'budget':this.ruleForm.budget,
-                  'demand_num':this.ruleForm.target_num,
-                  'task_tag':this.ruleForm.tag.join("-"),
-                  'release_time':this.ruleForm.time_limit[0],
-                  'end_time':this.ruleForm.time_limit[1],
-                  'flag':1
+                  task_name:this.ruleForm.task_name,
+                  detail:this.ruleForm.detail,
+                  Lon:this.ruleForm.Lon,
+                  Lat:this.ruleForm.Lat,
+                  location:this.ruleForm.location,
+                  target_num:this.ruleForm.target_num,
+                  budget:this.ruleForm.budget,
+                  task_tag:str,
+                  release_time:this.ruleForm.time_limit[0],
+                  end_time:this.ruleForm.time_limit[1],
+                  flag:this.ruleForm.iffile
                 }
+
+
 
                 fetch_addtask(data)
                   .then(res => {
@@ -304,7 +334,17 @@
               message: '出bug了,联系管理员',
               type: 'warning'
             });
-          }
+          },
+          sublocation(){
+            let chils=this.$refs['chil'];
+            // console.log("地址:"+chils.addForm.sname)
+            // console.log("纬度:"+chils.addForm.slon)
+            // console.log("经度:"+chils.addForm.slat)
+            this.ruleForm.location=chils.addForm.sname,
+              this.ruleForm.Lat=chils.addForm.slat,
+            this.ruleForm.Lon=chils.addForm.slon,
+              this.visible=false
+          },
         }
       }
 
