@@ -46,41 +46,135 @@
         let year=nowDate.getFullYear()
         let month=("0" + (nowDate.getMonth() + 1)).slice(-2);
         let date=nowDate.getDate()
+       //数据异步获取
+        let dates1 = year + '-' + month + '-' + (date-6)
+        let dates2 = year + '-' + month + '-' + (date-5)
+        let dates3 = year + '-' + month + '-' + (date-4)
+        let dates4 = year + '-' + month + '-' + (date-3)
+        let dates5 = year + '-' + month + '-' + (date-2)
+        let dates6 = year + '-' + month + '-' + (date-1)
+        let dates7 = year + '-' + month + '-' + date
+        let params1={'dateStart':dates1}
+        let params2={'dateStart':dates2}
+        let params3={'dateStart':dates3}
+        let params4={'dateStart':dates4}
+        let params5={'dateStart':dates5}
+        let params6={'dateStart':dates6}
+        let params7={'dateStart':dates7}
 
-        // let dates1 = year + '-' + month + '-' + (date-6)
-        // let dates2 = year + '-' + month + '-' + (date-5)
-        // let dates3 = year + '-' + month + '-' + (date-4)
-        // let dates4 = year + '-' + month + '-' + (date-3)
-        // let dates5 = year + '-' + month + '-' + (date-2)
-        // let dates6 = year + '-' + month + '-' + (date-1)
-        // let dates7 = year + '-' + month + '-' + date
-        //
-        // let dates=[dates1,dates2,dates3,dates4,dates5,dates6,dates7]
-        // //let dates=['2020-06-18','2020-06-19']
-        //
-        // for(let item in dates){
-        //   let params={'dateStart':dates[item]}
-        //   fetch_task1Day(params).then(res => {
-        //     console.log(res.data)
-        //     let num=res.data
-        //     this.chart.setOption({
-        //       series: [
-        //         {
-        //           name: "发布任务数",
-        //           type: "line",
-        //           stack: "总量",
-        //           data: [0,1,6, 1, 6, 1, 19]
-        //         }
-        //       ]
-        //     })
-        //   }).catch(err => {
-        //     console.log(err)
-        //   })
-        //
-        // }
+        const num1=fetch_task1Day(params1).then(res => {
+          console.log(res.data)
+          let num=res.data
+          return num;
+        }).catch(err => {
+          console.log(err)
+          this.$message({
+            showClose: true,
+            message: err,
+            type: "error"
+          })
+        })
 
 
+        const num2=fetch_task1Day(params2).then(res => {
+          console.log(res.data)
+          let num=res.data
+          return num;
+        }).catch(err => {
+          console.log(err)
+          this.$message({
+            showClose: true,
+            message: err,
+            type: "error"
+          })
+        })
 
+        const num3=fetch_task1Day(params3).then(res => {
+          console.log(res.data)
+          let num=res.data
+          return num;
+        }).catch(err => {
+          console.log(err)
+          this.$message({
+            showClose: true,
+            message: err,
+            type: "error"
+          })
+        })
+
+
+        const num4=fetch_task1Day(params4).then(res => {
+          console.log(res.data)
+          let num=res.data
+          return num;
+        }).catch(err => {
+          console.log(err)
+          this.$message({
+            showClose: true,
+            message: err,
+            type: "error"
+          })
+        })
+
+
+        const num5=fetch_task1Day(params5).then(res => {
+          console.log(res.data)
+          let num=res.data
+          return num;
+        }).catch(err => {
+          console.log(err)
+          this.$message({
+            showClose: true,
+            message: err,
+            type: "error"
+          })
+        })
+
+
+        const num6=fetch_task1Day(params6).then(res => {
+          console.log(res.data)
+          let num=res.data
+          return num;
+        }).catch(err => {
+          console.log(err)
+          this.$message({
+            showClose: true,
+            message: err,
+            type: "error"
+          })
+        })
+
+        const num7=fetch_task1Day(params7).then(res => {
+            console.log(res.data)
+            let num=res.data
+            return num;
+          }).catch(err => {
+            console.log(err)
+            this.$message({
+              showClose: true,
+              message: err,
+              type: "error"
+            })
+          })
+
+//promise all
+
+        Promise.all([num1,num2,num3,num4,num5,num6,num7]).then(res=>{
+          this.chart.setOption({
+            series: [
+              {
+                name: "发布任务数",
+                type: "line",
+                stack: "总量",
+
+                data: res
+              }
+            ]
+          })
+
+          console.log(res);
+
+        })
 
         this.chart.setOption({
           title: {

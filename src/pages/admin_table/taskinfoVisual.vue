@@ -1,11 +1,12 @@
 <template>
   <div>
     <h3>用户活跃度</h3>
-    <el-row>
-      <el-col :span="24">
-        <line-echarts id="lineEcharts-page" height="300px" ref="lineEcharts"></line-echarts>
-      </el-col>
-    </el-row>
+      <el-row>
+        <el-col :span="24">
+          <line-echarts id="lineEcharts" height="300px" ref="mainecharts"></line-echarts>
+        </el-col>
+      </el-row>
+
     <br>
     <h3>任务占比</h3>
     <el-row>
