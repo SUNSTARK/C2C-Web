@@ -4,7 +4,6 @@ import {adminRouter} from "./admin";
 import {comRouter} from "./com";
 import store from "../store";
 import NProgress from "nprogress";
-import el from "element-ui/src/locale/lang/el";
 
 Vue.use(Router);
 

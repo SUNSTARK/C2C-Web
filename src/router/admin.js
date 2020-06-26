@@ -11,18 +11,13 @@ const Page404 = () => import("@/pages/error/page404")
 const checkTask = () => import("@/pages/admin_table/checkTask")
 
 let adminRouter = [
-  // {
-  //   path: '/',
-  //   redirect: {path:'/admin_home'}, // 重定向到主页
-  //   children: []
-  // },
   {
     path: '/display',
     redirect: {name: '用户信息'},
     children: []
   },
   {
-    path: "/",
+    path: "/admin_home",
     component: admin_Layout,
     name: "主页",  // 定义该地址导航名称
     icon:"fa fa-home",  // 定义该地址所用的导航图标
@@ -40,7 +35,7 @@ let adminRouter = [
     ]
   },
   {
-    path: "/",
+    path: "/admin_home",
     component: admin_Layout,
     name: "任务大厅",
     icon:"fa fa-list-ul",
@@ -58,7 +53,7 @@ let adminRouter = [
     ]
   },
   {
-    path: "/",
+    path: "/admin_home",
     component: admin_Layout,
     name: "待审任务",
     icon: "fa fa-check-square-o",

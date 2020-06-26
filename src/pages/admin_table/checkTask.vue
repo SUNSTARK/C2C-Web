@@ -9,9 +9,7 @@
           :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
           stripe
           style="width: 100%"
-          height="480"
-          :default-sort = "{prop: 'date', order: 'descending'}"
-        >
+          :default-sort = "{prop: 'date', order: 'descending'}">
           <el-table-column
             prop="task_id"
             label="任务ID"
@@ -49,13 +47,20 @@
             </template>
           </el-table-column>
         </el-table>
-        <el-pagination class="fy"
-                       layout="prev, pager, next"
-                       @current-change="current_change"
-                       :total="total"
-                       background
-        >
-        </el-pagination>
+        <div class="pagination">
+          <el-pagination
+            background
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="[5, 10, 20, 40]"
+            :page-size="pagesize"
+            layout="total, sizes, prev, pager, next"
+            :total="tableData.length"
+            prev-text="上一页"
+            next-text="下一页">
+          </el-pagination>
+        </div>
       </div>
     </template>
   </div>
@@ -64,19 +69,13 @@
 <script>
   import {fetch_uncheck, pass_task,reject_task} from "../../api/admin_apis";
   export default {
-
     name:'list11',
     data() {
       return {
-        total:1000,//默认数据总数
-        pagesize:30,//每页的数据条数
-        currentPage:1,//默认开始页面
-        istag: true,
-        input:"",
-        input21: '',
-        value5: [],
-        tableData: []
-      };
+        currentPage: 1,  // 默认显示页面为1
+        pagesize: 5,  // 每页的数据条数
+        tableData: []  //需要data定义一些，tableData定义一个空数组，请求的数据都是存放这里面
+      }
     } ,
     watch:{
       name:function(){
@@ -86,17 +85,15 @@
     },
     methods: {
       getTask(){
-
         fetch_uncheck().then(res => {
           console.log(res)
           res = res.data
           this.tableData=res
-          this.$message({
-            showClose: true,
-            message: res,
-            type: "success"
-          })
-
+          // this.$message({
+          //   showClose: true,
+          //   message: res,
+          //   type: "success"
+          // })
         }).catch(res => {
           this.$message({
             showClose: true,
@@ -109,15 +106,15 @@
       handlePost (index, row) {
         console.log(index,row)
         let id ={'task_id': this.tableData[index].task_id}
-
         pass_task(id).then(res=> {
             console.log(res)
+          this.tableData=[]
+          this.getTask()
             this.$message({
               showClose: true,
               message: '任务上架成功',
               type: "success"
             })
-            //window.reload()
           }
         ).catch(err=> {
           console.log(err)
@@ -128,20 +125,18 @@
           })
         })
       },
-
-
       handleDelete (index, row) {
         console.log(index, row)
         let id ={'task_id': this.tableData[index].task_id}
-
         reject_task(id).then(res=> {
             console.log(res)
+          this.tableData=[]
+          this.getTask()
             this.$message({
               showClose: true,
               message: '任务退回成功',
               type: "success"
             })
-            window.reload()
           }
         ).catch(err=> {
           console.log(err)
@@ -152,18 +147,20 @@
           })
         })
       },
-
-
-      current_change:function(currentPage){
+      //每页下拉显示数据
+      handleSizeChange: function(size) {
+        this.pagesize = size;
+        /*console.log(this.pagesize) */
+      },
+      //点击第几页
+      handleCurrentChange: function(currentPage) {
         this.currentPage = currentPage;
+        /*console.log(this.currentPage) */
       }
     },
     created:function(){
-      this.total=this.tableData.length;
       this.getTask();
-
     },
-
     mounted() {
       // this.getTask()
     }
@@ -182,7 +179,7 @@
     color: #5e6d82;
     line-height: 1.5em;
   }
-  .block{
+  .pagination{
     text-align: center;
   }
 

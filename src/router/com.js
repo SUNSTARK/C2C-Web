@@ -19,11 +19,28 @@ let comRouter = [
         children: [],
         meta: {
           title: 'C2C众包平台',
+          roles: ['admin', 'user']  // 用于权限判断
+        }
+      }
+    ]
+  },
+  {
+    path: "/addtask",
+    name: "addtask",
+    component: user_layout,
+    children: [
+      {
+        path: '/addtask',
+        component: ()=>import("../pages/personal_center/add_task/AddTask"),
+        children: [],
+        meta: {
+          title: '发布任务',
           roles: ['admin', 'user']
         }
       }
     ]
   },
+
   {
     path: "/login",
     name: "登录",
