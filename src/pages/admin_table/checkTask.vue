@@ -6,6 +6,7 @@
     <template>
       <div class="container_table">
         <el-table
+          v-loading="loading"
           :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
           stripe
           style="width: 100%"
@@ -15,7 +16,7 @@
             prop="task_id"
             label="任务ID"
             sortable
-            width="100">
+            width="110">
           </el-table-column>
           <el-table-column
             align="left"
@@ -49,7 +50,7 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="currentPage"
-            :page-sizes="[8, 15, 20]"
+            :page-sizes="[5, 15, 25]"
             :page-size="pagesize"
             layout="total, sizes, prev, pager, next"
             :total="tableData.length"
@@ -69,7 +70,8 @@
     data() {
       return {
         currentPage: 1,  // 默认显示页面为1
-        pagesize: 8,  // 每页的数据条数
+        pagesize: 5,  // 每页的数据条数
+        loading: true, // 表格默认开启加载，获取到数据后设置为false
         tableData: []  //需要data定义一些，tableData定义一个空数组，请求的数据都是存放这里面
       }
     } ,
@@ -82,9 +84,9 @@
     methods: {
       getTask(){
         fetch_uncheck().then(res => {
-          console.log(res.data)
           res = res.data
           this.tableData=res
+          this.loading = false
         }).catch(res => {
           this.$message({
             showClose: true,
@@ -99,6 +101,7 @@
         pass_task(id).then(res=> {
           if (res.code === 200) {
             this.tableData=[]
+            this.loading = true
             this.getTask()
             this.$message({
               showClose: true,
@@ -116,6 +119,7 @@
         reject_task(id).then(res=> {
           if (res.code === 200) {
             this.tableData=[]
+            this.loading = true
             this.getTask()
             this.$message({
               showClose: true,

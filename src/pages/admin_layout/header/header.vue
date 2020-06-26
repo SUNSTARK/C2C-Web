@@ -22,12 +22,12 @@
         <li>
           <el-dropdown @command="handleCommand">
                   <span class="el-dropdown-link">
-                    测试<i class="el-icon-arrow-down el-icon--right"></i>
+                    {{account}}<i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="info">基本资料</el-dropdown-item>
-              <el-dropdown-item command="editPassword">修改密码</el-dropdown-item>
-              <el-dropdown-item command="logout" divided>退出登录</el-dropdown-item>
+<!--              <el-dropdown-item command="info">基本资料</el-dropdown-item>-->
+<!--              <el-dropdown-item command="editPassword">修改密码</el-dropdown-item>-->
+              <el-dropdown-item command="logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </li>
@@ -52,7 +52,8 @@ export default {
       dialogInfoVisible: false,
       dialogPassVisible: false,
       title: "",
-      userId: ""
+      userId: "",
+      account: this.$store.getters.account,
     }
   },
   methods: {
@@ -74,6 +75,8 @@ export default {
         this.dialogPassVisible = true
       } else if (command === "logout") {
         Cookies.remove("token")
+        this.$store.dispatch("setRole", '')  // 清空$store内存相关信息
+        this.$store.dispatch("setAccount", '')
         location.reload()
       }
     },

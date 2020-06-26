@@ -11,7 +11,7 @@
         text-color="#999999"
         active-text-color="#FFFFFF">
         <div class="logo-title"><p>C2C众包平台</p></div>
-        <el-menu-item index="/home">首页</el-menu-item>
+        <el-menu-item index="/home" >首页</el-menu-item>
         <el-menu-item index="/addtask">发布需求</el-menu-item>
         <el-menu-item index="3">测试2</el-menu-item>
         <el-submenu index="4">
@@ -29,6 +29,7 @@
                   </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="info">基本资料</el-dropdown-item>
+                <el-dropdown-item command="editPassword">修改密码</el-dropdown-item>
                 <el-dropdown-item command="logout" divided>退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -40,32 +41,49 @@
         </div>
       </el-menu>
     </el-header>
+    <user-info v-if="dialogInfoVisible" :title="title" :dialogVisible="dialogInfoVisible" :userId="userId" @successCallback="successCallback"/>
+    <edit-password v-if="dialogPassVisible" :dialogVisible="dialogPassVisible" @editPwdCallback="editPwdCallback"/>
   </div>
 </template>
 
 <script>
     import Cookies from "js-cookie";
+    import UserInfo from "../../../components/userForm/userInfo"
+    import EditPassword from "../../../components/userForm/editPassword"
 
     export default {
       name: "userheader",
+      components:{UserInfo, EditPassword},
       data() {
         return {
           account: this.$store.getters.account,
-          activeIndex: '1'
+          activeIndex: '/home',
+          title: "",
+          userId: "",
+          dialogInfoVisible: false,
+          dialogPassVisible: false // 默认不显示基本资料卡
         };
       },
       methods: {
         handleSelect(key, keyPath) {
           console.log(key, keyPath);
         },
-        handleClick() {
-          alert('个人中心');
+        successCallback () {
+          this.dialogInfoVisible = false
+        },
+        editPwdCallback () {
+          this.dialogPassVisible = false
+        },
+          handleClick() {
+            alert('个人中心');
         },
         handleCommand (command) {
           if (command === "info") {
             this.dialogInfoVisible = true
             this.title = "编辑信息"
             // this.userId = this.$store.getters.info.uid
+          } else if (command === "editPassword") {
+            this.dialogPassVisible = true
           } else if (command === "logout") {
             Cookies.remove("token")
             this.$store.dispatch("setRole", '')  // 清空$store内存相关信息

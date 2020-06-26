@@ -12,8 +12,8 @@
   export default {
     methods:{
       submitForm1 () {
-          let params = {'task_id': 1}
-        stop_task(params).then(res => {
+          let params = {'task_id': 28}
+        reject_task(params).then(res => {
             console.log(res)
           }).catch(err => {
             console.log(err)

@@ -28,7 +28,8 @@ let adminRouter = [
         component: Home,
         meta:{
           bread_name: ["主页"],  // 定义面包屑名称，用于生成面包屑导航
-          roles: ['admin']
+          roles: ['admin'],
+          title: 'C2C众包后台管理系统'
         },
         children: []
       }
@@ -55,7 +56,7 @@ let adminRouter = [
   {
     path: "/admin_home",
     component: admin_Layout,
-    name: "待审任务",
+    name: "任务审核",
     icon: "fa fa-check-square-o",
     alone: true,
     children: [
@@ -63,7 +64,7 @@ let adminRouter = [
         path: "/checktask",
         component: checkTask,
         meta:{
-          bread_name: ["待审任务"],
+          bread_name: ["任务审核"],
           roles: ['admin']
         },
         children: []

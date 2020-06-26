@@ -6,6 +6,7 @@
       </div>
       <template>
         <el-table
+          v-loading="loading"
           :data="tableData.slice((current_page-1) * page_size, current_page * page_size)"
           style="width: 100%"
           :row-key="getRowKeys"
@@ -32,7 +33,7 @@
                   <span>{{ props.row.budget }} 元</span>
                 </el-form-item>
                 <el-form-item label="已收集答案">
-                  <span>{{ props.row.demand_num }} 份</span>
+                  <span>{{ props.row.comTask_num }} 份</span>
                 </el-form-item>
               </el-form>
             </template>
@@ -93,16 +94,16 @@
         current_page: 1,
         page_size: 9,
         tableData: [],
-        search: '',
+        loading: true,
         expands: [] // 要展开的行，元素是row的key值
       }
     },
     methods: {
       getTableData:function() {
         fetch_allTask().then(res => {
-          for (let item in res.data) {
-            this.tableData.push(res.data[item])
-          }
+          console.log(res.data)
+          this.tableData = res.data
+          this.loading = false
         }).catch(err => {
           console.log(err)
         })
@@ -166,6 +167,7 @@
                 message: '下架成功!'
               });
               this.tableData = []
+              this.loading = true
               this.getTableData()
             }
           }).catch(err => {

@@ -30,8 +30,6 @@
         prop="points_level"
         label="用户活跃度水平">
       </el-table-column>
-
-
     </el-table>
   </div>
 </template>
@@ -39,21 +37,15 @@
 <script>
   import {fetch_points} from "../../api/admin_apis";
   export default {
-
     name: "maintable",
     data () {
       return {
         tableData: []
-
       }
     },
     methods: {
-
       getRange() {
-
         fetch_points().then(res => {
-
-          console.log(res)
           res = res.data
           this.tableData=res
           this.$message({
@@ -61,7 +53,6 @@
             message: "用户积分已更新",
             type: "success"
           })
-
         }).catch((err) => {
           console.log(err)
         }).catch(res => {
@@ -71,10 +62,8 @@
             type: "error"
           })
         })
-
       }
-      },
-
+    },
     mounted() {
      this.getRange ();
     }
@@ -82,5 +71,4 @@
 </script>
 
 <style scoped>
-
 </style>
