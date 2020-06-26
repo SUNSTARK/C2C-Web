@@ -6,41 +6,38 @@
     <template>
       <div class="container_table">
         <el-table
+          v-loading="loading"
           :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
           stripe
           style="width: 100%"
           :default-sort = "{prop: 'date', order: 'descending'}">
           <el-table-column
+            align="center"
             prop="task_id"
             label="任务ID"
             sortable
-            width="180">
+            width="110">
           </el-table-column>
           <el-table-column
-            prop="overview"
-            label="任务简介"
-            width="180">
-          </el-table-column>
-          <el-table-column
+            align="left"
             prop="detail"
             label="任务内容">
           </el-table-column>
           <el-table-column
+            align="center"
             prop="release_time"
             sortable
             label="上传时间">
           </el-table-column>
-          <el-table-column
-            prop="check_state"
-            label="任务状态">
-          </el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button
+                icon="el-icon-check"
                 size="mini"
                 type="success"
                 @click="handlePost(scope.$index, scope.row)">通过</el-button>
               <el-button
+                icon="el-icon-close"
                 size="mini"
                 type="danger"
                 @click="handleDelete(scope.$index, scope.row)">拒绝</el-button>
@@ -53,7 +50,7 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="currentPage"
-            :page-sizes="[5, 10, 20, 40]"
+            :page-sizes="[5, 15, 25]"
             :page-size="pagesize"
             layout="total, sizes, prev, pager, next"
             :total="tableData.length"
@@ -74,6 +71,7 @@
       return {
         currentPage: 1,  // 默认显示页面为1
         pagesize: 5,  // 每页的数据条数
+        loading: true, // 表格默认开启加载，获取到数据后设置为false
         tableData: []  //需要data定义一些，tableData定义一个空数组，请求的数据都是存放这里面
       }
     } ,
@@ -88,6 +86,7 @@
         fetch_uncheck().then(res => {
           res = res.data
           this.tableData=res
+          this.loading = false
         }).catch(res => {
           this.$message({
             showClose: true,
@@ -102,26 +101,17 @@
         pass_task(id).then(res=> {
           if (res.code === 200) {
             this.tableData=[]
+            this.loading = true
             this.getTask()
             this.$message({
               showClose: true,
               message: '任务上架成功!',
               type: "success"
             })
-          }else {
-            this.$message({
-              type: 'warning',
-              message: '服务器处理失败!',
-            });
           }
         }
         ).catch(err=> {
           console.log(err)
-          this.$message({
-            showClose: true,
-            message: '请重试!',
-            type: "error"
-          })
         })
       },
       handleDelete (index) {
@@ -129,26 +119,17 @@
         reject_task(id).then(res=> {
           if (res.code === 200) {
             this.tableData=[]
+            this.loading = true
             this.getTask()
             this.$message({
               showClose: true,
               message: '任务退回成功!',
               type: "success"
             })
-          }else {
-            this.$message({
-              type: 'warning',
-              message: '服务器处理失败!',
-            });
           }
-          }
+        }
         ).catch(err=> {
           console.log(err)
-          this.$message({
-            showClose: true,
-            message: '请重试!',
-            type: "error"
-          })
         })
       },
       //每页下拉显示数据

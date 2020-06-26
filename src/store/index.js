@@ -51,7 +51,6 @@ const store = new Vuex.Store({
     logoShow: state => state.layout.logoShow,  // 管理页面展示logo
     isCollapse: state => state.layout.isCollapse,  // 管理页面折叠菜单
     routers: state => state.routerData.routers,  // 管理页面导航缓存
-    perDayTask: state => state.layout.perDayTask, // 管理页面用于保存linechart数据
     role: state => state.role,  // 登录后的用户身份
     account : state => state.account // 登录使用的用户名
   },

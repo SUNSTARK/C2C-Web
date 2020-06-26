@@ -21,12 +21,9 @@ axios.interceptors.request.use(config => {
 // http 响应 拦截器
 axios.interceptors.response.use(
   response => {
-    if (response.data.code === 11000) {
-      Cookies.set("token", response.data.message, { expires: 1 / 12 })
-      return Promise.resolve()
-    } else if (response.data.code === 10000) { // 约定报错信息
+    if (response.data.code === 2001) { // 约定报错信息
       Message({
-        message: response.data.message,
+        message: '错误201，服务器处理失败，请联系后端！',
         type: "warning"
       })
       return Promise.reject(response)

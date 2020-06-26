@@ -14,3 +14,4 @@ export function fetch_register (data) {
 export function fetch_addtask(data) {
   return fetchPost('/task/release',data)
 }
+

@@ -28,8 +28,8 @@
         <div class="card dbsx">
           <p class="title"><i class="fa fa-info-circle"></i>数据概览</p>
           <ul>
-            <li><router-link to="/alltask"><span class="data-characters">任务总数</span><span class="num">124</span></router-link></li>
-            <li><router-link to="/checktask"><span class="data-characters">待审任务</span><span class="num">{{uncheck_num}}</span></router-link></li>
+            <li><router-link to="/alltask"><span class="data-characters">任务总数</span><span class="num">{{total_task}}</span></router-link></li>
+            <li><router-link to="/checktask"><span class="data-characters">任务审核</span><span class="num">{{uncheck_num}}</span></router-link></li>
           </ul>
         </div>
       </el-col>
@@ -50,17 +50,23 @@
 <script>
   import LineEcharts from "../../components/ECharts/lineEcharts"
   import Maintable from "../admin_table/maintable"
+  import {fetch_uncheck, fetch_allTask} from "../../api/admin_apis";
 
   export default {
     name: "mainIndex",
     components: {Maintable, LineEcharts},
     data () {
       return{
-        uncheck_num: 1
+        uncheck_num: 0,
+        total_task: 0
       }
     },
     mounted () {
       this.selfAdaption()
+    },
+    created() {
+      this.getTotalTask()
+      this.getUncheckNum()
     },
     computed: {
       // 用于监听isCollapse值的改变
@@ -91,6 +97,21 @@
         if (that.$refs.mainecharts){
           that.$refs.mainecharts.chart.resize()
         }
+      },
+      // 获取平台任务总数
+      getTotalTask() {
+        fetch_allTask().then(res => {
+          this.total_task = res.data.length
+        }).catch(err => {
+          console.log(err)
+        })
+      },
+      getUncheckNum() {
+        fetch_uncheck().then(res => {
+          this.uncheck_num = res.data.length
+        }).catch(err => {
+          console.log(err)
+        })
       }
     }
   }
