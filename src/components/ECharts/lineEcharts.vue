@@ -63,102 +63,60 @@
         let params7={'dateStart':dates7}
 
         const num1=fetch_task1Day(params1).then(res => {
-          console.log(res.data)
           let num=res.data
           return num;
         }).catch(err => {
           console.log(err)
           this.$message({
             showClose: true,
-            message: err,
+            message: '折线图数据获取失败!',
             type: "error"
           })
         })
 
 
         const num2=fetch_task1Day(params2).then(res => {
-          console.log(res.data)
           let num=res.data
           return num;
         }).catch(err => {
           console.log(err)
-          this.$message({
-            showClose: true,
-            message: err,
-            type: "error"
-          })
         })
 
         const num3=fetch_task1Day(params3).then(res => {
-          console.log(res.data)
-          let num=res.data
+          let num = res.data
           return num;
         }).catch(err => {
           console.log(err)
-          this.$message({
-            showClose: true,
-            message: err,
-            type: "error"
-          })
         })
-
 
         const num4=fetch_task1Day(params4).then(res => {
-          console.log(res.data)
           let num=res.data
           return num;
         }).catch(err => {
           console.log(err)
-          this.$message({
-            showClose: true,
-            message: err,
-            type: "error"
-          })
         })
-
 
         const num5=fetch_task1Day(params5).then(res => {
-          console.log(res.data)
           let num=res.data
           return num;
         }).catch(err => {
           console.log(err)
-          this.$message({
-            showClose: true,
-            message: err,
-            type: "error"
-          })
         })
 
-
         const num6=fetch_task1Day(params6).then(res => {
-          console.log(res.data)
           let num=res.data
           return num;
         }).catch(err => {
           console.log(err)
-          this.$message({
-            showClose: true,
-            message: err,
-            type: "error"
-          })
         })
 
         const num7=fetch_task1Day(params7).then(res => {
-            console.log(res.data)
             let num=res.data
             return num;
           }).catch(err => {
-            console.log(err)
-            this.$message({
-              showClose: true,
-              message: err,
-              type: "error"
-            })
+          console.log(err)
           })
-
-//promise all
-
+        //promise all
         Promise.all([num1,num2,num3,num4,num5,num6,num7]).then(res=>{
           this.chart.setOption({
             series: [
@@ -166,19 +124,15 @@
                 name: "发布任务数",
                 type: "line",
                 stack: "总量",
-
                 data: res
               }
             ]
           })
-
-          console.log(res);
-
         })
 
         this.chart.setOption({
           title: {
-            text: "近七天用户活跃度",
+            text: "近七天平台任务发布数",
             textStyle: {
               fontSize: 14
             }
