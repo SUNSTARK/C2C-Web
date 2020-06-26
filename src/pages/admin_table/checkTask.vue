@@ -86,63 +86,67 @@
     methods: {
       getTask(){
         fetch_uncheck().then(res => {
-          console.log(res)
           res = res.data
           this.tableData=res
-          // this.$message({
-          //   showClose: true,
-          //   message: res,
-          //   type: "success"
-          // })
         }).catch(res => {
           this.$message({
             showClose: true,
-            message: res,
-            type: "error"
+            message: res.msg,
+            type: "error!"
           })
         })
       },
       //上架任务
-      handlePost (index, row) {
-        console.log(index,row)
+      handlePost (index) {
         let id ={'task_id': this.tableData[index].task_id}
         pass_task(id).then(res=> {
-            console.log(res)
-          this.tableData=[]
-          this.getTask()
+          if (res.code === 200) {
+            this.tableData=[]
+            this.getTask()
             this.$message({
               showClose: true,
-              message: '任务上架成功',
+              message: '任务上架成功!',
               type: "success"
             })
+          }else {
+            this.$message({
+              type: 'warning',
+              message: '服务器处理失败!',
+            });
           }
+        }
         ).catch(err=> {
           console.log(err)
           this.$message({
             showClose: true,
-            message: '请重试',
+            message: '请重试!',
             type: "error"
           })
         })
       },
-      handleDelete (index, row) {
-        console.log(index, row)
+      handleDelete (index) {
         let id ={'task_id': this.tableData[index].task_id}
         reject_task(id).then(res=> {
-            console.log(res)
-          this.tableData=[]
-          this.getTask()
+          if (res.code === 200) {
+            this.tableData=[]
+            this.getTask()
             this.$message({
               showClose: true,
-              message: '任务退回成功',
+              message: '任务退回成功!',
               type: "success"
             })
+          }else {
+            this.$message({
+              type: 'warning',
+              message: '服务器处理失败!',
+            });
+          }
           }
         ).catch(err=> {
           console.log(err)
           this.$message({
             showClose: true,
-            message: '请重试',
+            message: '请重试!',
             type: "error"
           })
         })
@@ -150,19 +154,14 @@
       //每页下拉显示数据
       handleSizeChange: function(size) {
         this.pagesize = size;
-        /*console.log(this.pagesize) */
       },
       //点击第几页
       handleCurrentChange: function(currentPage) {
         this.currentPage = currentPage;
-        /*console.log(this.currentPage) */
       }
     },
     created:function(){
       this.getTask();
-    },
-    mounted() {
-      // this.getTask()
     }
   };
 </script>

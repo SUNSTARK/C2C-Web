@@ -150,7 +150,7 @@
         }).then(() => {
           let params = {'task_id': row.task_id};
           stop_task(params).then(res => {
-            if (res.code === 200){
+            if (res.code === 200) {
               this.$message({
                 type: 'success',
                 message: '下架成功!'
@@ -160,7 +160,7 @@
             }else {
               this.$message({
                 type: 'warning',
-                message: '出现未知错误!'
+                message: '服务器处理失败!'
               });
             }
           }).catch(err => {

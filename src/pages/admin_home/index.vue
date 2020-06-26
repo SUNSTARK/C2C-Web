@@ -5,11 +5,11 @@
         <div class="card kjfs">
           <p class="title"><i class="fa fa-th-large"></i>快捷方式</p>
           <ul>
-            <li><router-link to="/alljobs" class="kjfs kjfs-bluee">
+            <li><router-link to="/alltask" class="kjfs kjfs-bluee">
               <span><i class="fa fa-list-ul fa-2x"></i></span>
               <span class="shortcut-character">任务大厅</span>
             </router-link></li>
-            <li><router-link to="/filterTable" class="kjfs kjfs-grennn">
+            <li><router-link to="/checktask" class="kjfs kjfs-grennn">
               <span><i class="fa fa-check-square-o fa-2x"></i></span>
               <span class="shortcut-character">任务审核</span>
             </router-link></li>
@@ -28,8 +28,8 @@
         <div class="card dbsx">
           <p class="title"><i class="fa fa-info-circle"></i>数据概览</p>
           <ul>
-            <li><router-link to="/alljobs"><span class="data-characters">任务总数</span><span class="num">124</span></router-link></li>
-            <li><router-link to="/filterTable"><span class="data-characters">待审任务</span><span class="num">8</span></router-link></li>
+            <li><router-link to="/alltask"><span class="data-characters">任务总数</span><span class="num">124</span></router-link></li>
+            <li><router-link to="/checktask"><span class="data-characters">待审任务</span><span class="num">{{uncheck_num}}</span></router-link></li>
           </ul>
         </div>
       </el-col>
@@ -54,6 +54,11 @@
   export default {
     name: "mainIndex",
     components: {Maintable, LineEcharts},
+    data () {
+      return{
+        uncheck_num: 1
+      }
+    },
     mounted () {
       this.selfAdaption()
     },
