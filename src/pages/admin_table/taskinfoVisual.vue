@@ -8,7 +8,7 @@
       </el-row>
 
     <br>
-    <h3>任务占比</h3>
+    <h3>任务tag词云</h3>
     <el-row>
       <el-col :span="24">
         <radar-echarts id="radarEcharts" height="300px" ref="radarEcharts"></radar-echarts>

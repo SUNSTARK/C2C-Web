@@ -1,80 +1,78 @@
 <template>
-  <div>
-    <div :id="id" :style="{width: width, height: height}"></div>
+  <div class="hello">
+    <div :id="app" :style="{width: width, height: height}">
+      <wordcloud
+        :data="defaultWords"
+        nameKey="name"
+        valueKey="value"
+        :color="myColors"
+        :showTooltip="false"
+        :wordClick="wordClickHandler">
+      </wordcloud>
+    </div>
   </div>
 </template>
 
 <script>
-  import echarts from "echarts"
-  import westeros from "./theme/westeros"
+  import wordcloud from 'vue-wordcloud'
   export default {
-    name: "radarEcharts",
-    props: {
-      id: {
-        type: String,
-        default: "myChart"
-      },
-      width: {
-        type: String,
-        default: "100%"
-      },
-      height: {
-        type: String,
-        default: "100%"
-      }
-    },
-    data () {
-      return {
-        chart: null
-      }
-    },
-    mounted () {
-      this.initChart()
+    name: 'app',
+    components: {
+      wordcloud
     },
     methods: {
-      initChart () {
-        this.chart = echarts.init(document.getElementById(this.id), "westeros")
-
-        this.chart.setOption({
-          title: {
-            text: "任务类型饼图",
-            x: 'center',
-            textStyle: {
-              fontSize: 20
-            }
+      wordClickHandler(name, value, vm) {
+        console.log('wordClickHandler', name, value, vm);
+      }
+    },
+    data() {
+      return {
+        myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef','#629fc9','#629fc9','#629fc9','#629fc9','#629fc9'],
+        defaultWords: [{
+          "name": "Cat",
+          "value": 260
+        },
+          {
+            "name": "fish",
+            "value": 190
           },
-          tooltip: {
-            trigger: 'item',
-            formatter: '{a} <br/>{b} : {c} ({d}%)'
+          {
+            "name": "things",
+            "value": 180
           },
-          legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: ['科技类', '教育类', '生活娱乐类', '新闻类', '其他']
+          {
+            "name": "look",
+            "value": 160
           },
-          series: [
-            {
-              name: '访问来源',
-              type: 'pie',
-              radius: '55%',
-              center: ['50%', '60%'],
-              data: [
-                {value: 335, name: '科技类'},
-                {value: 310, name: '教育类'},
-                {value: 1548, name: '生活娱乐类'},
-                {value: 135, name: '新闻类'},
-                {value: 234, name: '其他'}
-              ],
-              emphasis: {
-                itemStyle: {
-                  shadowBlur: 10,
-                  shadowOffsetX: 0,
-                  shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-              }
-            }
-          ]
-        })
+          {
+            "name": "two",
+            "value": 150
+          },
+          {
+            "name": "fun",
+            "value": 90
+          },
+          {
+            "name": "fun",
+            "value": 90
+          },
+          {
+            "name": "fun",
+            "value": 90
+          },
+          {
+            "name": "fun",
+            "value": 90
+          },
+          {
+            "name": "hhhhhhhhhhhhhhhhhh",
+            "value": 260
+          },
+          {
+            "name": "asbasdbognasd",
+            "value": 260
+          },
+        ]
       }
     }
   }
