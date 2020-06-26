@@ -1,20 +1,21 @@
 <template>
   <div>
-    <h3>用户活跃度</h3>
+    <h3>近期平台任务发布数</h3>
       <el-row>
         <el-col :span="24">
-          <line-echarts id="lineEcharts" height="300px" ref="mainecharts"></line-echarts>
+          <line-echarts id="lineEchartsPage" height="300px" ref="lineEchartsPage"></line-echarts>
         </el-col>
       </el-row>
 
     <br>
-    <h3>任务占比</h3>
+    <h3>任务tag词云</h3>
     <el-row>
       <el-col :span="24">
         <radar-echarts id="radarEcharts" height="300px" ref="radarEcharts"></radar-echarts>
       </el-col>
     </el-row>
     <br>
+
   </div>
 
 </template>
@@ -46,8 +47,8 @@
         let that = this
         setTimeout(() => {
           window.onresize = function () {
-            if (that.$refs.lineEcharts){
-              that.$refs.lineEcharts.chart.resize()
+            if (that.$refs.lineEchartsPage){
+              that.$refs.lineEchartsPage.chart.resize()
               that.$refs.radarEcharts.chart.resize()
             }
           }
@@ -56,8 +57,8 @@
       // echart折叠展开导航自适应
       echart_resize() {
         let that = this
-        if (that.$refs.lineEcharts){
-          that.$refs.lineEcharts.chart.resize()
+        if (that.$refs.lineEchartsPage){
+          that.$refs.lineEchartsPage.chart.resize()
           that.$refs.radarEcharts.chart.resize()
         }
       }
@@ -66,20 +67,19 @@
 </script>
 
 <style>
-  #radarEcharts, #lineEcharts-page, .card {
+  #radarEcharts, #lineEchartsPage, .card {
     background: #fff;
     -webkit-box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     border-color: rgba(0, 0, 0, 0.2);
   }
-  #radarEcharts .title, #lineEcharts-page .title, .card .title {
+  #radarEcharts .title, #lineEchartsPage .title, .card .title {
     font-size: 14px;
     padding: 10px;
   }
-  #radarEcharts .title i, #lineEcharts-page .title i, .card .title i {
+  #radarEcharts .title i, #lineEchartsPage .title i, .card .title i {
     margin-right: 5px;
   }
-
   .card {
     color: #666;
   }
@@ -103,20 +103,7 @@
   .card ul li a span {
     height: 44px;
   }
-  /*数据概览汉字部分*/
-  .data-characters {
-    font-weight: bold;
-    font-size: 15px;
-  }
-  /*数据概览数字部分*/
-  .num {
-    line-height: 30px;
-    font-size: 42px;
-    color: #409eff;
-    margin: 0px;
-  }
-
-  #lineEcharts-page {
+  #lineEchartsPage {
     margin-top: 30px;
     padding-top: 5px;
   }
@@ -125,6 +112,4 @@
     margin-top: 30px;
     padding-top: 5px;
   }
-
-
 </style>

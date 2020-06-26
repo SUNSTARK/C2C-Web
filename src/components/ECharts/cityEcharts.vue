@@ -7,7 +7,7 @@
 <script>
   import echarts from "echarts"
   import westeros from "./theme/westeros"
-
+  import {fetch_provinceNum} from "../../api/admin_apis";
   export default {
     name: "cityEcharts",
     props: {
@@ -34,10 +34,10 @@
     methods: {
       initChart () {
         this.chart = echarts.init(document.getElementById(this.id), "westeros")
-        var dataAxis =[
-          '江苏', '北京', '上海','重庆','河北','河南','云南','辽宁','黑龙江','湖南',
-          '安徽','山东','新疆','江苏','浙江', '江西','湖北','广西','甘肃', '山西','内蒙古',
-          '陕西','吉林','福建','贵州','广东','青海','西藏','四川','宁夏','海南','台湾','香港','澳门',];
+        // var dataAxis =[
+        //   '江苏', '北京', '上海','重庆','河北','河南','云南','辽宁','黑龙江','湖南',
+        //   '安徽','山东','新疆','江苏','浙江', '江西','湖北','广西','甘肃', '山西','内蒙古',
+        //   '陕西','吉林','福建','贵州','广东','青海','西藏','四川','宁夏','海南','台湾','香港','澳门',];
         var data =['1', '2', '3','4','5','6','7','8','9','1',
           '2','3','4','5','6', '7','8','2','4', '5','6',
           '6','4','4','3','2','6','7','4','4','5','5','7','1',];
@@ -48,97 +48,125 @@
           dataShadow.push(yMax);
         }
 
-        this.chart.setOption({
-          title: {
-            text: '用户省份分布图',
-            subtext: '鼠标滑动可放缩移动',
-            x: 'center',
-            textStyle: {
-              fontSize: 20
-            }
-          },
-          xAxis: {
-            data: dataAxis,
-            axisLabel: {
-              inside: true,
-              textStyle: {
-                color: '#000',
-                fontWeight: 600,
-                fontSize: 13
-              }
-            },
-            axisTick: {
-              show: false
-            },
-            axisLine: {
-              show: false
-            },
-            z: 10
-          },
-          yAxis: {
-            axisLine: {
-              show: false
-            },
-            axisTick: {
-              show: false
-            },
-            axisLabel: {
-              textStyle: {
-                color: '#999'
-              }
-            }
-          },
-          dataZoom: [
+        fetch_provinceNum().then(res => {
+          console.log(res.data)
+          res=res.data
+          let length=res.length
+          let province=[]
+          let proNum=[]
+          for(let i in res)
+          {
+             province[i]=res[i].province
+             proNum[i]=res[i].count
+          }
+          var dataAxis=province
+          var data=proNum
+          console.log(dataAxis)
+          console.log(data)
+          this.chart.setOption(
             {
-              type: 'inside'
-            }
-          ],
-          series: [
-            { // For shadow
-              type: 'bar',
-              itemStyle: {
-                color: 'rgba(0,0,0,0.05)'
-              },
-              barGap: '-100%',
-              barCategoryGap: '40%',
-              data: dataShadow,
-              animation: false
-            },
-            {
-              type: 'bar',
-              itemStyle: {
-                color: new echarts.graphic.LinearGradient(
-                  0, 0, 0, 1,
-                  [
-                    {offset: 0, color: '#ECB49F'},
-                    {offset: 0.5, color: '#E59F99'},
-                    {offset: 1, color: '#BB6566'}
-                  ]
-                )
-              },
-              emphasis: {
-                itemStyle: {
-                  color: new echarts.graphic.LinearGradient(
-                    0, 0, 0, 1,
-                    [
-                      {offset: 0, color: '#BB6566'},
-                      {offset: 0.7, color: '#BB6566'},
-                      {offset: 1, color: '#BB6566'}
-                    ]
-                  )
+              title: {
+                text: '用户省份分布图',
+                subtext: '鼠标滑动可放缩移动',
+                x: 'center',
+                textStyle: {
+                  fontSize: 20
                 }
               },
-              data: data
+              dataZoom: [
+                {
+                  type: 'inside'
+                }
+              ],
+              series: [
+                { // For shadow
+                  type: 'bar',
+                  itemStyle: {
+                    color: 'rgba(0,0,0,0.05)'
+                  },
+                  barGap: '-100%',
+                  barCategoryGap: '40%',
+                  data: dataShadow,
+                  animation: false
+                },
+                {
+                  type: 'bar',
+                  itemStyle: {
+                    color: new echarts.graphic.LinearGradient(
+                      0, 0, 0, 1,
+                      [
+                        {offset: 0, color: '#ECB49F'},
+                        {offset: 0.5, color: '#E59F99'},
+                        {offset: 1, color: '#BB6566'}
+                      ]
+                    )
+                  },
+                  emphasis: {
+                    itemStyle: {
+                      color: new echarts.graphic.LinearGradient(
+                        0, 0, 0, 1,
+                        [
+                          {offset: 0, color: '#BB6566'},
+                          {offset: 0.7, color: '#BB6566'},
+                          {offset: 1, color: '#BB6566'}
+                        ]
+                      )
+                    }
+                  },
+                  data: data
+                }
+              ],
+              xAxis: {
+                data: dataAxis,
+                axisLabel: {
+                  inside: true,
+                  textStyle: {
+                    color: '#000',
+                    fontWeight: 600,
+                    fontSize: 13
+                  }
+                },
+                axisTick: {
+                  show: false
+                },
+                axisLine: {
+                  show: false
+                },
+                z: 10
+              },
+              yAxis: {
+                axisLine: {
+                  show: false
+                },
+                axisTick: {
+                  show: false
+                },
+                axisLabel: {
+                  textStyle: {
+                    color: '#999'
+                  }
+                }
+              },
+
+
             }
-          ]
-        });
-        var zoomSize = 6;
-        this.chart.on('click', function (params) {
-          console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
-          this.chart.dispatchAction({
-            type: 'dataZoom',
-            startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
-            endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+
+          )
+          var zoomSize = 6;
+          this.chart.on('click', function (params) {
+            console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+            this.chart.dispatchAction({
+              type: 'dataZoom',
+              startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
+              endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+        }).catch(err => {
+          console.log(err)
+          this.$message({
+            showClose: true,
+            message: err,
+            type: "error"
+          })
+        })
           })
         })
       }

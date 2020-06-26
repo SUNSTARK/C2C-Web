@@ -39,3 +39,13 @@ export function fetch_allTask () {
 export function stop_task (params) {
   return fetchGet('/admin/task/stopping', params)
 }
+
+//获取男女数目
+export function fetch_genderNum () {
+  return fetchGet('/admin/userinfo/gender')
+}
+
+//获取男女数目
+export function fetch_provinceNum () {
+  return fetchGet('/admin/userinfo/getprovince')
+}
