@@ -44,6 +44,28 @@
         //
         fetch_genderNum().then(res => {
             console.log(res.data)
+            res=res.data
+            let woman=res.woman
+            let man=res.man
+          this.chart.setOption({
+            series: [
+            {
+              name: '人数',
+              type: 'bar',
+              stack: '总量',
+              label: {
+                show: true,
+                formatter: '{b}'
+              },
+              data: [
+                {value: -man, label: labelRight},
+                {value: woman, label: labelRight},
+
+              ]
+            }
+          ]
+            }
+          )
 
         }).catch(err => {
           console.log(err)
@@ -90,22 +112,22 @@
             splitLine: {show: false},
             data: [ 'male', 'female']
           },
-          series: [
-            {
-              name: '人数',
-              type: 'bar',
-              stack: '总量',
-              label: {
-                show: true,
-                formatter: '{b}'
-              },
-              data: [
-                {value: -9000, label: labelRight},
-                {value: 10000, label: labelRight},
-
-              ]
-            }
-          ]
+          // series: [
+          //   {
+          //     name: '人数',
+          //     type: 'bar',
+          //     stack: '总量',
+          //     label: {
+          //       show: true,
+          //       formatter: '{b}'
+          //     },
+          //     data: [
+          //       {value: -9000, label: labelRight},
+          //       {value: 10000, label: labelRight},
+          //
+          //     ]
+          //   }
+          // ]
         })
       }
     }

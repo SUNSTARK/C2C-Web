@@ -42,10 +42,10 @@ export function stop_task (params) {
 
 //获取男女数目
 export function fetch_genderNum () {
-  return fetchGet('/admin/task/userinfo/gender')
+  return fetchGet('/admin/userinfo/gender')
 }
 
 //获取男女数目
 export function fetch_provinceNum () {
-  return fetchGet('/admin/task/userinfo/getprovince')
+  return fetchGet('/admin/userinfo/getprovince')
 }
