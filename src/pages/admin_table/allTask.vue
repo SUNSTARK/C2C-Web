@@ -1,7 +1,8 @@
 <template>
     <div>
       <div class="title">
-        <h3>任务大厅</h3>
+        <h3>任务大厅<span class="tips">浅绿色——发布中，淡黄色——审核通过暂未发布</span>
+        </h3>
       </div>
       <template>
         <el-table
@@ -37,14 +38,18 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="任务 ID"
+            align="center"
+            width="70px"
+            label="任务ID"
             prop="task_id">
           </el-table-column>
           <el-table-column
+            align="center"
             label="任务名称"
             prop="task_name">
           </el-table-column>
           <el-table-column
+            align="center"
             label="地点"
             prop="location">
           </el-table-column>
@@ -53,7 +58,11 @@
               <el-button
                 size="mini"
                 type="danger"
-                @click.stop="handleDelete(scope.row)">下架</el-button>
+                @click.stop="handleDelete(scope.row)" v-if="scope.row.task_state===2">下架</el-button>
+              <el-button
+                size="mini"
+                type="danger"
+                disabled v-else>下架</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -64,7 +73,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="current_page"
-          :page-sizes="[10, 15, 20]"
+          :page-sizes="[9, 15, 20]"
           :page-size="page_size"
           layout="total, sizes, prev, pager, next"
           :total='tableData.length'
@@ -82,7 +91,7 @@
     data() {
       return {
         current_page: 1,
-        page_size: 10,
+        page_size: 9,
         tableData: [],
         search: '',
         expands: [] // 要展开的行，元素是row的key值
@@ -101,7 +110,7 @@
       tableRowClassName({row}) {
         if (row.task_state === 1) {
           return 'warning-row';
-        } else if (row.task_id  === 2) {
+        } else if (row.task_state  === 2) {
           return 'success-row';
         }
         return '';
@@ -142,6 +151,7 @@
           }
         }
       },
+      // 下架任务操作
       handleDelete(row) {
         this.$confirm('此操作将下架该任务, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -157,13 +167,9 @@
               });
               this.tableData = []
               this.getTableData()
-            }else {
-              this.$message({
-                type: 'warning',
-                message: '服务器处理失败!'
-              });
             }
           }).catch(err => {
+            console.log(this.tableData)
             console.log(err)
           })
         }).catch(() => {
@@ -198,11 +204,17 @@
 </script>
 
 <style>
-  h3{
-    margin: 0px 0 20px;
+  h3 {
+    margin: 0 0 20px;
     font-weight: 800;
     color: #409eff;
     font-size: 22px;
+  }
+  .title .tips {
+    color: #409eff;
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 20px;
   }
   .demo-table-expand {
     font-size: 0;
@@ -220,10 +232,10 @@
     text-align: center;
   }
   .el-table .warning-row {
-    background: oldlace;
+    background: #FFFFE0;
   }
   .el-table .success-row {
-    background: #f0f9eb;
+    background: #F0FFF0;
   }
   .demo-table-expand label {
     width: 90px;

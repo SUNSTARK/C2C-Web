@@ -22,6 +22,7 @@
         </el-submenu>
         <ul class="personal" v-if="this.$store.getters.token">
           <li>
+            <router-link v-if="this.$store.getters.role==='admin'" class="adminEntry" to="/admin_home">后台入口</router-link>
             <el-dropdown @command="handleCommand">
                   <span class="el-dropdown-link" @click="handleClick">
                     {{account}}<i class="el-icon-arrow-down el-icon--right"></i>
@@ -153,5 +154,11 @@
     color: white;
     margin-left: 13px;
     text-decoration: none;
+  }
+  .adminEntry {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    margin-right: 15px;
   }
 </style>
