@@ -27,8 +27,17 @@
     },
     data() {
       return {
-        myColors: ['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef','#629fc9','#629fc9','#629fc9','#629fc9','#629fc9'],
-        defaultWords: [{
+        myColors: ['#A0DDE0','#DFDD6C', '#FDC453', '#FE8D6F', '#F886AB','#FCD353','#FDCFBB', '#FAF1D6','#FAD4AE','#FDAFAB','#FADEE1','#D9F1F1','#B6E3E9'],
+        defaultWords: [
+          {
+            "name": "C2C众包系统",
+            "value": 260
+          },
+          {
+            "name": "测试测试测试测试",
+            "value": 200
+          },
+          {
           "name": "Cat",
           "value": 260
         },
@@ -54,7 +63,7 @@
           },
           {
             "name": "fun",
-            "value": 90
+            "value": 190
           },
           {
             "name": "fun",
