@@ -7,6 +7,7 @@
 <script>
   import echarts from "echarts"
   import westeros from "./theme/westeros"
+  import {fetch_genderNum} from "../../api/admin_apis";
   export default {
     name: "sexEcharts",
     props: {
@@ -38,6 +39,20 @@
         var labelRight = {
           position: 'right'
         };
+
+
+        //
+        fetch_genderNum().then(res => {
+            console.log(res.data)
+
+        }).catch(err => {
+          console.log(err)
+          this.$message({
+            showClose: true,
+            message: err,
+            type: "error"
+          })
+        }),
 
         this.chart.setOption({
           title: {
