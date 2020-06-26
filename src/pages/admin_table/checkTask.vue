@@ -108,12 +108,13 @@
         let id ={'task_id': this.tableData[index].task_id}
         pass_task(id).then(res=> {
             console.log(res)
+          this.tableData=[]
+          this.getTask()
             this.$message({
               showClose: true,
               message: '任务上架成功',
               type: "success"
             })
-            //window.reload()
           }
         ).catch(err=> {
           console.log(err)
@@ -129,12 +130,13 @@
         let id ={'task_id': this.tableData[index].task_id}
         reject_task(id).then(res=> {
             console.log(res)
+          this.tableData=[]
+          this.getTask()
             this.$message({
               showClose: true,
               message: '任务退回成功',
               type: "success"
             })
-            window.reload()
           }
         ).catch(err=> {
           console.log(err)
