@@ -40,4 +40,7 @@
 </script>
 
 <style>
+  .el-drawer {
+    overflow: auto;
+  }
 </style>
