@@ -33,6 +33,8 @@
       this.initChart()
     },
     methods: {
+
+
       initChart () {
         this.chart = echarts.init(document.getElementById(this.id), "westeros")
 
