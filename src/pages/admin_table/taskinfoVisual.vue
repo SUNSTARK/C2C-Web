@@ -49,7 +49,7 @@
           window.onresize = function () {
             if (that.$refs.lineEchartsPage){
               that.$refs.lineEchartsPage.chart.resize()
-              that.$refs.radarEcharts.chart.resize()
+             // that.$refs.radarEcharts.chart.resize()
             }
           }
         }, 10)
