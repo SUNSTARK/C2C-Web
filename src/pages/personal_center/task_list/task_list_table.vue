@@ -133,13 +133,17 @@
       comment(row) {
         this.isDrawerShow = true;
         this.answers = [{
-          ans_body: "test"
+          ans_body: "test",
+          ans_id: 1,
         }, {
-          ans_body: "test"
+          ans_body: "test",
+          ans_id: 1,
         }, {
-          ans_body: "test"
+          ans_body: "test",
+          ans_id: 1,
         }, {
-          ans_body: "test"
+          ans_body: "test",
+          ans_id: 1,
         },]
         // fetch_task_get_answer({task_id: row.task_id}).then(res => {
         //   console.log(res)
