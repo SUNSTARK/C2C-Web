@@ -128,10 +128,9 @@
   }
 
   .tab-wrap {
-    padding: 0 20px;
-    margin: 0 20px;
+    margin-left: 20px;
     background-color: #fff;
-    overflow: inherit;
+    overflow: auto;
   }
 
   .pagination {

@@ -1,26 +1,18 @@
 <template>
   <div>
+    <edit-password v-if="dialogPassVisible" :dialogVisible="dialogPassVisible" @editPwdCallback="editPwdCallback"/>
     <el-header id="userheader">
       <el-menu
         :default-active="activeIndex"
         class="el-menu-demo"
         mode="horizontal"
         router
-        @select="handleSelect"
         background-color="#21282E"
         text-color="#999999"
         active-text-color="#FFFFFF">
         <div class="logo-title"><p>C2C众包平台</p></div>
         <el-menu-item index="/home" >首页</el-menu-item>
         <el-menu-item index="/addtask">发布需求</el-menu-item>
-        <el-menu-item index="3">测试2</el-menu-item>
-        <el-submenu index="4">
-          <template slot="title">更多</template>
-          <el-menu-item index="4-1">选项1</el-menu-item>
-          <el-menu-item index="4-2">选项2</el-menu-item>
-          <el-menu-item index="4-3">选项3</el-menu-item>
-        </el-submenu>
-        <el-menu-item index="/user/info">个人中心</el-menu-item>
         <ul class="personal" v-if="this.$store.getters.token">
           <li>
             <router-link v-if="this.$store.getters.role==='admin'" class="adminEntry" to="/admin_home">后台入口</router-link>
@@ -29,7 +21,7 @@
                     {{account}}<i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="info">基本资料</el-dropdown-item>
+                <el-dropdown-item command="userinfo">个人中心</el-dropdown-item>
                 <el-dropdown-item command="editPassword">修改密码</el-dropdown-item>
                 <el-dropdown-item command="logout" divided>退出登录</el-dropdown-item>
               </el-dropdown-menu>
@@ -38,12 +30,10 @@
         </ul>
         <div class="showLogin" v-else>
           <router-link class="link" to="/login">登录</router-link>
-          <router-link class="link" to="/login">注册</router-link>
+          <router-link class="link" to="/register">注册</router-link>
         </div>
       </el-menu>
     </el-header>
-    <user-info v-if="dialogInfoVisible" :title="title" :dialogVisible="dialogInfoVisible" :userId="userId" @successCallback="successCallback"/>
-    <edit-password v-if="dialogPassVisible" :dialogVisible="dialogPassVisible" @editPwdCallback="editPwdCallback"/>
   </div>
 </template>
 
@@ -53,45 +43,42 @@
     import EditPassword from "../../../components/userForm/editPassword"
 
     export default {
+      inject:["reload"],  // 从app.vue注入reload方法，用于重新加载用户导航
       name: "userheader",
-      components:{UserInfo, EditPassword},
+      components:{EditPassword},
       data() {
         return {
           account: this.$store.getters.account,
           activeIndex: window.location.hash.slice(1),
-          title: "",
-          userId: "",
-          dialogInfoVisible: false,
-          dialogPassVisible: false // 默认不显示基本资料卡
+          dialogPassVisible: false // 默认不显示需修改密码对话框
         };
       },
       methods: {
-        handleSelect(key, keyPath) {
-          console.log(key, keyPath);
-        },
-        successCallback () {
-          this.dialogInfoVisible = false
-        },
         editPwdCallback () {
           this.dialogPassVisible = false
         },
-          handleClick() {
-            alert('个人中心');
+        async handleClick() {
+          await this.$router.push('/user/info')
+          this.reload()  // 刷新导航组件，清空菜单选中状态
         },
-        handleCommand (command) {
-          if (command === "info") {
-            this.$router.push('/user/info')
-            this.dialogInfoVisible = true
-            this.title = "编辑信息"
-            // this.userId = this.$store.getters.info.uid
+        async handleCommand (command) {
+          if (command === "userinfo") {
+            if (this.activeIndex) {
+              this.activeIndex = null  // 置空导航菜单激活index
+            }
+            await this.$router.push('/user/info')
+            this.reload()  // 刷新导航组件，清空菜单选中状态
           } else if (command === "editPassword") {
             this.dialogPassVisible = true
           } else if (command === "logout") {
             Cookies.remove("token")
-            this.$store.dispatch("setRole", '')  // 清空$store内存相关信息
-            this.$store.dispatch("setAccount", '')
+            await this.$store.dispatch("setRole", '')  // 清空$store内存相关信息
+            await this.$store.dispatch("setAccount", '')
             location.reload()
           }
+        },
+        handleSelect () {
+          this.reload()
         }
       }
     }
@@ -112,7 +99,8 @@
     float: left;
     font-size: 16px;
     color: white;
-    position: fixed;}
+    position: fixed;
+  }
   #userheader {
     width: auto !important;
     display: flex;

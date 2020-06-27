@@ -31,6 +31,7 @@
               <p class="smalltxt">
                 <router-link class="a" to="/404">忘记密码</router-link>
                 <router-link class="a" to="/register">免费注册</router-link>
+                <router-link class="a" to="/home">返回主页<i class="el-icon-right el-icon--right"></i></router-link>
               </p>
             </el-form>
           </el-card>

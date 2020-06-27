@@ -3,14 +3,11 @@ import {fetchGet, fetchPost} from "../axios";
 // 账号密码登陆 POST
 export const fetch_login = data => fetchPost('/user/login', data)
 
-
 // 用户注册  POST
 export const fetch_register = data => fetchPost('/user/registering', data)
 
-
 //用户发布任务 POST
 export const fetch_addtask = data => fetchPost('/task/release', data)
-
 
 // 用户获取任务列表
 export const fetch_task_list = () => fetchGet('/task/list')

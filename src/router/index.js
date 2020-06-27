@@ -42,6 +42,10 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else {
+    if (window.location.hash.includes('/user') || window.location.hash.includes('/addtask')) {
+      next({path:'/home'})
+      return;
+    }
     next({path:"/login"})
   }
 });

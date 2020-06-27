@@ -29,6 +29,7 @@
     overflow-x: hidden;
     height: 100%;
     width: 100%;
+    padding-top: 5px;
   }
   html, body, #userlayout, .el-container, ul.el-menu {
     height: 100%;
@@ -40,6 +41,6 @@
     color: #333333;
   }
   .userHeader {
-    
+
   }
 </style>

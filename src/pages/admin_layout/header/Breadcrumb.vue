@@ -17,19 +17,20 @@
       };
     },
     created() {
+      this.getBreadcrumb();
       if (sessionStorage.getItem('breadlist')) {  // 如果sssion中能取到值则赋给页面初始化
         this.breadList = JSON.parse(sessionStorage.getItem('breadlist'))
       }
     },
     watch: {
-      $route() {
+       $route() {
         this.getBreadcrumb();
         this.breadList = JSON.parse(sessionStorage.getItem('breadlist')) // 路由集合
       }
     },
     methods: {
       isHome() {
-        return this.$route.path === "/admin_home";
+        return window.location.hash.slice(1) === "/admin_home";
       },
       getBreadcrumb() {
         let matched = this.$route.matched.slice(1) // 截取掉localhost的router
