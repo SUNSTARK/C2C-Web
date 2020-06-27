@@ -28,10 +28,13 @@ export const fetch_task_completed = () => fetchGet('/user/task/completed')
 export const fetch_task_end = () => fetchGet('/user/task/end')
 
 // 用户接受任务
-export const fetch_accept_task = data => fetchPost('/user/task/accepting', data)
+export const fetch_accept_task = data => fetchPost('/user/task/accepting/?task_id=36', data)
 
 // 用户放弃任务
 export const fetch_cancel_task = data => fetchPost('/user/task/quiting', data)
 
 // 获取任务答案
 export const fetch_task_get_answer = data => fetchPost('/task/getUserAnswer',data)
+
+//用户取消已接受的任务
+export const fetch_reject_task = data => fetchPost('/user/task/rejecting', data)

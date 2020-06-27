@@ -107,6 +107,10 @@
                   this.unmessages();
                 }
               })
+              .catch((e) => {
+                console.log('获取数据失败');
+                this.errmessages();
+              })
           } else {
             console.log("error submit!!")
             return false

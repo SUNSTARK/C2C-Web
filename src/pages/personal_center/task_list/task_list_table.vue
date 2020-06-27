@@ -88,7 +88,8 @@
 
 <script>
   import answerDrawer from "./answer_drawer";
-  import {fetch_accept_task, fetch_cancel_task, fetch_task_get_answer} from "../../../api/user_apis";
+  import {fetch_accept_task, fetch_cancel_task, fetch_editpwd, fetch_task_get_answer,fetch_reject_task} from "../../../api/user_apis";
+  import Cookies from "js-cookie";
 
   export default {
     name: "task_list_table",
@@ -109,7 +110,9 @@
     data() {
       return {
         isDrawerShow: false,
-        answers: []
+        answers: [],
+        logmessage:'',
+        unlogmessage:''
       }
     },
     methods: {
@@ -118,14 +121,72 @@
       },
       accept(row) {
         console.log('接受任务')
+        console.log('任务编号:'+row.task_id)
+        let data={}
+         fetch_accept_task(data)
+          .then(res => {
+            console.log('数据是:', res);
+            if(res.msg=="成功！")
+            {
+              this.logmessage="接受任务成功，请及时完成任务！"
+              this.messages();
+
+            }else  if(res.msg=="早已选择该任务")
+            {
+              this.unlogmessage="早已选择该任务,请选择其他任务！"
+              this.unmessages();
+            }
+          })
+          .catch((e) => {
+            console.log('获取数据失败');
+            this.errmessages();
+          })
+
         // fetch_accept_task({task_id: row.task_id}).then(res => console.log(res))
       },
       cancel(row) {
-        console.log('放弃任务', row)
-        fetch_cancel_task({task_id: row.task_id}).then(res => console.log(res))
+        console.log('放弃任务')
+
+        // let data={task_id:row.task_id}
+        // fetch_cancel_task(data)
+        //   .then(res => {
+        //     console.log('数据是:', res);
+        //     if(res.msg=="成功！")
+        //     {
+        //       this.logmessage="接受任务成功，请及时完成任务！"
+        //       this.messages();
+        //
+        //     }else  if(res.msg=="早已选择该任务")
+        //     {
+        //       this.unlogmessage="早已选择该任务,请选择其他任务！"
+        //       this.unmessages();
+        //     }
+        //   })
+        //   .catch((e) => {
+        //     console.log('获取数据失败');
+        //     this.errmessages();
+        //   })
+
+       // fetch_cancel_task({task_id: row.task_id}).then(res => console.log(res))
       },
       stop(row) {
         console.log('中止任务')
+        console.log('任务编号:'+row.task_id)
+        let data={task_id:row.task_id}
+        fetch_reject_task(data)
+          .then(res => {
+            console.log('数据是:', res);
+            if(res.msg=="成功！")
+            {
+              this.logmessage="中止任务成功！"
+              this.messages();
+            }
+          })
+          .catch((e) => {
+            console.log('获取数据失败');
+            this.errmessages();
+          })
+
       },
       completed(row) {
         console.log('完成任务')
@@ -145,6 +206,30 @@
         //   console.log(res)
         //   this.answers = res.data;
         // })
+      },
+      messages()
+      {
+        this.$message({
+          showClose: true,
+          message: this.logmessage,
+          type: 'success'
+        });
+      },
+      unmessages()
+      {
+        this.$message({
+          showClose: true,
+          message: this.unlogmessage,
+          type: 'error'
+        });
+      },
+      errmessages()
+      {
+        this.$message({
+          showClose: true,
+          message: '出bug了,联系管理员',
+          type: 'warning'
+        });
       },
     },
   }

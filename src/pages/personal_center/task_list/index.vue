@@ -114,7 +114,7 @@
             this.buttonList = [this.buttonTypeEnum.COMMENT];
           })
         }
-      }
+      },
     },
   }
 </script>
