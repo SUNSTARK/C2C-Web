@@ -140,16 +140,7 @@
           ans_body: "test"
         }, {
           ans_body: "test"
-        },
-          {
-            ans_body: "test"
-          }, {
-            ans_body: "test"
-          }, {
-            ans_body: "test"
-          }, {
-            ans_body: "test"
-          }]
+        },]
         // fetch_task_get_answer({task_id: row.task_id}).then(res => {
         //   console.log(res)
         //   this.answers = res.data;
