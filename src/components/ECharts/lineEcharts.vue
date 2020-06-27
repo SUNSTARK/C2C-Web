@@ -132,9 +132,10 @@
 
         this.chart.setOption({
           title: {
-            text: "近七天平台任务发布数",
+            text: "近七天平台任务发布数目图表",
             textStyle: {
-              fontSize: 14
+              fontSize: 14,
+              color:"#C3D6F2"
             }
           },
           tooltip: {
