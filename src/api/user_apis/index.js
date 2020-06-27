@@ -6,6 +6,9 @@ export const fetch_login = data => fetchPost('/user/login', data)
 // 用户注册  POST
 export const fetch_register = data => fetchPost('/user/registering', data)
 
+//用户更改密码 POST
+export const fetch_editpwd =data =>fetchPost('/user/modify/pwd',data)
+
 //用户发布任务 POST
 export const fetch_addtask = data => fetchPost('/task/release', data)
 
@@ -25,7 +28,10 @@ export const fetch_task_completed = () => fetchGet('/user/task/completed')
 export const fetch_task_end = () => fetchGet('/user/task/end')
 
 // 用户接受任务
-export const fetch_accept_task = data => fetchPost('/api/user/task/accepting', data)
+export const fetch_accept_task = data => fetchPost('/user/task/accepting', data)
 
 // 用户放弃任务
-export const fetch_cancel_task = data => fetchPost('/api/user/task/quiting', data)
+export const fetch_cancel_task = data => fetchPost('/user/task/quiting', data)
+
+// 获取任务答案
+export const fetch_task_get_answer = data => fetchPost('/task/getUserAnswer',data)

@@ -8,7 +8,7 @@
       </el-row>
 
     <br>
-    <h3>任务tag词云</h3>
+    <h3>用户任务高频tag</h3>
     <el-row>
       <el-col :span="24">
         <radar-echarts id="radarEcharts" height="300px" ref="radarEcharts"></radar-echarts>
@@ -49,7 +49,7 @@
           window.onresize = function () {
             if (that.$refs.lineEchartsPage){
               that.$refs.lineEchartsPage.chart.resize()
-              that.$refs.radarEcharts.chart.resize()
+             // that.$refs.radarEcharts.chart.resize()
             }
           }
         }, 10)

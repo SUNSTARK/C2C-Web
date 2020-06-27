@@ -2,7 +2,7 @@
   <el-container class="main">
     <Aside id="useraside"/>
     <el-container>
-      <router-view/>
+      <router-view :key="$route.fullPath"/>
     </el-container>
   </el-container>
 </template>

@@ -49,3 +49,9 @@ export function fetch_genderNum () {
 export function fetch_provinceNum () {
   return fetchGet('/admin/userinfo/getprovince')
 }
+
+
+// //获取词云
+// export function fetch_word () {
+//   return fetchGet('/tag/hot')
+// }
