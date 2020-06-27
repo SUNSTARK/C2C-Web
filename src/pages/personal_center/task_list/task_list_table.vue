@@ -1,9 +1,10 @@
 <template>
-  <el-main>
+  <el-main style="min-height: calc(100vh - 200px);">
     <el-table
       stripe
       :data="tableData"
-      style="width: 100%">
+      style="width: 100%; overflow: initial;"
+      max-height="calc(100vh - 240px)">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -44,21 +45,39 @@
         prop="end_time">
       </el-table-column>
       <el-table-column
-        align="center">
-        <template slot="header" slot-scope="scope">
-          <el-button type="primary" size="mini">上一页</el-button>
-          <el-button type="primary" size="mini">下一页</el-button>
-        </template>
+        align="center"
+        label="操作"
+        v-if="buttonList.length>0">
         <template slot-scope="scope">
-          <!--          <el-button-->
-          <!--            size="mini"-->
-          <!--            type="warning"-->
-          <!--            @click="handleEdit(scope.$index, scope.row)">取消-->
-          <!--          </el-button>-->
           <el-button
+            v-if="buttonList.includes(buttonTypeEnum.ACCEPT)"
+            size="mini"
+            type="primary"
+            @click="accept(scope.row)">接受
+          </el-button>
+          <el-button
+            v-if="buttonList.includes(buttonTypeEnum.CANCEL)"
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除
+            @click="cancel(scope.row)">放弃
+          </el-button>
+          <el-button
+            v-if="buttonList.includes(buttonTypeEnum.STOP)"
+            size="mini"
+            type="warning"
+            @click="stop(scope.row)">中止
+          </el-button>
+          <el-button
+            v-if="buttonList.includes(buttonTypeEnum.COMPLETED)"
+            size="mini"
+            type="success"
+            @click="completed(scope.row)">完成
+          </el-button>
+          <el-button
+            v-if="buttonList.includes(buttonTypeEnum.COMMENT)"
+            size="mini"
+            type="success"
+            @click="comment(scope.row)">评价
           </el-button>
         </template>
       </el-table-column>
@@ -67,6 +86,7 @@
 </template>
 
 <script>
+  import {fetch_accept_task, fetch_cancel_task} from "../../../api/user_apis";
 
   export default {
     name: "task_list_table",
@@ -74,18 +94,36 @@
       tableData: {
         required: true,
         type: Array
+      },
+      buttonList: {
+        required: true,
+        type: Array,
+      },
+      buttonTypeEnum: {
+        type: Object
       }
     },
     data() {
       return {}
     },
     methods: {
-      handleEdit(index, row) {
-        console.log(index, row);
+      accept(row) {
+        console.log('接受任务')
+        // fetch_accept_task({task_id: row.task_id}).then(res => console.log(res))
       },
-      handleDelete(index, row) {
-        console.log(index, row);
-      }
+      cancel(row) {
+        console.log('放弃任务', row)
+        fetch_cancel_task({task_id: row.task_id}).then(res => console.log(res))
+      },
+      stop(row) {
+        console.log('中止任务')
+      },
+      completed(row) {
+        console.log('完成任务')
+      },
+      comment(row) {
+        console.log('评价任务')
+      },
     },
   }
 </script>

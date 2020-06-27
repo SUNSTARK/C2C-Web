@@ -50,7 +50,6 @@
 
 <style scoped>
   .aside {
-    padding: 20px 0;
     overflow: hidden;
     min-height: Calc(100vh - 80px);
   }

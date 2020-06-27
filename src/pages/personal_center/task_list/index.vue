@@ -1,16 +1,20 @@
 <template>
-  <el-main>
+  <el-main class="tab-wrap">
     <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="全部任务" name="all">
-        <task-list-table :tableData="tableData"></task-list-table>
-      </el-tab-pane>
-      <el-tab-pane label="正在执行" name="executing">
-        <task-list-table :tableData="tableData"></task-list-table>
-      </el-tab-pane>
-      <el-tab-pane label="正在被执行" name="executed">正在被执行</el-tab-pane>
-      <el-tab-pane label="已完成" name="completed">已完成</el-tab-pane>
-      <el-tab-pane label="已被完成" name="end">已被完成</el-tab-pane>
+      <template v-for="tab in tabs">
+        <el-tab-pane :label="tab.label" :name="tab.name">
+          <task-list-table :tableData="tableData" :buttonTypeEnum="buttonTypeEnum"
+                           :buttonList="buttonList"></task-list-table>
+        </el-tab-pane>
+      </template>
     </el-tabs>
+
+
+    <el-pagination
+      layout="prev, pager, next"
+      :total="tableData.length"
+      class="pagination">
+    </el-pagination>
   </el-main>
 </template>
 
@@ -30,13 +34,42 @@
     data() {
       return {
         activeName: 'all',
+        tabs: [{
+          label: '全部任务',
+          name: 'all'
+        },
+          {
+            label: '正在执行',
+            name: 'executing'
+          },
+          {
+            label: '正在被执行',
+            name: 'executed'
+          },
+          {
+            label: '已完成',
+            name: 'completed'
+          },
+          {
+            label: '已被完成',
+            name: 'end'
+          }],
         tableData: [],
+        buttonTypeEnum: {
+          ACCEPT: 0,  //接受任务
+          CANCEL: 1,  //放弃任务
+          STOP: 2,     //中止任务
+          COMPLETED: 3,  //完成任务
+          COMMENT: 4, //评价任务
+        },
+        buttonList: []
       }
     },
     mounted() {
       fetch_task_list().then(res => {
-        console.log(res)
-        this.tableData = res.data
+        console.log(res);
+        this.tableData = res.data;
+        this.buttonList = [this.buttonTypeEnum.ACCEPT];
       })
     },
     methods: {
@@ -44,27 +77,32 @@
         if (tab.name === 'all') {
           fetch_task_list().then(res => {
             console.log(res)
-            this.tableData = res.data
+            this.tableData = res.data;
+            this.buttonList = [this.buttonTypeEnum.ACCEPT];
           })
         } else if (tab.name === 'executing') {
           fetch_task_executing().then(res => {
             console.log(res)
-            this.tableData = res.data
+            this.tableData = res.data;
+            this.buttonList = [this.buttonTypeEnum.COMPLETED, this.buttonTypeEnum.CANCEL];
           })
         } else if (tab.name === 'executed') {
           fetch_task_executed().then(res => {
             console.log(res)
-            this.tableData = res.data
+            this.tableData = res.data;
+            this.buttonList = [this.buttonTypeEnum.CANCEL, this.buttonTypeEnum.STOP];
           })
         } else if (tab.name === 'completed') {
           fetch_task_completed().then(res => {
             console.log(res)
             this.tableData = res.data
+            this.buttonList = [];
           })
         } else if (tab.name === 'end') {
           fetch_task_end().then(res => {
             console.log(res)
-            this.tableData = res.data
+            this.tableData = res.data;
+            this.buttonList = [this.buttonTypeEnum.COMMENT];
           })
         }
       }
@@ -87,5 +125,17 @@
     margin-bottom: 0;
     width: 50%;
     padding: 0 5%;
+  }
+
+  .tab-wrap {
+    padding: 0 20px;
+    margin: 0 20px;
+    background-color: #fff;
+    overflow: inherit;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
   }
 </style>

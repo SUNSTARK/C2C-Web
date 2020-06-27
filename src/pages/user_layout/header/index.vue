@@ -20,6 +20,7 @@
           <el-menu-item index="4-2">选项2</el-menu-item>
           <el-menu-item index="4-3">选项3</el-menu-item>
         </el-submenu>
+        <el-menu-item index="/user/info">个人中心</el-menu-item>
         <ul class="personal" v-if="this.$store.getters.token">
           <li>
             <router-link v-if="this.$store.getters.role==='admin'" class="adminEntry" to="/admin_home">后台入口</router-link>
@@ -57,7 +58,7 @@
       data() {
         return {
           account: this.$store.getters.account,
-          activeIndex: '/home',
+          activeIndex: window.location.hash.slice(1),
           title: "",
           userId: "",
           dialogInfoVisible: false,

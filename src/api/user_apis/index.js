@@ -27,5 +27,8 @@ export const fetch_task_completed = () => fetchGet('/user/task/completed')
 // 查询已被完成的任务
 export const fetch_task_end = () => fetchGet('/user/task/end')
 
+// 用户接受任务
+export const fetch_accept_task = data => fetchPost('/api/user/task/accepting', data)
 
-
+// 用户放弃任务
+export const fetch_cancel_task = data => fetchPost('/api/user/task/quiting', data)

@@ -1,15 +1,8 @@
 <template>
-  <el-container>
-    <el-header class="header">
-      <div class="title">
-        个人中心
-      </div>
-    </el-header>
-    <el-container class="main">
-      <Aside/>
-      <el-container>
-        <router-view/>
-      </el-container>
+  <el-container class="main">
+    <Aside/>
+    <el-container>
+      <router-view/>
     </el-container>
   </el-container>
 </template>
@@ -20,20 +13,16 @@
 
   export default {
     name: "index",
-    components: {Aside}
+    components: {Aside, userheader}
   }
 </script>
 
 <style scoped>
-  .header {
-    background-color: #fff;
-  }
-
   .main {
     padding: 0 50px;
   }
 
-  .title{
+  .title {
     line-height: 60px;
     margin: 0 20px;
     font-weight: 600;
