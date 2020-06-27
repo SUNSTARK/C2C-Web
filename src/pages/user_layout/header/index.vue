@@ -11,7 +11,7 @@
         text-color="#999999"
         active-text-color="#FFFFFF">
         <div class="logo-title"><p>C2C众包平台</p></div>
-        <el-menu-item index="/home" >首页</el-menu-item>
+        <el-menu-item index="/home">首页</el-menu-item>
         <el-menu-item index="/addtask">发布需求</el-menu-item>
         <el-menu-item index="3">测试2</el-menu-item>
         <el-submenu index="4">
@@ -23,7 +23,8 @@
         <el-menu-item index="/user/info">个人中心</el-menu-item>
         <ul class="personal" v-if="this.$store.getters.token">
           <li>
-            <router-link v-if="this.$store.getters.role==='admin'" class="adminEntry" to="/admin_home">后台入口</router-link>
+            <router-link v-if="this.$store.getters.role==='admin'" class="adminEntry" to="/admin_home">后台入口
+            </router-link>
             <el-dropdown @command="handleCommand">
                   <span class="el-dropdown-link" @click="handleClick">
                     {{account}}<i class="el-icon-arrow-down el-icon--right"></i>
@@ -42,59 +43,60 @@
         </div>
       </el-menu>
     </el-header>
-    <user-info v-if="dialogInfoVisible" :title="title" :dialogVisible="dialogInfoVisible" :userId="userId" @successCallback="successCallback"/>
+    <user-info v-if="dialogInfoVisible" :title="title" :dialogVisible="dialogInfoVisible" :userId="userId"
+               @successCallback="successCallback"/>
     <edit-password v-if="dialogPassVisible" :dialogVisible="dialogPassVisible" @editPwdCallback="editPwdCallback"/>
   </div>
 </template>
 
 <script>
-    import Cookies from "js-cookie";
-    import UserInfo from "../../../components/userForm/userInfo"
-    import EditPassword from "../../../components/userForm/editPassword"
+  import Cookies from "js-cookie";
+  import UserInfo from "../../../components/userForm/userInfo"
+  import EditPassword from "../../../components/userForm/editPassword"
 
-    export default {
-      name: "userheader",
-      components:{UserInfo, EditPassword},
-      data() {
-        return {
-          account: this.$store.getters.account,
-          activeIndex: window.location.hash.slice(1),
-          title: "",
-          userId: "",
-          dialogInfoVisible: false,
-          dialogPassVisible: false // 默认不显示基本资料卡
-        };
+  export default {
+    name: "userheader",
+    components: {UserInfo, EditPassword},
+    data() {
+      return {
+        account: this.$store.getters.account,
+        activeIndex: window.location.hash.slice(1),
+        title: "",
+        userId: "",
+        dialogInfoVisible: false,
+        dialogPassVisible: false // 默认不显示基本资料卡
+      };
+    },
+    methods: {
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath);
       },
-      methods: {
-        handleSelect(key, keyPath) {
-          console.log(key, keyPath);
-        },
-        successCallback () {
-          this.dialogInfoVisible = false
-        },
-        editPwdCallback () {
-          this.dialogPassVisible = false
-        },
-          handleClick() {
-            alert('个人中心');
-        },
-        handleCommand (command) {
-          if (command === "info") {
-            this.$router.push('/user/info')
-            this.dialogInfoVisible = true
-            this.title = "编辑信息"
-            // this.userId = this.$store.getters.info.uid
-          } else if (command === "editPassword") {
-            this.dialogPassVisible = true
-          } else if (command === "logout") {
-            Cookies.remove("token")
-            this.$store.dispatch("setRole", '')  // 清空$store内存相关信息
-            this.$store.dispatch("setAccount", '')
-            location.reload()
-          }
+      successCallback() {
+        this.dialogInfoVisible = false
+      },
+      editPwdCallback() {
+        this.dialogPassVisible = false
+      },
+      handleClick() {
+        alert('个人中心');
+      },
+      handleCommand(command) {
+        if (command === "info") {
+          // this.$router.push('/user/info')
+          this.dialogInfoVisible = true
+          this.title = "编辑信息"
+          // this.userId = this.$store.getters.info.uid
+        } else if (command === "editPassword") {
+          this.dialogPassVisible = true
+        } else if (command === "logout") {
+          Cookies.remove("token")
+          this.$store.dispatch("setRole", '')  // 清空$store内存相关信息
+          this.$store.dispatch("setAccount", '')
+          location.reload()
         }
       }
     }
+  }
 </script>
 
 <style>
@@ -106,13 +108,16 @@
     position: absolute;
     top: 2px;
   }
+
   .logo-title p {
     font-family: 微软雅黑;
     font-weight: 600;
     float: left;
     font-size: 16px;
     color: white;
-    position: fixed;}
+    position: fixed;
+  }
+
   #userheader {
     width: auto !important;
     display: flex;
@@ -123,6 +128,7 @@
     justify-content: space-between;
     overflow-x: hidden;
   }
+
   #userheader .el-menu {
     flex: 1;
     overflow: inherit;
@@ -130,51 +136,61 @@
     position: relative;
     padding-left: 200px;
   }
+
   #userheader .el-menu .el-menu-item {
     background-color: #21282E !important;
     border-bottom: 1px solid #21282E;
   }
+
   /*导航项悬浮特效*/
   #userheader .el-menu .el-menu-item:hover {
     color: #ffffff !important;
     font-weight: bold;
     background-color: #375573 !important;
   }
+
   /*选中特效*/
   #userheader .el-menu .el-menu-item.is-active {
     background-color: #56a9ff !important;
     font-weight: bold;
   }
+
   #userheader .el-menu .is-opened > .el-submenu__title > .el-icon-arrow-down {
     color: #ffffff;
     font-weight: 500;
     font-size: 18px;
   }
+
   #userheader .personal {
     display: flex;
     flex-direction: row;
   }
+
   #userheader .personal li {
     position: fixed;
     right: 30px;
     top: 19px;
     font-size: 12px;
   }
+
   #userheader .el-dropdown-link {
     color: white;
     cursor: pointer;
   }
+
   #userheader .showLogin {
     position: fixed;
     right: 38px;
     top: 19px;
   }
+
   #userheader .showLogin .link {
     font-size: 15px;
     color: white;
     margin-left: 13px;
     text-decoration: none;
   }
+
   .adminEntry {
     color: white;
     text-decoration: none;

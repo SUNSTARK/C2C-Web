@@ -1,22 +1,22 @@
 <template>
   <el-aside width="200px" class="aside">
     <el-menu default-active="act" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
-      <router-link to="/user/info">
-        <el-menu-item index="/user/info">
-          <i class="el-icon-menu"></i>
-          <span slot="title">个人信息</span>
-        </el-menu-item>
-      </router-link>
+<!--      <router-link to="/user/info">-->
+<!--        <el-menu-item index="/user/info">-->
+<!--          <i class="el-icon-menu"></i>-->
+<!--          <span slot="title">个人信息</span>-->
+<!--        </el-menu-item>-->
+<!--      </router-link>-->
       <router-link to="/user/task/list">
         <el-menu-item index="/task/list">
           <i class="el-icon-document"></i>
           <span slot="title">任务列表</span>
         </el-menu-item>
       </router-link>
-      <router-link to="/user/task/history">
+      <router-link to="/user/task/mine">
         <el-menu-item index="/task/history">
           <i class="el-icon-document"></i>
-          <span slot="title">历史任务</span>
+          <span slot="title">我的任务</span>
         </el-menu-item>
       </router-link>
     </el-menu>

@@ -77,19 +77,22 @@
             v-if="buttonList.includes(buttonTypeEnum.COMMENT)"
             size="mini"
             type="success"
-            @click="comment(scope.row)">评价
+            @click="comment(scope.row)">查看答案
           </el-button>
         </template>
       </el-table-column>
     </el-table>
+    <answer-drawer :isDrawerShow="isDrawerShow" :answers="answers" @closeDrawer="closeDrawer"></answer-drawer>
   </el-main>
 </template>
 
 <script>
-  import {fetch_accept_task, fetch_cancel_task} from "../../../api/user_apis";
+  import answerDrawer from "./answer_drawer";
+  import {fetch_accept_task, fetch_cancel_task, fetch_task_get_answer} from "../../../api/user_apis";
 
   export default {
     name: "task_list_table",
+    components: {answerDrawer},
     props: {
       tableData: {
         required: true,
@@ -104,9 +107,15 @@
       }
     },
     data() {
-      return {}
+      return {
+        isDrawerShow: false,
+        answers: []
+      }
     },
     methods: {
+      closeDrawer() {
+        this.isDrawerShow = false;
+      },
       accept(row) {
         console.log('接受任务')
         // fetch_accept_task({task_id: row.task_id}).then(res => console.log(res))
@@ -122,7 +131,20 @@
         console.log('完成任务')
       },
       comment(row) {
-        console.log('评价任务')
+        this.isDrawerShow = true;
+        this.answers = [{
+          ans_body: "test"
+        }, {
+          ans_body: "test"
+        }, {
+          ans_body: "test"
+        }, {
+          ans_body: "test"
+        }]
+        // fetch_task_get_answer({task_id: row.task_id}).then(res => {
+        //   console.log(res)
+        //   this.answers = res.data;
+        // })
       },
     },
   }

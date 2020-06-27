@@ -2,7 +2,7 @@
   <el-container class="main">
     <Aside/>
     <el-container>
-      <router-view/>
+      <router-view :key="$route.fullPath"/>
     </el-container>
   </el-container>
 </template>

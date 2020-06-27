@@ -52,6 +52,15 @@ let comRouter = [
             children: []
           },
           {
+            path: "/user/task/mine",
+            name: "task_list",
+            component: () => import("../pages/personal_center/task_list"),
+            meta: {
+              title: '我的任务',
+              roles: ['admin', 'user'],
+            },
+          },
+          {
             path: "/user/task/history",
             name: "task_history",
             component: () => import("../pages/personal_center/task_history"),
