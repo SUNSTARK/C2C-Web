@@ -6,6 +6,9 @@ export const fetch_login = data => fetchPost('/user/login', data)
 // 用户注册  POST
 export const fetch_register = data => fetchPost('/user/registering', data)
 
+//用户更改密码 POST
+export const fetch_editpwd =data =>fetchPost('/user/modify/pwd',data)
+
 //用户发布任务 POST
 export const fetch_addtask = data => fetchPost('/task/release', data)
 

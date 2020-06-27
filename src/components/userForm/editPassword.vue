@@ -24,7 +24,7 @@
 
 <script>
   import Cookies from "js-cookie"
-
+  import {fetch_editpwd} from "../../api/user_apis";
   export default {
     name: "editPassword",
     props: {
@@ -85,31 +85,57 @@
         let that = this
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$request.fetchEditPassword({
-              oldPassword: that.ruleForm2.oldPassword,
-              newPassword: that.ruleForm2.password
-            }).then((res) => {
-              that.$message({
-                showClose: true,
-                message: res.data.message,
-                type: "success"
+            let data={
+              user_account:this.$store.getters.account,
+              olduser_passwd:that.ruleForm2.oldPassword,
+              newuser_passwd:that.ruleForm2.password,
+
+            }
+            fetch_editpwd(data)
+              .then(res => {
+                console.log('数据是:', res);
+                if(res.msg=="修改成功")
+                {
+                  this.messages();
+                  Cookies.remove("token")
+                  this.$store.dispatch("setRole", '')  // 清空$store内存相关信息
+                  this.$store.dispatch("setAccount", '')
+                  this.$router.push({path:'/login'})
+
+                }else  if(res.msg=="修改失败，帐号密码不正确")
+                {
+                  this.unmessages();
+                }
               })
-              setTimeout(function () {
-                Cookies.remove("access_token")
-                location.reload()
-              }, 3000)
-            }).catch((err) => {
-              that.$message({
-                showClose: true,
-                message: err.data.message,
-                type: "error"
-              })
-            })
           } else {
             console.log("error submit!!")
             return false
           }
         })
+      },
+      messages()
+      {
+        this.$message({
+          showClose: true,
+          message: '修改密码成功，请重新登录',
+          type: 'success'
+        });
+      },
+      unmessages()
+      {
+        this.$message({
+          showClose: true,
+          message: '修改失败，帐号密码不正确',
+          type: 'error'
+        });
+      },
+      errmessages()
+      {
+        this.$message({
+          showClose: true,
+          message: '出bug了,联系管理员',
+          type: 'warning'
+        });
       },
       resetForm(formName) {
         this.$refs[formName].resetFields()
