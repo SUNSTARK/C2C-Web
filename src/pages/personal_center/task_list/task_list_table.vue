@@ -4,6 +4,10 @@
       stripe
       :data="tableData"
       style="width: 100%; overflow: initial;"
+      :row-key="getRowKeys"
+      :expand-row-keys="expands"
+      @expand-change="expandSelect"
+      @row-click="rowClick"
       max-height="calc(100vh - 240px)">
       <el-table-column type="expand">
         <template slot-scope="props">
@@ -23,7 +27,7 @@
             <el-form-item label="审核状态">
               <span>{{props.row.check_state}} </span>
             </el-form-item>
-            <el-form-item label="状态">
+            <el-form-item label="任务状态">
               <span>{{props.row.task_state}} </span>
             </el-form-item>
           </el-form>
@@ -53,31 +57,31 @@
             v-if="buttonList.includes(buttonTypeEnum.ACCEPT)"
             size="mini"
             type="primary"
-            @click="accept(scope.row)">接受
+            @click.stop="accept(scope.row)">接受
           </el-button>
           <el-button
             v-if="buttonList.includes(buttonTypeEnum.CANCEL)"
             size="mini"
             type="danger"
-            @click="cancel(scope.row)">取消
+            @click.stop="cancel(scope.row)">取消
           </el-button>
           <el-button
             v-if="buttonList.includes(buttonTypeEnum.STOP)"
             size="mini"
             type="warning"
-            @click="stop(scope.row)">拉黑
+            @click.stop="stop(scope.row)">拉黑
           </el-button>
           <el-button
             v-if="buttonList.includes(buttonTypeEnum.COMPLETED)"
             size="mini"
             type="success"
-            @click="completed(scope.row)">完成
+            @click.stop="completed(scope.row)">完成
           </el-button>
           <el-button
             v-if="buttonList.includes(buttonTypeEnum.COMMENT)"
             size="mini"
             type="success"
-            @click="comment(scope.row)">查看答案
+            @click.stop="comment(scope.row)">查看答案
           </el-button>
         </template>
       </el-table-column>
@@ -93,6 +97,7 @@
   import {fetchGet, fetchPost} from "../../../api/axios";
 
   export default {
+    inject: ['reload'],
     name: "task_list_table",
     components: {answerDrawer},
     props: {
@@ -112,6 +117,7 @@
       return {
         isDrawerShow: false,
         answers: [],
+        expands: [],  // 要展开的行，元素是row的key值，用于一次只能展开一行
         logmessage:'',
         unlogmessage:''
       }
@@ -119,6 +125,42 @@
     methods: {
       closeDrawer() {
         this.isDrawerShow = false;
+      },
+      getRowKeys:function(row){
+        return row.task_id
+      },
+      // 折叠面板每次只能展开一行，用于点击按钮操作
+      expandSelect:function(row, expandedRows) {
+        let that = this
+        if (expandedRows.length) {
+          that.expands = []
+          if (row) {
+            that.expands.push(row.task_id)
+          }
+        }
+        else {
+          that.expands = [] // 默认不展开
+        }
+      },
+      // 折叠面板每次只能展开一行，用于点击行操作
+      rowClick(row) {
+        let that = this
+        let firstClick = true // 用于判断是否重复点击该行
+        if (that.expands.length === 0) {
+          that.expands.push(row.task_id)
+        } else {
+          if (that.expands[0] === row.task_id) {  // 已展开的行和点击的行相同
+            that.expands = []
+            firstClick = !firstClick
+          }
+          if (firstClick) {  // 第一次点击该行，则展开
+            that.expands = [row.task_id];
+            firstClick = !firstClick
+          }else {  // 重复点击该行，则收起所有
+            that.expands = []
+            firstClick = !firstClick
+          }
+        }
       },
       //接受任务 成功
       accept(row) {
@@ -134,7 +176,7 @@
             {
               this.logmessage="接受任务成功，请及时完成任务！"
               this.messages();
-
+              this.reload()  // 用于重载表格数据
             }else  if(res.msg=="早已选择该任务")
             {
               this.unlogmessage="早已选择该任务,请选择其他任务！"
@@ -162,7 +204,7 @@
             {
               this.logmessage="取消任务成功！"
               this.messages();
-
+              this.reload()
             }
           })
           .catch((e) => {
@@ -186,6 +228,7 @@
             {
               this.logmessage="拉黑任务成功！"
               this.messages();
+              this.reload()
             }
           })
           .catch((e) => {
@@ -211,6 +254,7 @@
             {
               this.answers=res.data;
               console.log("获取答案成功");
+              this.reload()
 
             }
           })
