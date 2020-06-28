@@ -19,6 +19,7 @@
 
 <script>
   export default {
+    inject:["reload"],
     name: "Aside",
     data() {
       return {
@@ -26,6 +27,11 @@
       }
     },
     methods: {
+    },
+    watch: {
+      $route() {
+        this.reload()
+      }
     }
   }
 </script>
@@ -40,10 +46,14 @@
   .aside {
     overflow: hidden;
     min-height: Calc(100vh - 80px);
+    height: 93%;
   }
   /*选中特效*/
   .el-menu .el-menu-item.is-active {
     background-color: #EDF5FF;
     font-weight: bold;
+  }
+  ul.el-menu {
+    height: 100%;
   }
 </style>

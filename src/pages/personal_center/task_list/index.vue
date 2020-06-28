@@ -144,7 +144,8 @@
   .tab-wrap {
     margin-left: 20px;
     background-color: #fff;
-    overflow: auto;
+    overflow: hidden;
+    height: 93%;
   }
 
   .pagination {

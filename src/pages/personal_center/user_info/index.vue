@@ -1,11 +1,11 @@
 <template>
  <div class="box-card">
-   <el-card class="tab-wrap" style="width: 1000px">
+   <el-card class="tab-wrap" shadow="never">
      <div slot="header" class="clearfix">
-       <font size="3"><b>个人信息</b></font>
+       <b>个人信息</b>
        <el-button type="text" icon="el-icon-edit" style="float:right;">编辑</el-button>
      </div>
-     <el-form :model="userinfo">
+     <el-form :model="userform">
      <div class="info">
        <b>
        <p>用户名：{{userform.user_name}}</p>
@@ -28,15 +28,13 @@
 import {fetch_user_personal} from '../../../api/user_apis'
     export default {
         name: "user_info",
-      data()
-      {
+      data() {
         return{
-          userform:[],
+          userform:{},
         }
       },
       methods:{
-          getuser()
-          {
+          getuser() {
             fetch_user_personal().then(res => {
               console.log(res)
               this.userform=res.data;
@@ -44,18 +42,21 @@ import {fetch_user_personal} from '../../../api/user_apis'
             })
           }
       },
-      mounted() {
+      created() {
           this.getuser()
       }
     }
 </script>
 
 <style scoped>
+  .box-card {
+    width: 100%;
+    height: 93%;
+  }
   .tab-wrap {
     padding: 0 20px;
-    margin: 0 20px;
     overflow: inherit;
-    width: 100%;
+    height: 100%;
   }
   .info{
     line-height: 40px;

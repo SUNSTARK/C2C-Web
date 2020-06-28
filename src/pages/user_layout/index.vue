@@ -31,7 +31,7 @@
     width: 100%;
     padding-top: 5px;
   }
-  html, body, #userlayout, .el-container, ul.el-menu {
+  html, body, #userlayout, .el-container {
     height: 100%;
     width: 100%;
   }
@@ -39,8 +39,5 @@
     background-color: #f2f2f2;
     font-size: 14px;
     color: #333333;
-  }
-  .userHeader {
-
   }
 </style>
