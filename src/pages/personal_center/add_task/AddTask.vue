@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="20" type="flex">
-    <el-col :span="11" :offset="2" >
+    <el-col :span="11" :offset="4" >
       <div class="taskbox taskbox2">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm"  class="demo-ruleForm" :label-position="labelPosition" label-width="100px" >
 

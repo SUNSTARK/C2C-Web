@@ -59,13 +59,13 @@
             v-if="buttonList.includes(buttonTypeEnum.CANCEL)"
             size="mini"
             type="danger"
-            @click="cancel(scope.row)">放弃
+            @click="cancel(scope.row)">取消
           </el-button>
           <el-button
             v-if="buttonList.includes(buttonTypeEnum.STOP)"
             size="mini"
             type="warning"
-            @click="stop(scope.row)">中止
+            @click="stop(scope.row)">拉黑
           </el-button>
           <el-button
             v-if="buttonList.includes(buttonTypeEnum.COMPLETED)"
@@ -88,8 +88,9 @@
 
 <script>
   import answerDrawer from "./answer_drawer";
-  import {fetch_accept_task, fetch_cancel_task, fetch_editpwd, fetch_task_get_answer,fetch_reject_task} from "../../../api/user_apis";
+  import {fetch_accept_task, fetch_cancel_task, fetch_editpwd,fetch_reject_task ,fetch_task_getanswer} from "../../../api/user_apis";
   import Cookies from "js-cookie";
+  import {fetchGet, fetchPost} from "../../../api/axios";
 
   export default {
     name: "task_list_table",
@@ -119,11 +120,14 @@
       closeDrawer() {
         this.isDrawerShow = false;
       },
+      //接受任务 成功
       accept(row) {
         console.log('接受任务')
         console.log('任务编号:'+row.task_id)
-        let data={}
-         fetch_accept_task(data)
+        let url="/user/task/accepting/?task_id=";
+        url=url+row.task_id;
+        console.log(url)
+        fetchPost(url,{})
           .then(res => {
             console.log('数据是:', res);
             if(res.msg=="成功！")
@@ -144,41 +148,43 @@
 
         // fetch_accept_task({task_id: row.task_id}).then(res => console.log(res))
       },
+      //取消任务 接受了取消 成功
       cancel(row) {
-        console.log('放弃任务')
-
-        // let data={task_id:row.task_id}
-        // fetch_cancel_task(data)
-        //   .then(res => {
-        //     console.log('数据是:', res);
-        //     if(res.msg=="成功！")
-        //     {
-        //       this.logmessage="接受任务成功，请及时完成任务！"
-        //       this.messages();
-        //
-        //     }else  if(res.msg=="早已选择该任务")
-        //     {
-        //       this.unlogmessage="早已选择该任务,请选择其他任务！"
-        //       this.unmessages();
-        //     }
-        //   })
-        //   .catch((e) => {
-        //     console.log('获取数据失败');
-        //     this.errmessages();
-        //   })
-
-       // fetch_cancel_task({task_id: row.task_id}).then(res => console.log(res))
-      },
-      stop(row) {
-        console.log('中止任务')
+        console.log('接受后取消任务')
         console.log('任务编号:'+row.task_id)
-        let data={task_id:row.task_id}
-        fetch_reject_task(data)
+        let url="/user/task/quiting/?task_id=";
+        url=url+row.task_id;
+        console.log(url)
+        fetchPost(url,{})
           .then(res => {
             console.log('数据是:', res);
             if(res.msg=="成功！")
             {
-              this.logmessage="中止任务成功！"
+              this.logmessage="取消任务成功！"
+              this.messages();
+
+            }
+          })
+          .catch((e) => {
+            console.log('获取数据失败');
+            this.errmessages();
+          })
+
+       // fetch_cancel_task({task_id: row.task_id}).then(res => console.log(res))
+      },
+      //拉黑任务，不再出现到任务大厅  成功
+      stop(row) {
+        console.log('拉黑任务')
+        console.log('任务编号:'+row.task_id)
+        let url="/user/task/rejecting/?task_id=";
+        url=url+row.task_id;
+        console.log(url)
+        fetchPost(url,{})
+          .then(res => {
+            console.log('数据是:', res);
+            if(res.msg=="成功！")
+            {
+              this.logmessage="拉黑任务成功！"
               this.messages();
             }
           })
@@ -188,24 +194,45 @@
           })
 
       },
+      //无用
       completed(row) {
         console.log('完成任务')
       },
+      //查看并评价答案
       comment(row) {
         this.isDrawerShow = true;
-        this.answers = [{
-          ans_body: "test",
-          ans_id: 1,
-        }, {
-          ans_body: "test",
-          ans_id: 1,
-        }, {
-          ans_body: "test",
-          ans_id: 1,
-        }, {
-          ans_body: "test",
-          ans_id: 1,
-        },]
+        console.log("查看答案");
+        console.log('任务编号:'+row.task_id)
+        let params= {task_id:row.task_id};
+        fetch_task_getanswer(params)
+          .then(res => {
+            console.log('数据是:', res);
+            if(res.msg=="成功！")
+            {
+              this.answers=res.data;
+              console.log("获取答案成功");
+
+            }
+          })
+          .catch((e) => {
+            console.log('获取数据失败');
+            this.errmessages();
+          })
+
+
+        // this.answers = [{
+        //   ans_body: "test",
+        //   ans_id: 1,
+        // }, {
+        //   ans_body: "test",
+        //   ans_id: 1,
+        // }, {
+        //   ans_body: "test",
+        //   ans_id: 1,
+        // }, {
+        //   ans_body: "test",
+        //   ans_id: 1,
+        // },]
         // fetch_task_get_answer({task_id: row.task_id}).then(res => {
         //   console.log(res)
         //   this.answers = res.data;

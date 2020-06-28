@@ -126,8 +126,8 @@
           type: 'warning',
           center: true
         }).then(() => {
-          this.loginForm.username = 'test222'
-          this.loginForm.password = 'test2222'
+          this.loginForm.username = '123ti1me'
+          this.loginForm.password = '123456'
           this.$message({
             type: 'success',
             message: '已填写用户账号!'

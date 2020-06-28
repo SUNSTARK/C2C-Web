@@ -83,30 +83,35 @@
     },
     methods: {
       handleClick(tab,) {
+        //全部
         if (tab.name === 'all') {
           fetch_task_list().then(res => {
             console.log(res)
             this.tableData = res.data;
-            this.buttonList = [this.buttonTypeEnum.ACCEPT];
+            this.buttonList = [this.buttonTypeEnum.ACCEPT,this.buttonTypeEnum.STOP];
           })
+          //正在完成  别人的任务
         } else if (tab.name === 'executing') {
           fetch_task_executing().then(res => {
             console.log(res)
             this.tableData = res.data;
-            this.buttonList = [this.buttonTypeEnum.COMPLETED, this.buttonTypeEnum.CANCEL];
+            this.buttonList = [ this.buttonTypeEnum.CANCEL];
           })
+          //正在被完成  自己的任务
         } else if (tab.name === 'executed') {
           fetch_task_executed().then(res => {
             console.log(res)
             this.tableData = res.data;
-            this.buttonList = [this.buttonTypeEnum.CANCEL, this.buttonTypeEnum.STOP];
+            this.buttonList = [];
           })
+          //已完成的任务   ？
         } else if (tab.name === 'completed') {
           fetch_task_completed().then(res => {
             console.log(res)
             this.tableData = res.data
             this.buttonList = [];
           })
+          //已被完成    自己的任务
         } else if (tab.name === 'end') {
           fetch_task_end().then(res => {
             console.log(res)

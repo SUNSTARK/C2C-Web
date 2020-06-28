@@ -13,7 +13,7 @@
         <div class="logo-title"><p>C2C众包平台</p></div>
         <el-menu-item index="/home">首页</el-menu-item>
         <el-menu-item index="/addtask">发布需求</el-menu-item>
-        <el-menu-item index="3">测试2</el-menu-item>
+        <el-menu-item index="/user/task/list">工作台</el-menu-item>
         <el-submenu index="4">
           <template slot="title">更多</template>
           <el-menu-item index="4-1">选项1</el-menu-item>

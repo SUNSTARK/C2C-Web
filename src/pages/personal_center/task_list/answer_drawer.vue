@@ -9,7 +9,7 @@
     <template v-for="(answer, index) in answers">
       <el-card :body-style="{ padding: '10px'}" style="margin: 10px;">
         <div>
-          <span>匿名用户</span>
+          <span>{{answer.user_id}}</span>
           <div style="margin: 10px 10px 0 10px">{{ answer.ans_body }}</div>
           <el-button type="text" style="float: right;" @click="showRateDialog(index)">评分</el-button>
         </div>
@@ -32,6 +32,8 @@
 </template>
 
 <script>
+  import {fetch_task_score_answer} from "../../../api/user_apis";
+
   export default {
     name: "answer_drawer",
     props: {
@@ -48,7 +50,7 @@
       return {
         score: null,
         dialogVisible: false,
-        asn_id: null,
+        ans_id: null,
       }
     },
     methods: {
@@ -58,14 +60,51 @@
       },
       showRateDialog(index) {
         this.dialogVisible = true;
-        this.ans_id = this.answers[index].ans_id;
+        this.ans_id = this.answers[index].answer_id;
+        console.log("答案id:"+this.ans_id)
       },
       rating() {
         console.log(`评分---score:${this.score},ans_id:${this.ans_id}`);
+        let params={
+          ans_id:this.ans_id,
+          score:this.score
+        }
+        fetch_task_score_answer(params)
+          .then(res => {
+            console.log('数据是:', res);
+            if(res.msg=="成功！")
+            {
+              console.log("答案评价成功");
+              this.messages()
+            }
+          })
+          .catch((e) => {
+            console.log('获取数据失败');
+            this.errmessages();
+          })
+
+
         this.dialogVisible = false;
         this.score = null;
         this.ans_id = null;
-      }
+      },
+      messages()
+      {
+        this.$message({
+          showClose: true,
+          message: '评价任务成功！',
+          type: 'success'
+        });
+      },
+      errmessages()
+      {
+        this.$message({
+          showClose: true,
+          message: '出bug了,联系管理员',
+          type: 'warning'
+        });
+      },
+
     }
   }
 </script>
