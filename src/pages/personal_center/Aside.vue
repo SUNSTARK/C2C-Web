@@ -10,8 +10,8 @@
           <span slot="title">任务列表</span>
         </el-menu-item>
         <el-menu-item index="/user/task/mine">
-          <i class="el-icon-time"></i>
-          <span slot="title">历史任务</span>
+          <i class="el-icon-user"></i>
+          <span slot="title">我的任务</span>
         </el-menu-item>
     </el-menu>
   </el-aside>

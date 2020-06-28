@@ -1,6 +1,7 @@
 <template>
+  <div >
   <el-row :gutter="20" type="flex">
-    <el-col :span="11" :offset="4" >
+    <el-col :span="11" :offset="4" style="min-width: 650px">
       <div class="taskbox taskbox2">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm"  class="demo-ruleForm" :label-position="labelPosition" label-width="100px" >
 
@@ -145,6 +146,7 @@
       </div>
     </el-col>
   </el-row>
+  </div>
 </template>
 
 <script>
@@ -185,33 +187,33 @@
             iffile:'',
           },
            rules: {
-            // task_name: [
-            //   {required: true, message: '请输入任务标题', trigger: 'blur'},
-            //   {min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
-            // ],
-            // budget: [
-            //   {required: true, message: '请输入任务薪酬', trigger: 'blur'},
-            //   {type: 'number', message: '薪酬必须为数字值'}
-            // ],
-            // time_limit: [
-            //   {required: true, message: '请输入任务时间', trigger: 'blur'},
-            // ],
-            // detail: [
-            //   {required: true, message: '请填写任务详情', trigger: 'blur'}
-            // ],
-            // tag: [
-            //   {required: true, message: '请至少添加一个标签', trigger: 'blur'}
-            // ],
-            // target_num: [
-            //   {required: true, message: '请输入任务人数', trigger: 'blur'},
-            //   {type: 'number', message: '人数必须为数字值'}
-            // ],
-            // location: [
-            //   {required: true, message: '请填写任务地点', trigger: 'blur'}
-            // ],
-            // iffile: [
-            //   {required: true, message: '请选择答案是否需要附件', trigger: 'blur'}
-            // ],
+            task_name: [
+              {required: true, message: '请输入任务标题', trigger: 'blur'},
+              {min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur'}
+            ],
+            budget: [
+              {required: true, message: '请输入任务薪酬', trigger: 'blur'},
+              {type: 'number', message: '薪酬必须为数字值'}
+            ],
+            time_limit: [
+              {required: true, message: '请输入任务时间', trigger: 'blur'},
+            ],
+            detail: [
+              {required: true, message: '请填写任务详情', trigger: 'blur'}
+            ],
+            tag: [
+              {required: true, message: '请至少添加一个标签', trigger: 'blur'}
+            ],
+            target_num: [
+              {required: true, message: '请输入任务人数', trigger: 'blur'},
+              {type: 'number', message: '人数必须为数字值'}
+            ],
+            location: [
+              {required: true, message: '请填写任务地点', trigger: 'blur'}
+            ],
+            iffile: [
+              {required: true, message: '请选择答案是否需要附件', trigger: 'blur'}
+            ],
           },
           options:[
             {
@@ -239,36 +241,6 @@
 
                 var str=this.ruleForm.tag.join("\",\"");
                 str="[\""+str+"\"]";
-
-                // console.log("提交成功")
-                // console.log("地址:"+this.ruleForm.location);
-                // console.log("人数:"+this.ruleForm.target_num);
-                // console.log("时间:"+this.ruleForm.time_limit);
-                // console.log("薪酬:"+this.ruleForm.budget);
-                // console.log("标题:"+this.ruleForm.task_name);
-                // console.log("附件:"+this.ruleForm.iffile);
-                // console.log("标签:"+str);
-                // console.log("详情:"+this.ruleForm.detail);
-                // console.log("Lon:"+this.ruleForm.Lon);
-                // console.log("Lat:"+this.ruleForm.Lat);
-
-
-                //
-                // let data={
-                //   task_name: "食堂开门了吗",
-                //   detail: "食堂开门了吗",
-                //   task_tag:  "[\"食堂\"]",
-                //   Lon: 117.060109,
-                //   Lat: 36.675668,
-                //   location: "山东省济南市历城区山大路街道山东大学中心校区",
-                //   target_num:  1,
-                //   budget: 2,
-                //   release_time:  "2020-06-26 00:00:00",
-                //   end_time: "2020-06-27 00:00:00",
-                //   flag:"0"
-                // }
-
-
                 let data={
                   task_name:this.ruleForm.task_name,
                   detail:this.ruleForm.detail,
@@ -352,6 +324,7 @@
 </script>
 
 <style scoped>
+
 .taskbox{
   /*background: #ffecec;*/
 }

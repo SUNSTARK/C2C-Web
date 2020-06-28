@@ -35,7 +35,7 @@
 
 <script>
   import Cookies from "js-cookie";
-  import UserInfo from "../../../components/userForm/userInfo"
+
   import EditPassword from "../../../components/userForm/editPassword"
 
   export default {

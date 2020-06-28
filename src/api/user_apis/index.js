@@ -12,6 +12,12 @@ export const fetch_editpwd =data =>fetchPost('/user/modify/pwd',data)
 //查询用户信息 GET
 export const fetch_user_personal = () => fetchGet('/user/personal')
 
+//修改用户信息 POST
+export const fetch_editinfo =data =>fetchPost('/user/modify/info',data)
+
+//查询用户头像 GET
+export const fetch_user_icon = () => fetchGet('/user/headportrait')
+
 //用户发布任务 POST
 export const fetch_addtask = data => fetchPost('/task/release', data)
 
