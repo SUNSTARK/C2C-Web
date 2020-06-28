@@ -48,11 +48,11 @@
         fetch_points().then(res => {
           res = res.data
           this.tableData=res
-          this.$message({
-            showClose: true,
-            message: "用户积分已更新",
-            type: "success"
-          })
+          // this.$message({
+          //   showClose: true,
+          //   message: "用户积分已更新",
+          //   type: "success"
+          // })
         }).catch((err) => {
           console.log(err)
         }).catch(res => {
