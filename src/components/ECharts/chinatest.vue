@@ -43,7 +43,7 @@
 
         fetch_provinceNum().then(res => {
           res=res.data
-          console.log(res)
+          //console.log(res)
           let data = [
             {
               name: '江苏',
@@ -196,7 +196,7 @@
           let num =data
 
           //冒泡排序
-          console.log(num)
+          //console.log(num)
 
           for(let i=0;i<34;i++)
           {
@@ -220,7 +220,7 @@
           this.chart.setOption({
             title: [{
               show: true,
-              text: '排名情况',
+              text: '各个省份用户人数排名',
               textStyle: {
                 color: '#2D3E53',
                 fontSize: 18
