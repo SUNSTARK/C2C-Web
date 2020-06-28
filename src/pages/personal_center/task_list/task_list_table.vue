@@ -254,8 +254,6 @@
             {
               this.answers=res.data;
               console.log("获取答案成功");
-              this.reload()
-
             }
           })
           .catch((e) => {

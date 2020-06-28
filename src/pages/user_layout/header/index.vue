@@ -12,6 +12,7 @@
         <div class="logo-title"><p>C2C众包平台</p></div>
         <el-menu-item index="/home">首页</el-menu-item>
         <el-menu-item index="/addtask">发布需求</el-menu-item>
+        <el-menu-item index="/admin_home" v-if="this.$store.getters.role==='admin'">后台主页</el-menu-item>
         <el-menu-item id="mytask" index="/user/task/list" v-if="this.$store.getters.token">我的工作台</el-menu-item>
         <el-menu-item id="usercenter" index="/user/info" v-if="this.$store.getters.token">{{account}}
           <el-dropdown @command="handleCommand">
@@ -24,7 +25,7 @@
         </el-menu-item>
         <div class="showLogin" v-else>
           <router-link class="link" to="/login">登录</router-link>
-          <router-link class="link" to="/login">注册</router-link>
+          <router-link class="link" to="/register">注册</router-link>
         </div>
       </el-menu>
     </el-header>
@@ -75,16 +76,15 @@
     z-index: 999;
     left: 45px;
     position: absolute;
-    top: 2px;
   }
 
   .logo-title p {
     font-family: 微软雅黑;
     font-weight: 600;
-    float: left;
     font-size: 16px;
     color: white;
     position: fixed;
+    margin-top: 17px;
   }
 
   #userheader {
@@ -147,15 +147,17 @@
 
   #userheader .showLogin {
     position: fixed;
-    right: 38px;
+    right: 35px;
     top: 19px;
   }
 
   #userheader .showLogin .link {
     font-size: 15px;
     color: white;
-    margin-left: 13px;
+    margin-left: 15px;
     text-decoration: none;
+    font-weight: 500;
+    font-family: 微软雅黑;
   }
 
   .adminEntry {
@@ -173,5 +175,6 @@
   #usercenter {
     position: absolute;
     right: -5px;
+    font-weight: bold;
   }
 </style>

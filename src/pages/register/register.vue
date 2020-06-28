@@ -170,7 +170,7 @@
     text-decoration: none;
     color: #999999;
     font-size: 12px;
-    margin-left: 8px;
+    margin-left: 10px;
     font-weight: 500;
   }
   #register .registerBox .registerCon .el-form-item__content {

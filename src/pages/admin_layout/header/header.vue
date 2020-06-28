@@ -26,7 +26,7 @@
                   </span>
             <el-dropdown-menu slot="dropdown">
 <!--              <el-dropdown-item command="info">基本资料</el-dropdown-item>-->
-<!--              <el-dropdown-item command="editPassword">修改密码</el-dropdown-item>-->
+              <el-dropdown-item command="toHome">网站首页</el-dropdown-item>
               <el-dropdown-item command="logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -67,9 +67,10 @@ export default {
       this.dialogPassVisible = false
     },
     async handleCommand (command) {
-      if (command === "info") {
-        this.dialogInfoVisible = true
-        this.title = "编辑信息"
+      if (command === "toHome") {
+        // this.dialogInfoVisible = true
+        // this.title = "编辑信息"
+        await this.$router.push({path: '/home'})
         // this.userId = this.$store.getters.info.uid
       } else if (command === "editPassword") {
         this.dialogPassVisible = true
@@ -82,7 +83,7 @@ export default {
     },
     fullScreen () {
       if (this.isfullScreen) {
-        var docElm = document.documentElement
+        let docElm = document.documentElement
         if (docElm.requestFullscreen) {
           docElm.requestFullscreen()
         } else if (docElm.mozRequestFullScreen) {
