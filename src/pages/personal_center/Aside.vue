@@ -9,7 +9,7 @@
           <i class="el-icon-document"></i>
           <span slot="title">任务列表</span>
         </el-menu-item>
-        <el-menu-item index="/user/task/history">
+        <el-menu-item index="/user/task/mine">
           <i class="el-icon-time"></i>
           <span slot="title">历史任务</span>
         </el-menu-item>
