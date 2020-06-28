@@ -26,14 +26,14 @@
                 <el-form-item label="详情">
                   <span>{{ props.row.detail }}</span>
                 </el-form-item>
-                <el-form-item label="需要答案">
+                <el-form-item label="需要完成">
                   <span>{{ props.row.target_num }} 份</span>
                 </el-form-item>
                 <el-form-item label="任务酬金">
                   <span>{{ props.row.budget }} 元</span>
                 </el-form-item>
-                <el-form-item label="已收集答案">
-                  <span>{{ props.row.comTask_num }} 份</span>
+                <el-form-item label="已完成">
+                  <span>{{ props.row.complete_taskNum }} 份</span>
                 </el-form-item>
               </el-form>
             </template>
@@ -101,7 +101,6 @@
     methods: {
       getTableData:function() {
         fetch_allTask().then(res => {
-          console.log(res.data)
           this.tableData = res.data
           this.loading = false
         }).catch(err => {

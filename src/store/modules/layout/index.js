@@ -1,7 +1,7 @@
 export default {
   state: {
-    isCollapse: false,  // 默认折叠菜单
-    logoShow: false,  // 默认展示logo
+    isCollapse: true,  // 默认折叠菜单
+    logoShow: true,  // 默认展示logo
   },
   mutations: {
     collapse (state) {

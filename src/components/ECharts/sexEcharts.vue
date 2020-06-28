@@ -45,7 +45,7 @@
 
         //
         fetch_genderNum().then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             res=res.data
             let woman=res.woman
             let man=res.man
@@ -84,7 +84,11 @@
             subtext: '正负仅代表性别区分',
             x: 'center',
             textStyle: {
+              color: '#2D3E53',
               fontSize: 20
+            },
+            subtextStyle:{
+              color: '#2D3E53',
             }
           },
           tooltip: {

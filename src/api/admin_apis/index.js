@@ -45,13 +45,8 @@ export function fetch_genderNum () {
   return fetchGet('/admin/userinfo/gender')
 }
 
-//获取男女数目
+//获取省份数目
 export function fetch_provinceNum () {
   return fetchGet('/admin/userinfo/getprovince')
 }
 
-
-// //获取词云
-// export function fetch_word () {
-//   return fetchGet('/tag/hot')
-// }

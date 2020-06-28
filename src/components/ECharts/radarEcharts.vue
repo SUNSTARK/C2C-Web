@@ -8,6 +8,7 @@
   import "echarts-wordcloud/dist/echarts-wordcloud";
   import "echarts-wordcloud/dist/echarts-wordcloud.min";
   import axios from "axios"
+
   export default {
     data() {
       return {
@@ -100,7 +101,7 @@
     },
     methods:{
       initchart(){
-        let myChart = echarts.init(this.$refs.wordcloud);
+        this.chart = echarts.init(this.$refs.wordcloud);
         axios.get('http://39.101.212.197:8080/tag/hot').then((res)=>{
           res =res.data
           let word=res.data
@@ -109,8 +110,7 @@
           {
             datalist[i]={"name":word[i],"value": 20000-i*500}
           }
-          console.log(datalist)
-          myChart.setOption({
+          this.chart.setOption({
             title: {
               text: "用户任务高频tag图表",
               textStyle: {

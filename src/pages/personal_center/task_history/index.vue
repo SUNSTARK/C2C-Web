@@ -72,5 +72,8 @@
 </script>
 
 <style scoped>
-
+.el-main {
+  padding-top: 0px;
+  padding-right: 0px;
+}
 </style>

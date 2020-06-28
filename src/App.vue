@@ -1,14 +1,31 @@
 <template>
   <div id="app">
     <transition name="fade" mode="in-out">
-      <router-view></router-view>
+      <router-view v-if="isRouterAlive"/>
     </transition>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'App'
+    name: 'App',
+    provide(){
+      return {
+        reload:this.reload
+      }
+    },
+    data () {
+      return {
+        isRouterAlive: true
+      }
+    },
+    methods: {
+      // 用于重新加载某个组件，需要先inject注入
+      reload () {
+        this.isRouterAlive = false
+        this.$nextTick(() => (this.isRouterAlive = true))
+      }
+    }
   }
 </script>
 

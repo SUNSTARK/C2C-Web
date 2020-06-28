@@ -1,6 +1,6 @@
 <template>
   <el-container class="main">
-    <Aside/>
+    <Aside id="useraside"/>
     <el-container>
       <router-view :key="$route.fullPath"/>
     </el-container>
@@ -19,7 +19,7 @@
 
 <style scoped>
   .main {
-    padding: 0 50px;
+    padding: 0 0px;
   }
 
   .title {
@@ -27,5 +27,9 @@
     margin: 0 20px;
     font-weight: 600;
     font-size: 16px;
+  }
+
+  #useraside {
+    margin-left: 0px;
   }
 </style>

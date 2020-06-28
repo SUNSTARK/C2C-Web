@@ -30,6 +30,7 @@
               </el-form-item>
               <p class="smalltxt">
                 <router-link class="a" to="/login">已有帐号？点击登陆</router-link>
+                <router-link class="a" to="/home">返回主页<i class="el-icon-right el-icon--right"></i></router-link>
               </p>
             </el-form>
           </el-card>
@@ -53,7 +54,6 @@
     },
     methods: {
       submitForm () {
-        let that = this
         if (this.registerForm.username === "" || this.registerForm.password === "") {
           this.$message({
             showClose: true,

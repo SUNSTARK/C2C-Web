@@ -66,7 +66,7 @@ export default {
     editPwdCallback () {
       this.dialogPassVisible = false
     },
-    handleCommand (command) {
+    async handleCommand (command) {
       if (command === "info") {
         this.dialogInfoVisible = true
         this.title = "编辑信息"
@@ -75,8 +75,8 @@ export default {
         this.dialogPassVisible = true
       } else if (command === "logout") {
         Cookies.remove("token")
-        this.$store.dispatch("setRole", '')  // 清空$store内存相关信息
-        this.$store.dispatch("setAccount", '')
+        await this.$store.dispatch("setRole", '')  // 清空$store内存相关信息
+        await this.$store.dispatch("setAccount", '')
         location.reload()
       }
     },

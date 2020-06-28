@@ -19,12 +19,16 @@
 </template>
 
 <script>
-  import CityEcharts from "../../components/ECharts/cityEcharts"
+  // import CityEcharts from "../../components/ECharts/cityEcharts"
   import SexEcharts from "../../components/ECharts/sexEcharts"
+  import CityEcharts from "../../components/ECharts/chinatest"
 
   export default {
     name: "mainIndex",
-    components: {SexEcharts, CityEcharts},
+    components: {
+      SexEcharts,
+      CityEcharts
+    },
     mounted () {
       this.selfAdaption()
     },
