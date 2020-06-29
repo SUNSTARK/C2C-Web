@@ -15,6 +15,9 @@ export const fetch_user_personal = () => fetchGet('/user/personal')
 //修改用户信息 POST
 export const fetch_editinfo =data =>fetchPost('/user/modify/info',data)
 
+//修改用户头像 POST
+export const fetch_editicon =data =>fetchPost('/user/modify/headportrait',data)
+
 //查询用户头像 GET
 export const fetch_user_icon = () => fetchGet('/user/headportrait')
 

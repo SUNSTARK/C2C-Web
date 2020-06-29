@@ -34,9 +34,19 @@ let comRouter = [
           {
             path: "/user/info",
             name: "user_info",
-            component: () => import("../pages/personal_center/user_info"),
+            component: () => import("../pages/personal_center/user_info/index"),
             meta: {
               title: '用户信息',
+              roles: ['admin', 'user'],
+            },
+            children: []
+          },
+          {
+            path: "/user/info/icon",
+            name: "user_info_icon",
+            component: () => import("../pages/personal_center/user_info/icon"),
+            meta: {
+              title: '用户头像',
               roles: ['admin', 'user'],
             },
             children: []
