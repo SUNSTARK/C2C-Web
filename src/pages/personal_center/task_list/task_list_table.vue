@@ -40,6 +40,11 @@
       </el-table-column>
       <el-table-column
         align="center"
+        label="任务标签"
+        prop="task_tag">
+      </el-table-column>
+      <el-table-column
+        align="center"
         label="任务名称"
         prop="task_name">
       </el-table-column>

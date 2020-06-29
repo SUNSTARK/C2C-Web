@@ -5,35 +5,33 @@
         <el-input id="sname" v-model.trim="addForm.sname" type="text"
                   @input="placeAutoInput('sname')" @keyup.delete.native="deletePlace('sname')"
                   placeholder="请输入任务地址">
-          <i
-            class="el-icon-location-outline el-input__icon"
+          <i class="el-icon-location-outline el-input__icon"
             slot="suffix" title="任务地址">
           </i>
         </el-input>
+        <div>
+          <el-button type="text" size="mini" v-if="!snameMapShow" @click.stop="snameMapShow = true">展开<i class="el-icon-caret-bottom"></i></el-button>
+          <el-button type="text" size="mini" v-else @click.stop="snameMapShow = false">收起<i class="el-icon-caret-top"></i></el-button>
+        </div>
         <div v-show="snameMapShow" class="map-wrapper">
-          <div>
-            <el-button type="text" size="mini" @click.stop="snameMapShow = false">收起<i class="el-icon-caret-top"></i></el-button>
-          </div>
           <div id="sNameMap" class="map-self"></div></div>
         <div>任务地址：{{addForm.sname}}，经度：{{addForm.slon}}，纬度：{{addForm.slat}}</div>
       </el-form-item>
-
       <el-form-item v-if="infoVisible">
-
-
       </el-form-item>
     </el-form>
-
     <!--地址模糊搜索子组件-->
-    <place-search class="place-wrap"
-                  ref="placeSearch"
-                  v-if="resultVisible"
-                  :result="result"
-                  :left="offsetLeft"
-                  :top="offsetTop"
-                  :width="inputWidth"
-                  :height="inputHeight"
-                  @getLocation="getPlaceLocation"></place-search>
+    <place-search
+      class="place-wrap"
+      ref="placeSearch"
+      v-if="resultVisible"
+      :result="result"
+      :left="offsetLeft"
+      :top="offsetTop"
+      :width="inputWidth"
+      :height="inputHeight"
+      @getLocation="getPlaceLocation">
+    </place-search>
   </div>
 </template>
 <script>
@@ -142,7 +140,8 @@
       getPlaceLocation(item) {
         if(item) {
           this.resultVisible = false;
-          if(item.location && item.location.getLat()) {                        this.pickAddress(this.inputId, item.location.getLng(), item.location.getLat());
+          if(item.location && item.location.getLat()) {
+            this.pickAddress(this.inputId, item.location.getLng(), item.location.getLat());
             this.$refs.addForm.validateField(this.inputId);
           } else {
             this.geocoder(item.name, this.inputId);

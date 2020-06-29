@@ -10,13 +10,13 @@
             <h3 class="card1">基本信息</h3>
           </div>
 
-          <el-form-item prop="task_name" label="任务标题：" style="margin:0px 0px 0px 0px">
+          <el-form-item prop="task_name" label="任务标题：">
             <el-input  v-model="ruleForm.task_name" clearable maxlength="20" show-word-limit></el-input>
           </el-form-item>
 
           <el-row>
             <el-col :span="16">
-              <el-form-item prop="time_limit" label="任务时间：" style="margin:0px 0px 0px 0px" >
+              <el-form-item prop="time_limit" label="任务时间：">
                 <el-date-picker
                   v-model="ruleForm.time_limit"
                   type="datetimerange"
@@ -29,7 +29,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item prop="budget" label="薪酬：" style="margin:0px 0px 0px 0px">
+              <el-form-item prop="budget" label="薪酬：">
                 <el-input v-model.number="ruleForm.budget" clearable >
                   <template slot="append">元</template>
                 </el-input>
@@ -43,10 +43,9 @@
           <div slot="header">
             <h3 class="card1">需求信息</h3>
           </div>
-          <el-form-item prop="detail" label="任务详情"  style="margin:0px 0px 0px 0px">
+          <el-form-item prop="detail" label="任务详情" >
             <el-input :rows="8" type="textarea" v-model="ruleForm.detail" maxlength="1000"
                       show-word-limit ></el-input>
-
           </el-form-item>
 
           <el-row>
@@ -70,7 +69,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8" >
-              <el-form-item prop="target_num" label="任务人数：" style="margin:0px 0px 0px 0px">
+              <el-form-item prop="target_num" label="任务人数：">
                 <el-input v-model.number="ruleForm.target_num" clearable >
                   <template slot="append">人</template>
                 </el-input>
@@ -84,21 +83,21 @@
                 <el-input  placeholder="点击下方按钮添加地址" :disabled="iflocation" v-model="ruleForm.location" clearable maxlength="50" show-word-limit>
                 </el-input>
                 <el-popover
-                  placement="right"
+                  placement="top-start"
                   title="选择地址"
                   width="600"
                   trigger="manual"
                   v-model="visible">
                   <Gdmap ref="chil"></Gdmap>
-                  <el-button type="success"  size="mini" round slot="reference" @click="visible = !visible"  >添加地址</el-button>
-                  <el-button type="primary"  @click="sublocation()" style="float: right">确定</el-button>
-                  <el-button type="danger" @click="visible = false" style="float: right">取消</el-button>
+                  <el-button type="success"  size="mini" round slot="reference" @click="visible = !visible" >添加地址</el-button>
+                  <el-button type="primary"  @click="sublocation()" style="float: right;margin-top: -50px">确定</el-button>
+                  <el-button type="danger" @click="visible = false" style="float: right;margin-top: -50px;margin-right: 90px">取消</el-button>
                 </el-popover>
               </el-form-item>
 
             </el-col>
             <el-col :span="8">
-              <el-form-item prop="iffile" label="答案是否需要附件" style="margin:0px 0px 0px 0px">
+              <el-form-item prop="iffile" label="答案是否需要附件">
                 <el-select v-model="ruleForm.iffile" >
                   <el-option label="需要" value="1"></el-option>
                   <el-option label="不需要" value="0"></el-option>
@@ -111,7 +110,6 @@
           <el-row>
             <el-col :offset="8">
               <el-form-item>
-
                 <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
               </el-form-item>
@@ -243,18 +241,18 @@
                 let data={
                   task_name:this.ruleForm.task_name,
                   detail:this.ruleForm.detail,
+                  task_tag:str,
                   Lon:this.ruleForm.Lon,
                   Lat:this.ruleForm.Lat,
                   location:this.ruleForm.location,
                   target_num:this.ruleForm.target_num,
                   budget:this.ruleForm.budget,
-                  task_tag:str,
                   release_time:this.ruleForm.time_limit[0],
                   end_time:this.ruleForm.time_limit[1],
                   flag:this.ruleForm.iffile
                 }
-                fetch_addtask(data)
-                  .then(res => {
+                console.log(str)
+                fetch_addtask(data).then(res => {
                     console.log('数据是:', res);
                     if(res.msg=="成功！") {
                       this.messages();
@@ -301,10 +299,10 @@
             // console.log("地址:"+chils.addForm.sname)
             // console.log("纬度:"+chils.addForm.slon)
             // console.log("经度:"+chils.addForm.slat)
-            this.ruleForm.location=chils.addForm.sname,
-              this.ruleForm.Lat=chils.addForm.slat,
-            this.ruleForm.Lon=chils.addForm.slon,
-              this.visible=false
+            this.ruleForm.location = chils.addForm.sname,
+              this.ruleForm.Lat = chils.addForm.slat,
+            this.ruleForm.Lon = chils.addForm.slon,
+              this.visible = false
           },
         }
       }
@@ -312,11 +310,11 @@
 
 </script>
 
-<style scoped>
+<style>
 
-.taskbox{
+  .taskbox{
   /*background: #ffecec;*/
-}
+  }
   .taskbox2{
     border-radius: 4px;
     min-height: 1200px;
@@ -332,12 +330,7 @@
     margin-bottom: 0px;
     margin-top: 0px;
   }
-  .addform{
-
+  .el-popover {
+    height: 520px;
   }
-.timetitle {
-  font-size: 16px;
-  font-weight: bolder;
-
-}
 </style>

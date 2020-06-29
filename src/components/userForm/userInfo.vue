@@ -24,10 +24,6 @@
             <el-input v-model="ruleForm2.phone" autocomplete="off"></el-input>
           </el-form-item>
 
-          <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm2')">确 定</el-button>
-            <el-button @click="resetForm('ruleForm2')">重 置</el-button>
-          </el-form-item>
         </el-col>
         <el-col style="width: 45%" >
 
@@ -51,8 +47,8 @@
         </el-col>
       </el-row>
       </el-form>
-
-
+    <el-button type="primary" @click="submitForm('ruleForm2')" style="margin-left: 280px">确定</el-button>
+    <el-button @click="resetForm('ruleForm2')">重置</el-button>
   </el-dialog>
 </template>
 
@@ -72,7 +68,7 @@
           return callback(new Error('手机号不能为空'));
         } else {
           const reg = /^1[3|4|5|7|8][0-9]\d{8}$/
-          console.log(reg.test(value));
+          // console.log(reg.test(value));
           if (reg.test(value)) {
             callback();
           } else {
@@ -127,8 +123,7 @@
     methods: {
       getuser() {
         fetch_user_personal().then(res => {
-          console.log(res)
-          //console.log(this.userform.address)
+          // console.log(res)
           this.ruleForm2.user_account=res.data.user_account;
           this.ruleForm2.phone=res.data.phone;
           if(res.data.gender=="woman")
@@ -170,7 +165,6 @@
             }
             fetch_editinfo(data)
               .then(res => {
-                console.log('数据是:', res);
                 if(res.msg=="修改成功") {
                   console.log("个人信息修改成功");
                   this.messages()

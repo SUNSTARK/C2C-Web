@@ -82,7 +82,7 @@
       }
     },
     methods: {
-      handleClick(tab,) {
+      handleClick(tab) {
         //全部
         if (tab.name === 'all') {
           fetch_task_list().then(res => {

@@ -2,7 +2,7 @@
   <el-dialog title="修改密码" width="700px" :visible.sync="visible" destroy-on-close :modal-append-to-body="false"
              @close="closeCallback">
     <div class="card">
-      <p class="title"><i class="fa fa-unlock-alt fa-lg"></i>  修改密码</p>
+      <p class="title"><i class="fa fa-unlock-alt fa-lg"></i> 修改密码</p>
       <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
         <el-form-item label="原密码" prop="oldPassword">
           <el-input type="password" v-model="ruleForm2.oldPassword" autocomplete="off"></el-input>
@@ -14,7 +14,7 @@
           <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
+          <el-button type="primary" @click="submitForm('ruleForm2')" style="margin-left: 100px">提交</el-button>
           <el-button @click="resetForm('ruleForm2')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -153,7 +153,6 @@
     width: 460px;
     padding-top: 25px;
   }
-
   .card {
     width: 560px;
     padding-bottom: 15px;
