@@ -77,8 +77,8 @@
           this.imageurl = '';
         }
         ;
-
-        this.get_icon();
+        setTimeout(this.get_icon,1000)
+        //this.get_icon();
 
       },
       getuser() {
