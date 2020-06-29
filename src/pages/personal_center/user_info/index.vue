@@ -5,23 +5,20 @@
         <b>个人信息</b>
         <el-button type="text" icon="el-icon-edit" style="float:right;" @click="editinfo()">编辑</el-button>
       </div>
-
       <el-row>
-        <el-col :span="10" style=" max-width: 500px;">
+        <el-col :span="10" :offset="1">
           <div class="info">
             <el-table :data="tableData" style="width: 100%" :show-header="false">
-              <el-table-column prop="uname" width="180"></el-table-column>
-              <el-table-column prop="udata" width="230"></el-table-column>
+              <el-table-column prop="uname" width="100px"></el-table-column>
+              <el-table-column prop="udata"></el-table-column>
             </el-table>
           </div>
         </el-col>
-        <el-col :span="5">
+        <el-col :span="5" :offset="4">
           <div class="avatar">
             <el-avatar :size="150" :src=usericon></el-avatar>
           </div>
           <el-button type="text" style="margin-left: 30px" @click="editicon()">点击更换头像</el-button>
-
-
         </el-col>
       </el-row>
     </el-card>
@@ -83,12 +80,11 @@
       },
       getuser() {
         fetch_user_personal().then(res => {
-          console.log(res)
+          // console.log(res)
           this.userform = res.data;
-          //console.log(this.userform.address)
           this.tableData = [
             {
-              uname: '用户名：',
+              uname: '昵称：',
               udata: this.userform.user_name
             },
             {
@@ -108,7 +104,7 @@
               udata: this.userform.address
             },
             {
-              uname: '账号：',
+              uname: '用户名：',
               udata: this.userform.user_account
             },
             {
@@ -116,15 +112,18 @@
               udata: this.userform.province
             },
             {
-              uname: '电话：',
+              uname: '手机号：',
               udata: this.userform.phone
-            },
+            }
           ]
+          if (this.tableData[2].udata === 'woman') {
+            this.tableData[2].udata = '女'
+          }
         })
       },
       get_icon() {
         fetch_user_icon().then(res => {
-          console.log(res)
+          // console.log(res)
           this.usericon = res.data.headportrait
         })
       },
@@ -154,12 +153,12 @@
 
   .tab-wrap {
     padding: 0 20px;
+    margin-left: 20px;
     overflow: inherit;
     height: 100%;
   }
 
   .info {
     line-height: 40px;
-
   }
 </style>

@@ -121,9 +121,9 @@
         }
       },
       message() {
-        this.$confirm('项目已引入身份权限路由，admin是管理员，user是普通用户，请按需选择将自动填写用户名', '提示', {
-          confirmButtonText: '编写用户界面',
-          cancelButtonText: '编写管理员界面',
+        this.$confirm('按需选择将自动填写用户名', '提示', {
+          confirmButtonText: '填写用户账号',
+          cancelButtonText: '填写管理员账号',
           type: 'warning',
           center: true
         }).then(() => {

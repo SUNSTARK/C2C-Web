@@ -12,30 +12,35 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="任务描述">
+            <el-form-item label="详情">
               <span>{{props.row.detail}} </span>
             </el-form-item>
-            <el-form-item label="任务预算">
-              <span>{{props.row.budget}} </span>
+            <el-form-item label="酬金">
+              <span>{{props.row.budget}} 元</span>
             </el-form-item>
-            <el-form-item label="发布地点">
+            <el-form-item label="地点">
               <span>{{props.row.location}} </span>
             </el-form-item>
-            <el-form-item label="目标套数">
-              <span>{{props.row.target_num}} </span>
+            <el-form-item label="需要完成">
+              <span>{{props.row.target_num}} 份</span>
             </el-form-item>
             <el-form-item label="审核状态">
-              <span>{{props.row.check_state}} </span>
+              <span v-if="props.row.check_state === 1">通过</span>
+              <span v-if="props.row.check_state === 2">未通过</span>
+              <span v-if="props.row.check_state === 0">待审核</span>
             </el-form-item>
             <el-form-item label="任务状态">
-              <span>{{props.row.task_state}} </span>
+              <span v-if="props.row.task_state === 0">待审核</span>
+              <span v-if="props.row.task_state === 1">审核通过暂未发布</span>
+              <span v-if="props.row.task_state === 2">正在发布</span>
+              <span v-if="props.row.task_state === 3">发布结束</span>
             </el-form-item>
           </el-form>
         </template>
       </el-table-column>
       <el-table-column
         align="center"
-        label="名称"
+        label="任务名称"
         prop="task_name">
       </el-table-column>
       <el-table-column
@@ -307,3 +312,11 @@
     },
   }
 </script>
+
+<style>
+  .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
+    font-weight: 600;
+  }
+</style>

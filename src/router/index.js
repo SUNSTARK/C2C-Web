@@ -27,7 +27,7 @@ router.beforeEach((to, from, next) => {
     document.title = to.meta.title
   }
   // 如果是登录、注册、主页，则跳过验证
-  if(to.path === '/login' || to.path === '/register' || to.path === '/home') {
+  if(to.path === '/login' || to.path === '/register' || to.path === '/home' || to.path === '/404') {
     next()
     return
   }

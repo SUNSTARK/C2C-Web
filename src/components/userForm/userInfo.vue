@@ -5,7 +5,7 @@
       <el-row>
         <el-col style="width: 45%">
 
-          <el-form-item label="用户名" prop="user_account">
+          <el-form-item label="昵称" prop="user_account">
             <el-input v-model="ruleForm2.user_name"></el-input>
           </el-form-item>
 
@@ -16,7 +16,7 @@
             </el-radio-group>
           </el-form-item>
 
-          <el-form-item label="账号" prop="user_account" >
+          <el-form-item label="用户名" prop="user_account" >
             <el-input v-model="ruleForm2.user_account" autocomplete="off"></el-input>
           </el-form-item>
 
@@ -151,15 +151,11 @@
         console.log("关闭");
       },
       submitForm(formName) {
-        let that = this
         this.$refs[formName].validate((valid) => {
           if (valid) {
-
-              if(this.ruleForm2.gender==1)
-              {
+              if(this.ruleForm2.gender==1) {
                 this.info_gender='man'
-              }else
-              {
+              }else {
                 this.info_gender='woman'
               }
             let data={
@@ -175,10 +171,10 @@
             fetch_editinfo(data)
               .then(res => {
                 console.log('数据是:', res);
-                if(res.msg=="修改成功")
-                {
+                if(res.msg=="修改成功") {
                   console.log("个人信息修改成功");
                   this.messages()
+                  this.closeCallback()
                 }
               })
               .catch((e) => {

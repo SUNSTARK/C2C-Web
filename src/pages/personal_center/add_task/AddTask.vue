@@ -238,8 +238,7 @@
           submitForm(formName) {
             this.$refs[formName].validate((valid) => {
               if (valid) {
-
-                var str=this.ruleForm.tag.join("\",\"");
+                let str=this.ruleForm.tag.join("\",\"");
                 str="[\""+str+"\"]";
                 let data={
                   task_name:this.ruleForm.task_name,
@@ -254,27 +253,20 @@
                   end_time:this.ruleForm.time_limit[1],
                   flag:this.ruleForm.iffile
                 }
-
-
-
                 fetch_addtask(data)
                   .then(res => {
                     console.log('数据是:', res);
-                    if(res.msg=="成功！")
-                    {
+                    if(res.msg=="成功！") {
                       this.messages();
-                    }else  if(res.msg=="写入服务器失败，请重试")
-                    {
+                    }else if(res.msg=="写入服务器失败，请重试") {
                       this.unmessages();
                     }
                   })
-                  .catch((e) => {
-                    console.log('获取数据失败');
+                  .catch(e => {
+                    console.log('获取数据失败\n'+e);
                     this.errmessages();
                   })
-
-
-              } else {
+              }else {
                 console.log('error submit!!');
                 return false;
               }
@@ -283,24 +275,21 @@
           resetForm(formName) {
             this.$refs[formName].resetFields();
           },
-          messages()
-          {
+          messages() {
             this.$message({
               showClose: true,
               message: '发布成功',
               type: 'success'
             });
           },
-          unmessages()
-          {
+          unmessages() {
             this.$message({
               showClose: true,
               message: '发布失败',
               type: 'error'
             });
           },
-          errmessages()
-          {
+          errmessages() {
             this.$message({
               showClose: true,
               message: '出bug了,联系管理员',

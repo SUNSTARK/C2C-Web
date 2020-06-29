@@ -20,7 +20,7 @@
                 <el-form-item label="开始时间">
                   <span>{{ props.row.release_time }}</span>
                 </el-form-item>
-                <el-form-item label="结束时间">
+                <el-form-item label="截止时间">
                   <span>{{ props.row.end_time }}</span>
                 </el-form-item>
                 <el-form-item label="详情">

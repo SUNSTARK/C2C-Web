@@ -116,7 +116,7 @@
             axisLabel: {show: false},
             axisTick: {show: false},
             splitLine: {show: false},
-            data: [ 'male', 'female']
+            data: [ '男', '女']
           },
           // series: [
           //   {
