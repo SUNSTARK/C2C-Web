@@ -7,11 +7,11 @@
         </el-menu-item>
         <el-menu-item index="/user/task/list">
           <i class="el-icon-document"></i>
-          <span slot="title">任务列表</span>
+          <span slot="title">接受任务</span>
         </el-menu-item>
         <el-menu-item index="/user/task/mine">
           <i class="el-icon-user"></i>
-          <span slot="title">我的任务</span>
+          <span slot="title">我的发布</span>
         </el-menu-item>
     </el-menu>
   </el-aside>

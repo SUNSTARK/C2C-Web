@@ -2,7 +2,7 @@
   <el-main style="min-height: calc(100vh - 200px);">
     <el-table
       stripe
-      :data="tableData"
+      :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
       style="width: 100%; overflow: initial;"
       :row-key="getRowKeys"
       :expand-row-keys="expands"
@@ -23,6 +23,9 @@
             </el-form-item>
             <el-form-item label="需要完成">
               <span>{{props.row.target_num}} 份</span>
+            </el-form-item>
+            <el-form-item label="已被完成">
+              <span>{{props.row.complete_taskNum}} 份</span>
             </el-form-item>
             <el-form-item label="审核状态">
               <span v-if="props.row.check_state === 1">通过</span>
@@ -97,6 +100,15 @@
       </el-table-column>
     </el-table>
     <answer-drawer :isDrawerShow="isDrawerShow" :answers="answers" @closeDrawer="closeDrawer"></answer-drawer>
+    <el-pagination
+      layout="prev, pager, next"
+      :total="tableData.length"
+      :page-size="pagesize"
+      :current-page="currentPage"
+      @current-change="handleCurrentChange"
+      class="pagination">
+    </el-pagination>
+
   </el-main>
 </template>
 
@@ -125,6 +137,8 @@
     },
     data() {
       return {
+        currentPage: 1,  // 默认显示页面为1
+        pagesize: 8,  // 每页的数据条数
         isDrawerShow: false,
         answers: [],
         expands: [],  // 要展开的行，元素是row的key值，用于一次只能展开一行
@@ -133,6 +147,10 @@
       }
     },
     methods: {
+      //点击第几页
+      handleCurrentChange: function(currentPage) {
+        this.currentPage = currentPage;
+      },
       closeDrawer() {
         this.isDrawerShow = false;
       },
@@ -182,13 +200,11 @@
         fetchPost(url,{})
           .then(res => {
             console.log('数据是:', res);
-            if(res.msg=="成功！")
-            {
+            if(res.msg=="成功！") {
               this.logmessage="接受任务成功，请及时完成任务！"
               this.messages();
               this.reload()  // 用于重载表格数据
-            }else  if(res.msg=="早已选择该任务")
-            {
+            }else  if(res.msg=="早已选择该任务") {
               this.unlogmessage="早已选择该任务,请选择其他任务！"
               this.unmessages();
             }
@@ -210,8 +226,7 @@
         fetchPost(url,{})
           .then(res => {
             console.log('数据是:', res);
-            if(res.msg=="成功！")
-            {
+            if(res.msg=="成功！") {
               this.logmessage="取消任务成功！"
               this.messages();
               this.reload()
@@ -231,17 +246,14 @@
         let url="/user/task/rejecting/?task_id=";
         url=url+row.task_id;
         console.log(url)
-        fetchPost(url,{})
-          .then(res => {
+        fetchPost(url,{}).then(res => {
             console.log('数据是:', res);
-            if(res.msg=="成功！")
-            {
+            if(res.msg=="成功！") {
               this.logmessage="拉黑任务成功！"
               this.messages();
               this.reload()
             }
-          })
-          .catch((e) => {
+          }).catch((e) => {
             console.log('获取数据失败');
             this.errmessages();
           })
@@ -257,16 +269,13 @@
         console.log("查看答案");
         console.log('任务编号:'+row.task_id)
         let params= {task_id:row.task_id};
-        fetch_task_getanswer(params)
-          .then(res => {
+        fetch_task_getanswer(params).then(res => {
             console.log('数据是:', res);
-            if(res.msg=="成功！")
-            {
+            if(res.msg=="成功！") {
               this.answers=res.data;
               console.log("获取答案成功");
             }
-          })
-          .catch((e) => {
+          }).catch((e) => {
             console.log('获取数据失败');
             this.errmessages();
           })
@@ -290,24 +299,21 @@
         //   this.answers = res.data;
         // })
       },
-      messages()
-      {
+      messages() {
         this.$message({
           showClose: true,
           message: this.logmessage,
           type: 'success'
         });
       },
-      unmessages()
-      {
+      unmessages() {
         this.$message({
           showClose: true,
           message: this.unlogmessage,
           type: 'error'
         });
       },
-      errmessages()
-      {
+      errmessages() {
         this.$message({
           showClose: true,
           message: '出bug了,联系管理员',

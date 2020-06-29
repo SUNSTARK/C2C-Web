@@ -3,7 +3,7 @@
   <el-row :gutter="20" type="flex">
     <el-col :span="11" :offset="4" style="min-width: 650px">
       <div class="taskbox taskbox2">
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm"  class="demo-ruleForm" :label-position="labelPosition" label-width="100px" >
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm" :label-position="labelPosition" label-width="100px" >
 
         <el-card >
           <div slot="header">
@@ -97,10 +97,10 @@
 
             </el-col>
             <el-col :span="8">
-              <el-form-item prop="iffile" label="答案是否需要附件">
+              <el-form-item prop="iffile" label="答案是否需要图片附件">
                 <el-select v-model="ruleForm.iffile" >
-                  <el-option label="需要" value="1"></el-option>
-                  <el-option label="不需要" value="0"></el-option>
+                  <el-option label="需要" value="2"></el-option>
+                  <el-option label="不需要" value="1"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -239,23 +239,23 @@
                 let str=this.ruleForm.tag.join("\",\"");
                 str="[\""+str+"\"]";
                 let data={
-                  task_name:this.ruleForm.task_name,
-                  detail:this.ruleForm.detail,
-                  task_tag:str,
-                  Lon:this.ruleForm.Lon,
-                  Lat:this.ruleForm.Lat,
-                  location:this.ruleForm.location,
-                  target_num:this.ruleForm.target_num,
-                  budget:this.ruleForm.budget,
-                  release_time:this.ruleForm.time_limit[0],
-                  end_time:this.ruleForm.time_limit[1],
-                  flag:this.ruleForm.iffile
+                  task_name: this.ruleForm.task_name,
+                  detail: this.ruleForm.detail,
+                  task_tag: str,
+                  Lon: this.ruleForm.Lon,
+                  Lat: this.ruleForm.Lat,
+                  location: this.ruleForm.location,
+                  target_num: this.ruleForm.target_num,
+                  budget: this.ruleForm.budget,
+                  release_time: this.ruleForm.time_limit[0],
+                  end_time: this.ruleForm.time_limit[1],
+                  flag: parseInt(this.ruleForm.iffile)
                 }
-                console.log(str)
+                console.log('数据是:\n', data);
                 fetch_addtask(data).then(res => {
-                    console.log('数据是:', res);
                     if(res.msg=="成功！") {
                       this.messages();
+                      this.resetForm('ruleForm')
                     }else if(res.msg=="写入服务器失败，请重试") {
                       this.unmessages();
                     }

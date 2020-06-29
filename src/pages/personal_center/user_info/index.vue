@@ -118,6 +118,8 @@
           ]
           if (this.tableData[2].udata === 'woman') {
             this.tableData[2].udata = '女'
+          }else if (this.tableData[2].udata === 'man') {
+            this.tableData[2].udata = '男'
           }
         })
       },

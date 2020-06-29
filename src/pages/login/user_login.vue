@@ -17,11 +17,11 @@
               <i class="iconfont xu-saomadenglu01 el-icon--right fa-lg pointer" @click="isWechat = !isWechat"></i>
             </span>
             </div>
-            <el-form :model="loginForm" status-icon label-width="100px" class="demo-ruleForm">
-              <el-form-item>
+            <el-form ref="loginForm" :model="loginForm" status-icon label-width="100px" class="demo-ruleForm">
+              <el-form-item prop="username">
                 <el-input prefix-icon="el-icon-user" type="text" v-model="loginForm.username" auto-complete="off" placeholder="用户名" clearable></el-input>
               </el-form-item>
-              <el-form-item>
+              <el-form-item prop="password">
                 <el-input prefix-icon="el-icon-lock" type="password" v-model="loginForm.password" auto-complete="off"
                           placeholder="密码" show-password></el-input>
               </el-form-item>
@@ -75,6 +75,10 @@
       }
     },
     methods: {
+      // 重置表单
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
       submitForm () {
         let that = this
         if (that.loginForm.username === "" || that.loginForm.password === "") {
@@ -108,6 +112,7 @@
                 title: '登录失败',
                 message: '用户名或密码错误!'
               });
+              this.resetForm('loginForm')
             }
           }).catch((err) => {
             console.log(err)
@@ -120,28 +125,6 @@
           })
         }
       },
-      message() {
-        this.$confirm('按需选择将自动填写用户名', '提示', {
-          confirmButtonText: '填写用户账号',
-          cancelButtonText: '填写管理员账号',
-          type: 'warning',
-          center: true
-        }).then(() => {
-          this.loginForm.username = '123ti1me'
-          this.loginForm.password = '123456'
-          this.$message({
-            type: 'success',
-            message: '已填写用户账号!'
-          });
-        }).catch(() => {
-          this.loginForm.username = 'admin1'
-          this.loginForm.password = 'admin1'
-          this.$message({
-            type: 'success',
-            message: '已填写管理员账号!'
-          });
-        });
-      },
       success_msg() {
         let that = this
         this.$notify({
@@ -152,9 +135,6 @@
           offset: 45
         });
       }
-    },
-    mounted () {
-      this.message()
     }
   }
 </script>

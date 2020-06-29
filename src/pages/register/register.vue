@@ -13,15 +13,15 @@
             <div slot="header" class="clearfix formTitlt">
               <span>账号注册</span>
             </div>
-            <el-form :model="registerForm" status-icon label-width="100px" class="demo-ruleForm">
-              <el-form-item >
-                <el-input prefix-icon="el-icon-user" type="text" v-model.number="registerForm.username" auto-complete="off" placeholder="用户名" clearable></el-input>
+            <el-form ref="registerForm" :model="registerForm" status-icon label-width="100px" class="demo-ruleForm">
+              <el-form-item prop="username">
+                <el-input prefix-icon="el-icon-user" type="text" v-model="registerForm.username" auto-complete="off" placeholder="用户名" clearable></el-input>
               </el-form-item>
-              <el-form-item prop="pass">
+              <el-form-item prop="password">
                 <el-input prefix-icon="el-icon-lock" type="password" v-model="registerForm.password" auto-complete="off"
                           placeholder="密码" show-password></el-input>
               </el-form-item>
-              <el-form-item prop="checkPass">
+              <el-form-item prop="checkpassword">
                 <el-input prefix-icon="el-icon-lock" type="password" v-model="registerForm.checkpassword" auto-complete="off"
                           placeholder="确认密码" show-password></el-input>
               </el-form-item>
@@ -46,13 +46,17 @@
     data () {
       return {
         registerForm: {
-          username: "",
-          password:"",
-          checkpassword:"",
+          username: '',
+          password:'',
+          checkpassword:'',
         }
       }
     },
     methods: {
+      // 重置表单
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      },
       submitForm () {
         if (this.registerForm.username === "" || this.registerForm.password === "") {
           this.$message({
@@ -62,9 +66,7 @@
           })
           return false
         } else {
-          console.log("submit auccess!")
-          if(this.registerForm.password!=this.registerForm.checkpassword)
-          {
+          if(this.registerForm.password!=this.registerForm.checkpassword) {
             this.$message({
               showClose: true,
               message: "两次密码输入不一致",
@@ -75,12 +77,11 @@
           let data ={'user_account':this.registerForm.username,'user_passwd':this.registerForm.password};
           fetch_register(data)
               .then(res => {
-                console.log('数据是:', res);
-                if(res.msg=="成功！")
-                {
+                if(res.msg=="成功！") {
                   this.messages();
-                }else  if(res.msg=="注册失败，用户名已存在")
-                {
+                  this.$router.push('/login')
+                }else if(res.msg=="注册失败，用户名已存在") {
+                  this.resetForm('registerForm')
                   this.unmessages();
                 }
               })
@@ -91,24 +92,21 @@
           }
         }
       },
-      messages()
-      {
+      messages() {
         this.$message({
           showClose: true,
-          message: '注册成功，进入发布任务界面',
+          message: '注册成功!',
           type: 'success'
         });
       },
-      unmessages()
-      {
+      unmessages() {
         this.$message({
           showClose: true,
           message: '注册失败，用户名已存在',
           type: 'error'
         });
       },
-      errmessages()
-      {
+      errmessages() {
         this.$message({
           showClose: true,
           message: '出bug了,联系管理员',

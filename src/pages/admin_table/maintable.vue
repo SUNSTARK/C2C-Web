@@ -23,10 +23,6 @@
         width="130">
       </el-table-column>
       <el-table-column
-        prop="city"
-        label="用户地域">
-      </el-table-column>
-      <el-table-column
         prop="points_level"
         label="用户活跃度水平">
       </el-table-column>
@@ -46,6 +42,7 @@
     methods: {
       getRange() {
         fetch_points().then(res => {
+          console.log(res.data)
           res = res.data
           this.tableData=res
           // this.$message({

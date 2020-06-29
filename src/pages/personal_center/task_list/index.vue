@@ -9,11 +9,6 @@
       </template>
     </el-tabs>
 
-    <el-pagination
-      layout="prev, pager, next"
-      :total="tableData.length"
-      class="pagination">
-    </el-pagination>
   </el-main>
 </template>
 
@@ -29,11 +24,11 @@
 
   const tabs_list = [
     {
-      label: '全部任务',
+      label: '任务大厅',
       name: 'all'
     },
     {
-      label: '正在执行',
+      label: '执行中',
       name: 'executing'
     },
     {
@@ -43,13 +38,17 @@
   ];
   const tabs_mine = [
     {
-      label: '正在被执行',
+      label: '发布中',
       name: 'executed'
     },
     {
-      label: '已被完成',
-      name: 'end'
+      label: '未过审',
+      name: 'fail'
     },
+    {
+      label: '已结束',
+      name: 'end'
+    }
   ]
 
   export default {
@@ -86,22 +85,27 @@
         //全部
         if (tab.name === 'all') {
           fetch_task_list().then(res => {
-            console.log(res)
+            // console.log(res)
             this.tableData = res.data;
             this.buttonList = [this.buttonTypeEnum.ACCEPT,this.buttonTypeEnum.STOP];
           })
           //正在完成  别人的任务
         } else if (tab.name === 'executing') {
           fetch_task_executing().then(res => {
-            console.log(res)
+            // console.log(res)
             this.tableData = res.data;
             this.buttonList = [ this.buttonTypeEnum.CANCEL];
           })
-          //正在被完成  自己的任务
+          //正在发布中  自己的任务
         } else if (tab.name === 'executed') {
           fetch_task_executed().then(res => {
             console.log(res)
             this.tableData = res.data;
+            for (let item in this.tableData) {
+              if (this.tableData[item].check_state === 2) { // 弹出未过审的
+                console.log(this.tableData[item].check_state)
+              }
+            }
             this.buttonList = [];
           })
           //已完成的任务   ？
@@ -117,6 +121,12 @@
             console.log(res)
             this.tableData = res.data;
             this.buttonList = [this.buttonTypeEnum.COMMENT];
+          })
+        } else if (tab.name === 'fail') {
+          fetch_task_executed().then(res => {
+            console.log(res)
+            this.tableData = res.data;
+            this.buttonList = [];
           })
         }
       },

@@ -27,7 +27,7 @@
             align="center"
             prop="release_time"
             sortable
-            label="上传时间">
+            label="开始时间">
           </el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
@@ -50,7 +50,7 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="currentPage"
-            :page-sizes="[5, 15, 25]"
+            :page-sizes="[8, 15, 25]"
             :page-size="pagesize"
             layout="total, sizes, prev, pager, next"
             :total="tableData.length"
@@ -70,7 +70,7 @@
     data() {
       return {
         currentPage: 1,  // 默认显示页面为1
-        pagesize: 5,  // 每页的数据条数
+        pagesize: 8,  // 每页的数据条数
         loading: true, // 表格默认开启加载，获取到数据后设置为false
         tableData: []  //需要data定义一些，tableData定义一个空数组，请求的数据都是存放这里面
       }
