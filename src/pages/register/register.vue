@@ -13,20 +13,20 @@
             <div slot="header" class="clearfix formTitlt">
               <span>账号注册</span>
             </div>
-            <el-form ref="registerForm" :model="registerForm" status-icon label-width="100px" class="demo-ruleForm">
+            <el-form :rules="rules" ref="registerForm" :model="registerForm" status-icon label-width="100px" class="demo-ruleForm">
               <el-form-item prop="username">
                 <el-input prefix-icon="el-icon-user" type="text" v-model="registerForm.username" auto-complete="off" placeholder="用户名" clearable></el-input>
               </el-form-item>
               <el-form-item prop="password">
                 <el-input prefix-icon="el-icon-lock" type="password" v-model="registerForm.password" auto-complete="off"
-                          placeholder="密码" show-password></el-input>
+                          placeholder="密码" show-password ></el-input>
               </el-form-item>
               <el-form-item prop="checkpassword">
                 <el-input prefix-icon="el-icon-lock" type="password" v-model="registerForm.checkpassword" auto-complete="off"
                           placeholder="确认密码" show-password></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button class="subBtn" type="primary" @click="submitForm">注册</el-button>
+                <el-button class="subBtn" type="primary" @click="submitForm('registerForm')">注册</el-button>
               </el-form-item>
               <p class="smalltxt">
                 <router-link class="a" to="/login">已有帐号?点击登陆</router-link>
@@ -44,53 +44,73 @@
 
   export default {
     data () {
+      var validatePass = (rule, value, callback) => {
+        if (value === "") {
+          callback(new Error("请输入密码"))
+        } else if (value.toString().length < 6) {
+          callback(new Error("密码长度不能低于6位"))
+        } else {
+          if (this.registerForm.checkpassword !== "") {
+            this.$refs.registerForm.validateField("checkpassword")
+          }
+          callback()
+        }
+      }
+      var validatePass2 = (rule, value, callback) => {
+        if (value === "") {
+          callback(new Error("请再次输入密码"))
+        } else if (value.toString().length < 6) {
+          callback(new Error("密码长度不能低于6位"))
+        } else if (value !== this.registerForm.password) {
+          callback(new Error("两次输入密码不一致!"))
+        } else {
+          callback()
+        }
+      }
       return {
         registerForm: {
           username: '',
           password:'',
           checkpassword:'',
+        },
+        rules:{
+          password: [
+            {required: true, validator: validatePass, trigger: "blur"}
+          ],
+          checkpassword: [
+            {required: true, validator: validatePass2, trigger: "blur"}
+          ]
         }
       }
     },
     methods: {
-      // 重置表单
       resetForm(formName) {
-        this.$refs[formName].resetFields();
+        this.$refs[formName].resetFields()
       },
-      submitForm () {
-        if (this.registerForm.username === "" || this.registerForm.password === "") {
-          this.$notify.error({
-            title: '注册错误',
-            message: "账号或密码不能为空",
-            type: "error"
-          })
-          return false
-        } else {
-          if(this.registerForm.password!=this.registerForm.checkpassword) {
-            this.$notify.error({
-              title: '注册错误',
-              message: "两次密码输入不一致",
-              type: "error"
-            })
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+                let data ={'user_account':this.registerForm.username,'user_passwd':this.registerForm.password};
+                fetch_register(data)
+                  .then(res => {
+                    if(res.msg=="成功！") {
+                      this.messages();
+                      this.$router.push('/login')
+                    }else if(res.msg=="注册失败，用户名已存在") {
+                      console.log("注册失败，用户名已存在")
+                      this.resetForm('registerForm')
+                      this.unmessages();
+                    }
+                  })
+                  .catch((e) => {
+                    console.log('获取数据失败');
+                    this.errmessages();
+                  })
+          } else {
+            console.log("error submit!!")
+            return false
           }
-        else{
-          let data ={'user_account':this.registerForm.username,'user_passwd':this.registerForm.password};
-          fetch_register(data)
-              .then(res => {
-                if(res.msg=="成功！") {
-                  this.messages();
-                  this.$router.push('/login')
-                }else if(res.msg=="注册失败，用户名已存在") {
-                  this.resetForm('registerForm')
-                  this.unmessages();
-                }
-              })
-              .catch((e) => {
-                console.log('获取数据失败');
-                this.errmessages();
-              })
-          }
-        }
+        })
       },
       messages() {
         this.$notify({

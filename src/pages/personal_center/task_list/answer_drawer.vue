@@ -8,11 +8,20 @@
     :before-close="handleClose">
     <template v-for="(answer, index) in answers">
       <el-card :body-style="{ padding: '10px'}" style="margin: 10px;">
-        <div>
-          <span>{{answer.user_id}}</span>
-          <div style="margin: 10px 10px 0 10px">{{ answer.ans_body }}</div>
+
+          <div slot="header" class="clearfix" style="height: 10px">
+            <b><span>用户id:{{answer.user_id}}</span></b>
+          </div>
+
+          <div style="margin: 10px 10px 0 10px">{{ answer.ans_body }}<br>
+            <el-image
+              v-if="answer.img!=null"
+              style="width: 100px; height: 100px"
+              :src='answer.img'
+              :previewSrcList=[answer.img]>
+            </el-image>
+          </div>
           <el-button type="text" style="float: right;" @click="showRateDialog(index)">评分</el-button>
-        </div>
       </el-card>
     </template>
 
