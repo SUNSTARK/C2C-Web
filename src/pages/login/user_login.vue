@@ -23,7 +23,7 @@
               </el-form-item>
               <el-form-item prop="password">
                 <el-input prefix-icon="el-icon-lock" type="password" v-model="loginForm.password" auto-complete="off"
-                          placeholder="密码" show-password></el-input>
+                          placeholder="密码" show-password @keyup.enter.native="submitForm"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button class="subBtn" type="primary" @click="submitForm">登录</el-button>

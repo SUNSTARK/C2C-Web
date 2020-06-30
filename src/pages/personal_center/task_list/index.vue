@@ -89,22 +89,27 @@
             this.tableData = res.data;
             this.buttonList = [this.buttonTypeEnum.ACCEPT,this.buttonTypeEnum.STOP];
           })
-          //正在完成  别人的任务
+          //正在完成  别人的任务 接收方
         } else if (tab.name === 'executing') {
           fetch_task_executing().then(res => {
             // console.log(res)
             this.tableData = res.data;
             this.buttonList = [ this.buttonTypeEnum.CANCEL];
           })
-          //正在发布中  自己的任务
+          //正在发布中  发布方
         } else if (tab.name === 'executed') {
           fetch_task_executed().then(res => {
             console.log(res)
             this.tableData = res.data;
+            let failCount = 0
             for (let item in this.tableData) {
-              if (this.tableData[item].check_state === 2) { // 弹出未过审的
-                console.log(this.tableData[item].check_state)
+              if (this.tableData[item].check_state === 2) { // 统计未过审的
+                failCount += 1
               }
+            }
+            for (let item in this.tableData) {
+              if (this.tableData[item].check_state === 2)  // 剔除未过审的
+                this.tableData.splice(item, failCount)
             }
             this.buttonList = [];
           })
@@ -122,10 +127,21 @@
             this.tableData = res.data;
             this.buttonList = [this.buttonTypeEnum.COMMENT];
           })
+          // 未过审的  发布方
         } else if (tab.name === 'fail') {
           fetch_task_executed().then(res => {
-            console.log(res)
             this.tableData = res.data;
+            let passCount = 0
+            for (let item in this.tableData) {
+              if (this.tableData[item].check_state === 1) { // 统计过审的
+                passCount += 1
+              }
+            }
+            for (let item in this.tableData) {
+              if (this.tableData[item].check_state === 1) { // 剔除过审的
+                this.tableData.splice(item, passCount)
+              }
+            }
             this.buttonList = [];
           })
         }

@@ -24,7 +24,7 @@
             <el-form-item label="需要完成">
               <span>{{props.row.target_num}} 份</span>
             </el-form-item>
-            <el-form-item label="已被完成">
+            <el-form-item label="已完成">
               <span>{{props.row.complete_taskNum}} 份</span>
             </el-form-item>
             <el-form-item label="审核状态">

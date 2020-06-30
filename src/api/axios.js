@@ -46,6 +46,11 @@ axios.interceptors.response.use(
       setTimeout(() => {
         location.reload()
       }, 3000)
+    } else if (error.response.status === 504) {
+      Message({
+        message: "请求服务器超时",
+        type: "warning"
+      })
     }
     return Promise.reject(error.response) // 返回接口返回的错误信息
   })
