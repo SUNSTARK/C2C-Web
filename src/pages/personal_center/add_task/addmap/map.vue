@@ -44,7 +44,7 @@
       let validatePlace = (rules, value, callback) => {
         if (rules.field === 'sname') {
           if (value === '') {
-            callback(new Error('请输入上车地点'));
+            callback(new Error('请输入地点'));
           } else {
             if (!this.addForm.slat || this.addForm.slat === 0) {
               callback(new Error('请搜索并选择有经纬度的地点'));
@@ -56,9 +56,9 @@
       };
       return {
         addForm: {
-          sname: '', // 上车地点
-          slat: 0, // 上车地点纬度
-          slon: 0 // 上车地点经度
+          sname: '', // 地点
+          slat: 0, // 地点纬度
+          slon: 0 // 地点经度
         },
         addRules: {
           sname: [{required: true, validator: validatePlace, trigger: 'change'}]
@@ -70,8 +70,8 @@
         inputHeight: 0, // 搜索框高度
         offsetLeft: 0, // 搜索框的左偏移值
         offsetTop: 0, // 搜索框的上偏移值
-        snameMap: null,  // 上车地点地图选址
-        snameMapShow: true,  // 上车地点地图选址显示
+        snameMap: null,  // 地点地图选址
+        snameMapShow: true,  // 地点地图选址显示
         infoVisible: false // 选中地址信息显示
       }
     },
