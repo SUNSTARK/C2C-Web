@@ -46,7 +46,7 @@
             </div>
             <div class="ewmbox">
               <div class="ewm">
-                <img src='/static/ewm.png' height="140" width="140">
+                <img src='@/assets/ewm.png' height="140" width="140">
               </div>
               <div class="ewmicon">
                 <i class="iconfont xu-saomadenglu fa-2x iconcolor"></i>
@@ -82,9 +82,9 @@
       submitForm () {
         let that = this
         if (that.loginForm.username === "" || that.loginForm.password === "") {
-          this.$message({
-            showClose: true,
-            message: "账号或密码不能为空",
+          this.$notify.error({
+            title: '登录失败',
+            message: "账号或密码不能为空!",
             type: "error"
           })
           return false
@@ -131,8 +131,7 @@
           type: "success",
           title: '登录成功',
           message: '欢迎您，'+that.loginForm.username,
-          duration: 3000,
-          offset: 45
+          duration: 2500
         });
       }
     }

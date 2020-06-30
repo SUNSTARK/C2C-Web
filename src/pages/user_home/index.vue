@@ -1,7 +1,7 @@
 <template>
-  <el-carousel type="card" indicator-position="inside" height="600px">
+  <el-carousel type="card" indicator-position="inside" height="650px">
     <el-carousel-item v-for="item in imgList" :key="item.id">
-      <img :src='item.url'/>
+      <img ref="imgHeight" :src='item.url'/>
     </el-carousel-item>
   </el-carousel>
 </template>
@@ -20,6 +20,9 @@
           {id: 5, url: require('@/assets/carousel/carousel06.png')}
         ]
       }
+    },
+    mounted() {
+      console.log(this.$refs.imgHeight[0].height)
     }
   }
 </script>

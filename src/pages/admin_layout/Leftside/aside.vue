@@ -2,7 +2,7 @@
   <div>
     <el-aside id="asideNav">
       <div class="logo-name">
-        <p v-if="$store.getters.logoShow"><img src="../../../../static/logo.png" class="logo-img"></p>
+        <p v-if="$store.getters.logoShow"><img src='@/assets/logo.png' class="logo-img"></p>
         <p v-else>C2C众包后台管理</p>
       </div>
       <el-menu

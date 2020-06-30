@@ -59,16 +59,16 @@
       },
       submitForm () {
         if (this.registerForm.username === "" || this.registerForm.password === "") {
-          this.$message({
-            showClose: true,
+          this.$notify.error({
+            title: '注册错误',
             message: "账号或密码不能为空",
             type: "error"
           })
           return false
         } else {
           if(this.registerForm.password!=this.registerForm.checkpassword) {
-            this.$message({
-              showClose: true,
+            this.$notify.error({
+              title: '注册错误',
               message: "两次密码输入不一致",
               type: "error"
             })
@@ -93,23 +93,23 @@
         }
       },
       messages() {
-        this.$message({
+        this.$notify({
           showClose: true,
           message: '注册成功!',
           type: 'success'
         });
       },
       unmessages() {
-        this.$message({
-          showClose: true,
-          message: '注册失败，用户名已存在',
+        this.$notify.error({
+          title:'注册错误',
+          message: '注册失败，用户名已存在!',
           type: 'error'
         });
       },
       errmessages() {
-        this.$message({
-          showClose: true,
-          message: '出bug了,联系管理员',
+        this.$notify.error({
+          title:'错误',
+          message: '出Bug了，联系管理员!',
           type: 'warning'
         });
       }
