@@ -42,14 +42,9 @@
     methods: {
       getRange() {
         fetch_points().then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           res = res.data
           this.tableData=res
-          // this.$message({
-          //   showClose: true,
-          //   message: "用户积分已更新",
-          //   type: "success"
-          // })
         }).catch((err) => {
           console.log(err)
         }).catch(res => {
@@ -63,6 +58,9 @@
     },
     mounted() {
      this.getRange ();
+      let nowDate = new Date();
+
+      console.log(nowDate.toLocaleDateString())
     }
   }
 </script>

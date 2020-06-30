@@ -44,6 +44,10 @@
   ];
   const tabs_mine = [
     {
+      label: '审核中',
+      name: 'checking'
+    },
+    {
       label: '发布中',
       name: 'executed'
     },
