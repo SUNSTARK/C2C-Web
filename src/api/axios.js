@@ -23,7 +23,7 @@ axios.interceptors.response.use(
   response => {
     if (response.data.code === 2001) { // 约定报错信息
       Message({
-        message: '错误201，服务器处理失败，请联系后端！',
+        message: '错误2001，服务器处理失败，请联系后端！',
         type: "warning"
       })
       return Promise.reject(response)
@@ -34,7 +34,7 @@ axios.interceptors.response.use(
   error => {
     if (error.response.status === 404) {
       Message({
-        message: "请求地址出错",
+        message: "您访问的页面不存在",
         type: "warning"
       })
     } else if (error.response.status === 401) {
@@ -51,20 +51,23 @@ axios.interceptors.response.use(
         message: "请求服务器超时",
         type: "warning"
       })
+    } else if (error.response.status === 502) {
+      Message({
+        message: "502 Bad Gateway",
+        type: "warning"
+      })
     }
-    return Promise.reject(error.response) // 返回接口返回的错误信息
+    return Promise.reject(error.response.data) // 返回接口返回的错误信息
   })
 
 // 返回一个Promise(发送post请求)
 export function fetchPost(url, params) {
   return new Promise((resolve, reject) => {
-    axios.post(url, params)
-      .then(response => {
+    axios.post(url, params).then(response => {
         resolve(response.data);
       }, err => {
         reject(err);
-      })
-      .catch((error) => {
+      }).catch((error) => {
         reject(error)
       })
   })
@@ -73,13 +76,11 @@ export function fetchPost(url, params) {
 // 返回一个Promise(发送get请求)
 export function fetchGet(url, param) {
   return new Promise((resolve, reject) => {
-    axios.get(url, {params: param})
-      .then(response => {
+    axios.get(url, {params: param}).then(response => {
         resolve(response.data)
       }, err => {
         reject(err)
-      })
-      .catch((error) => {
+      }).catch((error) => {
         reject(error)
       })
   })

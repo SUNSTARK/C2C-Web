@@ -19,7 +19,7 @@
             </div>
             <el-form ref="loginForm" :model="loginForm" status-icon label-width="100px" class="demo-ruleForm">
               <el-form-item prop="username">
-                <el-input prefix-icon="el-icon-user" type="text" v-model="loginForm.username" auto-complete="off" placeholder="用户名" clearable></el-input>
+                <el-input ref="input" prefix-icon="el-icon-user" type="text" v-model="loginForm.username" auto-complete="off" placeholder="用户名" clearable></el-input>
               </el-form-item>
               <el-form-item prop="password">
                 <el-input prefix-icon="el-icon-lock" type="password" v-model="loginForm.password" auto-complete="off"
@@ -134,6 +134,11 @@
           duration: 2500
         });
       }
+    },
+    mounted() {
+      this.$nextTick(function(){
+        this.$refs['input'].focus();
+      })
     }
   }
 </script>
@@ -163,7 +168,7 @@
     border-bottom: 0px;
   }
   #login .loginBox .loginCon .title {
-    font-size: 36px;
+    font-size: 34px;
     font-weight: 600;
     color: #ffffff;
     margin-top: 100px;

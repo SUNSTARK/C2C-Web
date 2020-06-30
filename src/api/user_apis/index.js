@@ -54,6 +54,6 @@ export function fetch_task_getanswer (params) {
 }
 
 //评价任务
-export function fetch_task_score_answer (params) {
-  return fetchGet('/task/answer/score', params)
+export function fetch_task_score_answer (data) {
+  return fetchPost('/task/answer/score', data)
 }

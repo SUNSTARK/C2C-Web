@@ -1,7 +1,7 @@
 <template>
   <el-carousel type="card" indicator-position="inside" :height="currentHight-100+'px'">
     <el-carousel-item v-for="item in imgList" :key="item.id">
-      <img style="width: 100%;height: 100%" ref="imgHeight" :src='item.url' @load="imgLoad"/>
+      <img style="width: 100%;height: 100%" ref="imgHeight" :src='item.url'/>
     </el-carousel-item>
   </el-carousel>
 </template>
@@ -11,8 +11,6 @@
     name: "home",
     data() {
       return {
-        imgHeight: '',
-        imgWidth:'',
         currentHight:'',
         imgList: [
           {id: 0, url: require('@/assets/carousel/carousel01.png')},
@@ -24,19 +22,10 @@
         ]
       }
     },
-    methods: {
-      imgLoad() {
-        this.$nextTick(() => {
-          this.$refs.imgHeight[0].height = document.body.clientHeight
-          this.$refs.imgHeight[0].width = document.body.clientWidth
-        })
-      }
-    },
     mounted() {
       this.currentHight = document.body.clientHeight
       window.addEventListener('resize', () => {
         this.currentHight = document.body.clientHeight
-        this.imgLoad()
       },false)
     }
   }

@@ -13,10 +13,10 @@
             <b><span>用户id:{{answer.user_id}}</span></b>
           </div>
 
-          <div style="margin: 10px 10px 0 10px">{{ answer.ans_body }}<br>
+          <div style="margin: 10px 10px 0 10px"><p style="text-indent:2em;">{{ answer.ans_body }}</p><br/>
             <el-image
               v-if="answer.img!=null"
-              style="width: 100px; height: 100px"
+              style="width: 270px; height: 180px"
               :src='answer.img'
               :previewSrcList=[answer.img]>
             </el-image>
@@ -31,7 +31,7 @@
       :modal-append-to-body="false"
       width="30%"
       :before-close="handleClose2">
-      <el-rate v-model="score"></el-rate>
+      <el-rate v-model="score" show-text style="text-align: center"></el-rate>
       <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="rating">确 定</el-button>
@@ -76,40 +76,34 @@
         console.log("答案id:"+this.ans_id)
       },
       rating() {
-        console.log(`评分---score:${this.score},ans_id:${this.ans_id}`);
-        let params={
-          ans_id:this.ans_id,
-          score:this.score
+        // console.log(`评分---score:${this.score},ans_id:${this.ans_id}`);
+        let data={
+          'id':this.ans_id,
+          'score':this.score
         }
-        fetch_task_score_answer(params)
-          .then(res => {
-            console.log('数据是:', res);
-            if(res.msg=="成功！")
-            {
-              console.log("答案评价成功");
-              this.messages()
-            }
+        console.log('发送的数据是：', data)
+        fetch_task_score_answer(data).then(res => {
+          console.log('数据是:', res);
+          if(res.msg=="成功！") {
+            console.log("答案评价成功");
+            this.messages()
+          }
+        }).catch(err => {
+            console.log('获取数据失败\n'+err);
+            // this.errmessages();
           })
-          .catch((e) => {
-            console.log('获取数据失败');
-            this.errmessages();
-          })
-
-
         this.dialogVisible = false;
         this.score = null;
         this.ans_id = null;
       },
-      messages()
-      {
+      messages() {
         this.$message({
           showClose: true,
           message: '评价任务成功！',
           type: 'success'
         });
       },
-      errmessages()
-      {
+      errmessages() {
         this.$message({
           showClose: true,
           message: '出bug了,联系管理员',

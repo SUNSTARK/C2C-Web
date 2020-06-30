@@ -44,9 +44,8 @@
 
 <style scoped>
   .aside {
-    overflow: hidden;
+    overflow: auto;
     min-height: Calc(100vh - 80px);
-    height: 93%;
   }
   /*选中特效*/
   .el-menu .el-menu-item.is-active {

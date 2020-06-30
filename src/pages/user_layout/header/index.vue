@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="logo-title"><p>C2C众包平台</p></div>
     <el-header id="userheader">
       <el-menu
         :default-active="activeIndex"
@@ -9,12 +10,11 @@
         background-color="#21282E"
         text-color="#999999"
         active-text-color="#FFFFFF">
-        <div class="logo-title"><p>C2C众包平台</p></div>
         <el-menu-item index="/home">首页</el-menu-item>
         <el-menu-item index="/addtask">发布需求</el-menu-item>
+        <el-menu-item index="/user/task/list">我的工作台</el-menu-item>
         <el-menu-item index="/admin_home" v-if="this.$store.getters.role==='admin'">后台主页</el-menu-item>
-        <el-menu-item id="mytask" index="/user/task/list" v-if="this.$store.getters.token">我的工作台</el-menu-item>
-        <el-menu-item id="usercenter" index="/user/info" v-if="this.$store.getters.token">{{account}}
+        <el-menu-item index="/user/info" v-if="this.$store.getters.token" style="float: right;color: white;font-weight: bold">{{account}}
           <el-dropdown @command="handleCommand">
             <i class="el-icon-arrow-down" style="margin-top: -5px"></i>
           <el-dropdown-menu slot="dropdown">
@@ -71,11 +71,10 @@
 
 <style>
   .logo-title {
-    width: 100%;
+    width: 200px;
+    height: 60px;
     background-color: #21282E !important;
-    z-index: 999;
-    left: 45px;
-    position: absolute;
+    position: fixed;
   }
 
   .logo-title p {
@@ -83,8 +82,8 @@
     font-weight: 600;
     font-size: 16px;
     color: white;
-    position: fixed;
-    margin-top: 17px;
+    text-align: center;
+    margin-top: 18px;
   }
 
   #userheader {
@@ -93,15 +92,12 @@
     border-right: solid 1px #e6e6e6;
     padding-right: 0;
     padding-left: 0;
-    overflow-x: hidden;
   }
 
   #userheader .el-menu {
     flex: 1;
-    overflow: hidden;
     border-right: none;
-    position: relative;
-    padding-left: 200px;
+    margin-left: 200px;
   }
 
   #userheader .el-menu .el-menu-item {
@@ -147,34 +143,17 @@
 
   #userheader .showLogin {
     position: fixed;
-    right: 35px;
+    right: 40px;
     top: 19px;
   }
 
   #userheader .showLogin .link {
-    font-size: 15px;
+    font-size: 16px;
     color: white;
     margin-left: 15px;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: bold;
     font-family: 微软雅黑;
   }
 
-  .adminEntry {
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-    margin-right: 15px;
-  }
-
-  #mytask {
-    position: absolute;
-    right: 130px;
-  }
-
-  #usercenter {
-    position: absolute;
-    right: -5px;
-    font-weight: bold;
-  }
 </style>

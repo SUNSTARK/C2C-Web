@@ -3,12 +3,18 @@
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <template v-for="tab in tabs">
         <el-tab-pane :label="tab.label" :name="tab.name">
-          <task-list-table :tableData="tableData" :buttonTypeEnum="buttonTypeEnum"
-                           :buttonList="buttonList"></task-list-table>
+          <task-list-table :tableData="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :buttonTypeEnum="buttonTypeEnum" :buttonList="buttonList"></task-list-table>
         </el-tab-pane>
       </template>
     </el-tabs>
-
+    <el-pagination
+      layout="total, prev, pager, next"
+      :total="tableData.length"
+      :page-size="pagesize"
+      :current-page="currentPage"
+      @current-change="handleCurrentChange"
+      class="pagination">
+    </el-pagination>
   </el-main>
 </template>
 
@@ -56,6 +62,8 @@
     components: {taskListTable},
     data() {
       return {
+        currentPage: 1,  // 默认显示页面为1
+        pagesize: 8,  // 每页的数据条数
         activeName: 'all',
         tabs: [],
         tableData: [],
@@ -81,6 +89,10 @@
       }
     },
     methods: {
+      //点击第几页
+      handleCurrentChange: function(currentPage) {
+        this.currentPage = currentPage;
+      },
       handleClick(tab) {
         //全部
         if (tab.name === 'all') {
@@ -170,8 +182,8 @@
   .tab-wrap {
     margin-left: 20px;
     background-color: #fff;
-    overflow: hidden;
-    height: 93%;
+    overflow: auto;
+    height: 100%;
   }
 
   .pagination {

@@ -15,7 +15,7 @@
             </div>
             <el-form :rules="rules" ref="registerForm" :model="registerForm" status-icon label-width="100px" class="demo-ruleForm">
               <el-form-item prop="username">
-                <el-input prefix-icon="el-icon-user" type="text" v-model="registerForm.username" auto-complete="off" placeholder="用户名" clearable></el-input>
+                <el-input ref="input" prefix-icon="el-icon-user" type="text" v-model="registerForm.username" auto-complete="off" placeholder="用户名" clearable></el-input>
               </el-form-item>
               <el-form-item prop="password">
                 <el-input prefix-icon="el-icon-lock" type="password" v-model="registerForm.password" auto-complete="off"
@@ -133,6 +133,11 @@
           type: 'warning'
         });
       }
+    },
+    mounted() {
+      this.$nextTick(function(){ // 自动聚焦用户名
+        this.$refs['input'].focus();
+      })
     }
   }
 </script>
@@ -158,7 +163,7 @@
     border-bottom: 0px;
   }
   #register .registerBox .registerCon .title {
-    font-size: 36px;
+    font-size: 34px;
     font-weight: 600;
     color: #ffffff;
     margin-top: 100px;

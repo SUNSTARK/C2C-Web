@@ -26,9 +26,8 @@
   }
   #usermain {
     background-color: #f0f2f5;
-    overflow-x: hidden;
+    overflow: auto;
     height: 100%;
-    width: 100%;
     padding-top: 5px;
   }
   html, body, #userlayout, .el-container {

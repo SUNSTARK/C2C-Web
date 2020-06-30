@@ -1,8 +1,9 @@
 <template>
   <el-main style="min-height: calc(100vh - 200px);">
+
     <el-table
       stripe
-      :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+      :data="tableData"
       style="width: 100%; overflow: initial;"
       :row-key="getRowKeys"
       :expand-row-keys="expands"
@@ -100,16 +101,8 @@
       </el-table-column>
     </el-table>
     <answer-drawer :isDrawerShow="isDrawerShow" :answers="answers" @closeDrawer="closeDrawer"></answer-drawer>
-    <el-pagination
-      layout="total, prev, pager, next"
-      :total="tableData.length"
-      :page-size="pagesize"
-      :current-page="currentPage"
-      @current-change="handleCurrentChange"
-      class="pagination">
-    </el-pagination>
-
   </el-main>
+
 </template>
 
 <script>
@@ -137,8 +130,6 @@
     },
     data() {
       return {
-        currentPage: 1,  // 默认显示页面为1
-        pagesize: 7,  // 每页的数据条数
         isDrawerShow: false,
         answers: [],
         expands: [],  // 要展开的行，元素是row的key值，用于一次只能展开一行
@@ -147,10 +138,6 @@
       }
     },
     methods: {
-      //点击第几页
-      handleCurrentChange: function(currentPage) {
-        this.currentPage = currentPage;
-      },
       closeDrawer() {
         this.isDrawerShow = false;
       },
