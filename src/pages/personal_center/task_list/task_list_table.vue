@@ -101,7 +101,7 @@
     </el-table>
     <answer-drawer :isDrawerShow="isDrawerShow" :answers="answers" @closeDrawer="closeDrawer"></answer-drawer>
     <el-pagination
-      layout="prev, pager, next"
+      layout="total, prev, pager, next"
       :total="tableData.length"
       :page-size="pagesize"
       :current-page="currentPage"
@@ -138,7 +138,7 @@
     data() {
       return {
         currentPage: 1,  // 默认显示页面为1
-        pagesize: 8,  // 每页的数据条数
+        pagesize: 7,  // 每页的数据条数
         isDrawerShow: false,
         answers: [],
         expands: [],  // 要展开的行，元素是row的key值，用于一次只能展开一行
@@ -329,5 +329,11 @@
     width: 90px;
     color: #99a9bf;
     font-weight: 600;
+  }
+  .el-table::before {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0px;
   }
 </style>

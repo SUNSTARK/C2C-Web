@@ -121,6 +121,22 @@
           }else if (this.tableData[2].udata === 'man') {
             this.tableData[2].udata = '男'
           }
+          let notFilledCount = 0
+          for (let item in this.tableData) {
+            if (!this.tableData[item].udata) {
+              notFilledCount += 1
+            }
+          }
+          if (notFilledCount === 5) {
+            this.$confirm('请先完善您的信息', '注意', {
+              confirmButtonText: '完善信息',
+              cancelButtonText:'取消',
+              type: 'warning'
+            }).then(() => {
+              this.editinfo()
+            }).catch(() => {
+            });
+          }
         })
       },
       get_icon() {
@@ -130,19 +146,17 @@
         })
       },
       editinfo() {
-        console.log("编辑信息")
+        // console.log("编辑信息")
         this.dialogInfoVisible = true;
-
       },
       editicon() {
-        console.log("更换头像");
+        // console.log("更换头像");
         this.dialogIconVisible = true;
-
       }
     },
-    mounted() {
-      this.getuser(),
-        this.get_icon()
+    created() {
+      this.getuser()
+      this.get_icon()
     }
   }
 </script>

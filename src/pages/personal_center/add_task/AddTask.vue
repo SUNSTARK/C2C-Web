@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
   <el-row :gutter="20" type="flex">
     <el-col :span="11" :offset="4" style="min-width: 650px">
       <div class="taskbox taskbox2">
@@ -24,7 +24,8 @@
                   start-placeholder="开始日期"
                   end-placeholder="结束日期"
                   format="yyyy-MM-dd HH:mm:ss"
-                  value-format="yyyy-MM-dd HH:mm:ss">
+                  value-format="yyyy-MM-dd HH:mm:ss"
+                  :picker-options="pickerOptions">
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -143,6 +144,7 @@
         </div>
       </div>
     </el-col>
+    <el-backtop></el-backtop>
   </el-row>
   </div>
 </template>
@@ -160,6 +162,11 @@
           time1:[],
           time2:'',
           labelPosition:'top',
+          pickerOptions: {  // 禁止选择今天之前的日期
+            disabledDate(time) {
+              return time.getTime() < Date.now() - 3600 * 1000 * 24;
+            }
+          },
           activities: [{
             content: '完善您的任务需求信息', size: 'large', type: 'primary', color: '#0bbd87'
           }, {

@@ -17,7 +17,7 @@
           </el-form-item>
 
           <el-form-item label="用户名" prop="user_account" >
-            <el-input v-model="ruleForm2.user_account" autocomplete="off"></el-input>
+            <el-input v-model="ruleForm2.user_account" autocomplete="off" disabled></el-input>
           </el-form-item>
 
           <el-form-item label="手机号" prop="phone">
@@ -71,7 +71,7 @@
       }
     },
     data() {
-      var checkPhone = (rule, value, callback) => {
+      let checkPhone = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('手机号不能为空'));
         } else {
@@ -105,25 +105,22 @@
             {required: true, validator: checkPhone, trigger: "blur"}
           ],
           gender: [
-            {required: true,message:'性别不能为空'}
+            {required: true,message:'性别不能为空', trigger: "blur"}
           ],
           name: [
-            {required: true,message: '姓名不能为空'}
+            {required: true,message: '姓名不能为空', trigger: "blur"}
           ],
           user_name:[
-              { required: true, message: '昵称不能为空'},
+              { required: true, message: '昵称不能为空', trigger: "blur"},
           ],
           birthday:[
-            {required: true,message: '生日不能为空'}
+            {required: true,message: '生日不能为空', trigger: "blur"}
           ],
           province: [
-            {required: true,message: '省份不能为空'}
+            {required: true,message: '省份不能为空', trigger: "blur"}
           ],
           address: [
-            {required: true,message: '地址不能为空'}
-          ],
-          user_account: [
-            {required: true,message: '用户名不能为空'}
+            {required: true,message: '地址不能为空', trigger: "blur"}
           ]
         },
         options: [{

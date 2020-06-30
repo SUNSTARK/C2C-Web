@@ -38,6 +38,7 @@ router.beforeEach((to, from, next) => {
       if (to.meta.roles.includes(role)){
         next()  // 已登录且是该身份可以访问，则放行
       }else {
+        alert("您无权访问此页面!")
         next({path:"/404"})
       }
     }
@@ -46,6 +47,7 @@ router.beforeEach((to, from, next) => {
       next({path:'/home'})
       return;
     }
+    alert("您未登录，请登录后操作!")
     next({path:"/login"})
   }
 });
