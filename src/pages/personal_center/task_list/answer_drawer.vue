@@ -5,7 +5,7 @@
     :modal-append-to-body="false"
     :modal="false"
     direction="rtl"
-    :before-close="handleClose">
+    :before-close="handleClose1">
     <template v-for="(answer, index) in answers">
       <el-card :body-style="{ padding: '10px'}" style="margin: 10px;">
 
@@ -30,7 +30,7 @@
       :visible.sync="dialogVisible"
       :modal-append-to-body="false"
       width="30%"
-      :before-close="handleClose">
+      :before-close="handleClose2">
       <el-rate v-model="score"></el-rate>
       <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
@@ -63,9 +63,12 @@
       }
     },
     methods: {
-      handleClose(done) {
+      handleClose1(done) {
         this.$emit("closeDrawer");
         // done()
+      },
+      handleClose2(done) {
+        this.dialogVisible=false;
       },
       showRateDialog(index) {
         this.dialogVisible = true;
