@@ -80,11 +80,11 @@
           return num;
         }).catch(err => {
           console.log(err)
-          this.$message({
-            showClose: true,
-            message: '折线图数据获取失败!',
-            type: "error"
-          })
+          // this.$message({
+          //   showClose: true,
+          //   message: '折线图数据获取失败!',
+          //   type: "error"
+          // })
         })
 
 

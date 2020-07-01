@@ -10,18 +10,21 @@
       <el-card :body-style="{ padding: '10px'}" style="margin: 10px;">
 
           <div slot="header" class="clearfix" style="height: 10px">
-            <b><span>用户id:{{answer.user_id}}</span></b>
+            <b><span>用户id:{{answer.score}}</span></b>
           </div>
 
-          <div style="margin: 10px 10px 0 10px"><p style="text-indent:2em;">{{ answer.ans_body }}</p><br/>
+          <div><p style="text-indent:2em;">{{ answer.ans_body }}</p><br/>
+            <div style="text-align: center">
             <el-image
               v-if="answer.img!=null"
-              style="width: 100%; height: 100%"
+              style="width: 100%; height: 100%;margin-bottom: 10px"
               :src='answer.img'
               :previewSrcList=[answer.img]>
             </el-image>
+            </div>
           </div>
-          <el-button type="text" style="float: right;" @click="showRateDialog(index)">评分</el-button>
+          <el-button v-if="answer.score===0" type="warning" size="mini" style="float: right;margin-bottom: 10px" @click="showRateDialog(index)" icon="el-icon-star-on" >评分</el-button>
+        <el-button v-else type="warning" size="mini" style="float: right;margin-bottom: 10px" @click="showRateDialog(index)" icon="el-icon-star-on" disabled>已评分</el-button>
       </el-card>
     </template>
 
@@ -76,25 +79,31 @@
         console.log("答案id:"+this.ans_id)
       },
       rating() {
-        // console.log(`评分---score:${this.score},ans_id:${this.ans_id}`);
-        let data={
-          'id':this.ans_id,
-          'score':this.score
-        }
-        console.log('发送的数据是：', data)
-        fetch_task_score_answer(data).then(res => {
-          console.log('数据是:', res);
-          if(res.msg=="成功！") {
-            console.log("答案评价成功");
-            this.messages()
+        if (this.score > 0) {
+          let data={
+            'id':this.ans_id,
+            'score':this.score
           }
-        }).catch(err => {
+          fetch_task_score_answer(data).then(res => {
+            console.log('数据是:', res);
+            if(res.code == 200) {
+              console.log("评价成功!");
+              this.messages()
+              this.$emit('callComment')  // 父组件方法，重新获取答案
+            }
+          }).catch(err => {
             console.log('获取数据失败\n'+err);
-            // this.errmessages();
+            this.errmessages();
           })
-        this.dialogVisible = false;
-        this.score = null;
-        this.ans_id = null;
+          this.dialogVisible = false;
+          this.score = null;
+          this.ans_id = null;
+        } else {
+          this.$message.error({
+            message:'请最少打1分!',
+            duration:2000
+          })
+        }
       },
       messages() {
         this.$message({

@@ -283,8 +283,9 @@
         messages() {
           this.$message({
             showClose: true,
-            message: '发布成功',
-            type: 'success'
+            message: '发布成功，请等待管理员的审核',
+            type: 'success',
+            duration: 3000
           });
         },
         unmessages() {

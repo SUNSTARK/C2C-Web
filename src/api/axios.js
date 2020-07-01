@@ -34,7 +34,7 @@ axios.interceptors.response.use(
   error => {
     if (error.response.status === 404) {
       Message({
-        message: "您访问的页面不存在",
+        message: "请求的地址不存在",
         type: "warning"
       })
     } else if (error.response.status === 401) {

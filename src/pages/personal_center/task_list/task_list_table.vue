@@ -100,19 +100,17 @@
         </template>
       </el-table-column>
     </el-table>
-    <answer-drawer :isDrawerShow="isDrawerShow" :answers="answers" @closeDrawer="closeDrawer"></answer-drawer>
+    <answer-drawer :isDrawerShow="isDrawerShow" :answers="answers" @closeDrawer="closeDrawer" @callComment="callComment"></answer-drawer>
   </el-main>
 
 </template>
 
 <script>
   import answerDrawer from "./answer_drawer";
-  import {fetch_accept_task, fetch_cancel_task, fetch_editpwd,fetch_reject_task ,fetch_task_getanswer} from "../../../api/user_apis";
-  import Cookies from "js-cookie";
-  import {fetchGet, fetchPost} from "../../../api/axios";
+  import {fetch_task_getanswer} from "../../../api/user_apis";
+  import {fetchPost} from "../../../api/axios";
 
   export default {
-    inject: ['reload'],
     name: "task_list_table",
     components: {answerDrawer},
     props: {
@@ -138,10 +136,14 @@
         answers: [],
         expands: [],  // 要展开的行，元素是row的key值，用于一次只能展开一行
         logmessage:'',
-        unlogmessage:''
+        unlogmessage:'',
+        currentTaskRow:''
       }
     },
     methods: {
+      callComment() {
+        this.comment(this.currentTaskRow)
+      },
       closeDrawer() {
         this.isDrawerShow = false;
       },
@@ -187,20 +189,18 @@
         console.log('任务编号:'+row.task_id)
         let url="/user/task/accepting/?task_id=";
         url=url+row.task_id;
-        console.log(url)
-        fetchPost(url,{})
-          .then(res => {
-            console.log('数据是:', res);
+        // console.log(url)
+        fetchPost(url,{}).then(res => {
+            // console.log('数据是:', res);
             if(res.msg=="成功！") {
               this.logmessage="接受任务成功，请及时完成任务！"
               this.messages();
-              this.reload()  // 用于重载表格数据
+              this.$emit('callHandleClick')
             }else if(res.msg=="早已选择该任务") {
               this.unlogmessage="早已选择该任务,请选择其他任务！"
               this.unmessages();
             }
-          })
-          .catch((e) => {
+          }).catch((e) => {
             console.log('获取数据失败');
             this.errmessages();
           })
@@ -209,21 +209,19 @@
       },
       //取消任务 接受了取消 成功
       cancel(row) {
-        console.log('接受后取消任务')
+        // console.log('接受后取消任务')
         console.log('任务编号:'+row.task_id)
         let url="/user/task/quiting/?task_id=";
         url=url+row.task_id;
-        console.log(url)
-        fetchPost(url,{})
-          .then(res => {
-            console.log('数据是:', res);
-            if(res.msg=="成功！") {
+        // console.log(url)
+        fetchPost(url,{}).then(res => {
+            // console.log('数据是:', res);
+            if(res.code==200) {
               this.logmessage="取消任务成功！"
               this.messages();
-              this.reload()
+              this.$emit('callHandleClick')
             }
-          })
-          .catch((e) => {
+          }).catch((e) => {
             console.log('获取数据失败');
             this.errmessages();
           })
@@ -232,17 +230,17 @@
       },
       //拉黑任务，不再出现到任务大厅  成功
       stop(row) {
-        console.log('拉黑任务')
+        // console.log('拉黑任务')
         console.log('任务编号:'+row.task_id)
         let url="/user/task/rejecting/?task_id=";
         url=url+row.task_id;
-        console.log(url)
+        // console.log(url)
         fetchPost(url,{}).then(res => {
-            console.log('数据是:', res);
-            if(res.msg=="成功！") {
+            // console.log('数据是:', res);
+            if(res.code==200) {
               this.logmessage="拉黑任务成功！"
               this.messages();
-              this.reload()
+              this.$emit('callHandleClick')
             }
           }).catch((e) => {
             console.log('获取数据失败');
@@ -256,13 +254,14 @@
       },
       //查看并评价答案
       comment(row) {
+        this.answers = []
         this.isDrawerShow = true;
-        console.log("查看答案");
-        console.log('任务编号:'+row.task_id)
+        this.currentTaskRow = row
+        // console.log('任务编号:'+row.task_id)
         let params= {task_id:row.task_id};
         fetch_task_getanswer(params).then(res => {
             console.log('数据是:', res);
-            if(res.msg=="成功！") {
+            if(res.code==200) {
               this.answers=res.data;
               console.log("获取答案成功");
             }

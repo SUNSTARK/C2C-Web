@@ -19,10 +19,10 @@
       <el-table-column
         sortable
         prop="total_points"
-        label="用户积分"
-        width="130">
+        label="用户积分">
       </el-table-column>
       <el-table-column
+        sortable
         prop="points_level"
         label="用户活跃度水平">
       </el-table-column>
@@ -43,8 +43,7 @@
       getRange() {
         fetch_points().then(res => {
           // console.log(res.data)
-          res = res.data
-          this.tableData=res
+          this.tableData=res.data.slice()
         }).catch((err) => {
           console.log(err)
         }).catch(res => {

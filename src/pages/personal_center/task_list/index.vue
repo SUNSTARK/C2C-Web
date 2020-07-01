@@ -6,7 +6,8 @@
           <task-list-table :tableData="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                            :buttonTypeEnum="buttonTypeEnum"
                            :buttonList="buttonList"
-                           :loading="loading"></task-list-table>
+                           :loading="loading"
+                           @callHandleClick="callHandleClick"></task-list-table>
         </el-tab-pane>
       </template>
     </el-tabs>
@@ -28,7 +29,8 @@
     fetch_task_executing,
     fetch_task_executed,
     fetch_task_completed,
-    fetch_task_end
+    fetch_task_end,
+    fech_checking_task
   } from "../../../api/user_apis";
 
   const tabs_list = [
@@ -72,6 +74,7 @@
         currentPage: 1,  // 默认显示页面为1
         pagesize: 8,  // 每页的数据条数
         activeName: 'all',
+        currentTab: '',
         tabs: [],
         tableData: [],
         loading: true, // 表格默认开启加载，获取到数据后设置为false
@@ -92,20 +95,24 @@
         this.handleClick({name: "all"})
       } else if (path === "#/user/task/mine") {
         this.tabs = tabs_mine;
-        this.activeName = "executed";
-        this.handleClick({name: "executed"})
+        this.activeName = "checking";
+        this.handleClick({name: "checking"})
       }
     },
     methods: {
+      callHandleClick() {
+        this.handleClick(this.currentTab)
+      },
       //点击第几页
       handleCurrentChange: function(currentPage) {
         this.currentPage = currentPage;
       },
       handleClick(tab) {
+        this.currentTab = tab
         //全部
         if (tab.name === 'all') {
           fetch_task_list().then(res => {
-            // console.log(res)
+            this.tableData = []
             this.tableData = res.data;
             this.buttonList = [this.buttonTypeEnum.ACCEPT,this.buttonTypeEnum.STOP];
             this.loading = false
@@ -113,7 +120,7 @@
           //正在完成  别人的任务 接收方
         } else if (tab.name === 'executing') {
           fetch_task_executing().then(res => {
-            // console.log(res)
+            this.tableData = []
             this.tableData = res.data;
             this.buttonList = [this.buttonTypeEnum.CANCEL];
             this.loading = false
@@ -130,18 +137,18 @@
             this.buttonList = [];
             this.loading = false
           })
-          //已完成的任务   ？
+          //接收方  已完成的任务
         } else if (tab.name === 'completed') {
           fetch_task_completed().then(res => {
-            console.log(res)
+            this.tableData = []
             this.tableData = res.data
             this.buttonList = [];
             this.loading = false
           })
-          //已被完成    自己的任务
+          //发布方  已结束的任务
         } else if (tab.name === 'end') {
           fetch_task_end().then(res => {
-            console.log(res)
+            this.tableData = []
             this.tableData = res.data;
             this.buttonList = [this.buttonTypeEnum.COMMENT];
             this.loading = false
@@ -157,6 +164,13 @@
               }
             }
             this.buttonList = [];
+            this.loading = false
+          })
+          // 发布方 获取自己待审核状态的任务
+        } else if (tab.name === 'checking') {
+          fech_checking_task().then(res => {
+            this.tableData = []
+            this.tableData = res.data;
             this.loading = false
           })
         }

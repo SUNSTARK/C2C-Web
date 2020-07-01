@@ -9,6 +9,11 @@ let comRouter = [
     children: []
   },
   {
+    path: '/user',
+    redirect: {path: '/user/info'}, // 重定向到主页
+    children: []
+  },
+  {
     path: "/",
     name: "用户主页",
     component: user_layout,
@@ -36,17 +41,7 @@ let comRouter = [
             name: "user_info",
             component: () => import("../pages/personal_center/user_info/index"),
             meta: {
-              title: '用户信息',
-              roles: ['admin', 'user'],
-            },
-            children: []
-          },
-          {
-            path: "/user/info/icon",
-            name: "user_info_icon",
-            component: () => import("../pages/personal_center/user_info/icon"),
-            meta: {
-              title: '用户头像',
+              title: '个人信息',
               roles: ['admin', 'user'],
             },
             children: []
@@ -56,7 +51,7 @@ let comRouter = [
             name: "task_list",
             component: () => import("../pages/personal_center/task_list"),
             meta: {
-              title: '任务列表',
+              title: '我的工作台',
               roles: ['admin', 'user'],
             },
             children: []
@@ -66,19 +61,9 @@ let comRouter = [
             name: "task_mine",
             component: () => import("../pages/personal_center/task_list"),
             meta: {
-              title: '我的任务',
+              title: '我的发布',
               roles: ['admin', 'user'],
             },
-          },
-          {
-            path: "/user/task/history",
-            name: "task_history",
-            component: () => import("../pages/personal_center/task_history"),
-            meta: {
-              title: '历史任务',
-              roles: ['admin', 'user'],
-            },
-            children: []
           }
         ]
       }

@@ -57,3 +57,8 @@ export function fetch_task_getanswer (params) {
 export function fetch_task_score_answer (data) {
   return fetchPost('/task/answer/score', data)
 }
+
+// 发布方 获取自己待审核的任务
+export function fech_checking_task() {
+  return fetchGet('/user/task/checking')
+}
