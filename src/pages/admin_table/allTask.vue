@@ -106,6 +106,7 @@
     methods: {
       getTableData:function() {
         fetch_allTask().then(res => {
+          this.tableData = []
           this.tableData = res.data
           this.loading = false
         }).catch(err => {
@@ -170,12 +171,10 @@
                 type: 'success',
                 message: '下架成功!'
               });
-              this.tableData = []
               this.loading = true
               this.getTableData()
             }
           }).catch(err => {
-            console.log(this.tableData)
             console.log(err)
           })
         }).catch(() => {

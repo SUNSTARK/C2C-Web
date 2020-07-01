@@ -10,11 +10,11 @@
         background-color="#21282E"
         text-color="#999999"
         active-text-color="#FFFFFF">
-        <el-menu-item index="/home">首页</el-menu-item>
-        <el-menu-item index="/addtask">发布需求</el-menu-item>
-        <el-menu-item index="/user/task/list">我的工作台</el-menu-item>
-        <el-menu-item index="/admin_home" v-if="this.$store.getters.role==='admin'">后台主页</el-menu-item>
-        <el-menu-item index="/user/info" v-if="this.$store.getters.token" style="float: right;color: white;font-weight: bold">{{account}}
+        <el-menu-item index="/home" style="border-bottom-color: #21282E;">首页</el-menu-item>
+        <el-menu-item index="/addtask" style="border-bottom-color: #21282E;">发布需求</el-menu-item>
+        <el-menu-item index="/user/task/list" style="border-bottom-color: #21282E;">我的工作台</el-menu-item>
+        <el-menu-item index="/admin_home" v-if="this.$store.getters.role==='admin'" style="border-bottom-color: #21282E;">后台主页</el-menu-item>
+        <el-menu-item index="/user/info" v-if="this.$store.getters.token" style="float: right;color: white;font-weight: bold;border-bottom-color: #21282E;">{{account}}
           <el-dropdown @command="handleCommand">
             <i class="el-icon-arrow-down" style="margin-top: -5px"></i>
           <el-dropdown-menu slot="dropdown">
@@ -71,7 +71,7 @@
 
 <style>
   .logo-title {
-    width: 200px;
+    width: 160px;
     height: 60px;
     background-color: #21282E !important;
     position: fixed;
@@ -97,12 +97,13 @@
   #userheader .el-menu {
     flex: 1;
     border-right: none;
-    margin-left: 200px;
+    margin-left: 160px;
   }
 
   #userheader .el-menu .el-menu-item {
     background-color: #21282E !important;
     border-bottom: 1px solid #21282E;
+    border-bottom-color: #21282E;
   }
 
   /*导航项悬浮特效*/

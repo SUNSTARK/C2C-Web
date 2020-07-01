@@ -1,10 +1,10 @@
 <template>
   <el-main style="min-height: calc(100vh - 200px);">
-
     <el-table
       stripe
+      v-loading="loading"
       :data="tableData"
-      style="width: 100%; overflow: initial;"
+      style="width: 100%; overflow: auto;"
       :row-key="getRowKeys"
       :expand-row-keys="expands"
       @expand-change="expandSelect"
@@ -116,6 +116,10 @@
     name: "task_list_table",
     components: {answerDrawer},
     props: {
+      loading:{
+        required: true,
+        type: Boolean
+      },
       tableData: {
         required: true,
         type: Array
@@ -191,7 +195,7 @@
               this.logmessage="接受任务成功，请及时完成任务！"
               this.messages();
               this.reload()  // 用于重载表格数据
-            }else  if(res.msg=="早已选择该任务") {
+            }else if(res.msg=="早已选择该任务") {
               this.unlogmessage="早已选择该任务,请选择其他任务！"
               this.unmessages();
             }

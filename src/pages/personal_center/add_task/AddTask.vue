@@ -1,6 +1,6 @@
 <template>
-  <div>
-  <el-row :gutter="20" type="flex">
+  <div style="overflow: auto">
+  <el-row :gutter="24" type="flex">
     <el-col :span="11" :offset="4" style="min-width: 650px">
       <div class="taskbox taskbox2">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm" :label-position="labelPosition" label-width="100px" >
@@ -86,13 +86,13 @@
                 <el-popover
                   placement="top-start"
                   title="选择地址"
-                  width="600"
+                  width="550"
                   trigger="manual"
                   v-model="visible">
                   <Gdmap ref="chil"></Gdmap>
-                  <el-button type="success"  size="mini" round slot="reference" @click="visible = !visible" >添加地址</el-button>
-                  <el-button type="primary"  @click="sublocation()" style="float: right;margin-top: -50px">确定</el-button>
-                  <el-button type="danger" @click="visible = false" style="float: right;margin-top: -50px;margin-right: 90px">取消</el-button>
+                  <el-button type="success"  size="small" round slot="reference" @click="visible = !visible" >添加地址</el-button>
+                  <el-button type="primary"  size="small" @click="sublocation()" style="margin-left: 210px">确 定</el-button>
+                  <el-button type="danger" size="small" @click="visible = false" >取 消</el-button>
                 </el-popover>
               </el-form-item>
 
@@ -124,7 +124,7 @@
     <el-col :span="5">
       <div class="timeline taskbox">
         <div class="timeline">
-          <el-card class="card1">
+          <el-card >
             <div slot="header">
               <h3 class="card1">发布流程</h3>
             </div>
@@ -144,8 +144,8 @@
         </div>
       </div>
     </el-col>
-    <el-backtop></el-backtop>
   </el-row>
+  <div style="width: 100%;height: 50px"></div>
   </div>
 </template>
 
@@ -239,95 +239,90 @@
           ]
         }
       },
-        methods:{
-          submitForm(formName) {
-            this.$refs[formName].validate((valid) => {
-              if (valid) {
-                let str=this.ruleForm.tag.join("\",\"");
-                str="[\""+str+"\"]";
-                let data={
-                  task_name: this.ruleForm.task_name,
-                  detail: this.ruleForm.detail,
-                  task_tag: str,
-                  Lon: this.ruleForm.Lon,
-                  Lat: this.ruleForm.Lat,
-                  location: this.ruleForm.location,
-                  target_num: this.ruleForm.target_num,
-                  budget: this.ruleForm.budget,
-                  release_time: this.ruleForm.time_limit[0],
-                  end_time: this.ruleForm.time_limit[1],
-                  flag: parseInt(this.ruleForm.iffile)
-                }
-                console.log('数据是:\n', data);
-                fetch_addtask(data).then(res => {
-                    if(res.msg=="成功！") {
-                      this.messages();
-                      this.resetForm('ruleForm')
-                    }else if(res.msg=="写入服务器失败，请重试") {
-                      this.unmessages();
-                    }
-                  })
-                  .catch(e => {
-                    console.log('获取数据失败\n'+e);
-                    this.errmessages();
-                  })
-              }else {
-                console.log('error submit!!');
-                return false;
+      methods:{
+        submitForm(formName) {
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              let str=this.ruleForm.tag.join("\",\"");
+              str="[\""+str+"\"]";
+              let data={
+                task_name: this.ruleForm.task_name,
+                detail: this.ruleForm.detail,
+                task_tag: str,
+                Lon: this.ruleForm.Lon,
+                Lat: this.ruleForm.Lat,
+                location: this.ruleForm.location,
+                target_num: this.ruleForm.target_num,
+                budget: this.ruleForm.budget,
+                release_time: this.ruleForm.time_limit[0],
+                end_time: this.ruleForm.time_limit[1],
+                flag: parseInt(this.ruleForm.iffile)
               }
-            });
-          },
-          resetForm(formName) {
-            this.$refs[formName].resetFields();
-          },
-          messages() {
-            this.$message({
-              showClose: true,
-              message: '发布成功',
-              type: 'success'
-            });
-          },
-          unmessages() {
-            this.$message({
-              showClose: true,
-              message: '发布失败',
-              type: 'error'
-            });
-          },
-          errmessages() {
-            this.$message({
-              showClose: true,
-              message: '出bug了,联系管理员',
-              type: 'warning'
-            });
-          },
-          sublocation(){
-            let chils=this.$refs['chil'];
-            // console.log("地址:"+chils.addForm.sname)
-            // console.log("纬度:"+chils.addForm.slon)
-            // console.log("经度:"+chils.addForm.slat)
-            this.ruleForm.location = chils.addForm.sname,
-              this.ruleForm.Lat = chils.addForm.slat,
-            this.ruleForm.Lon = chils.addForm.slon,
-              this.visible = false
-          },
+              console.log('数据是:\n', data);
+              fetch_addtask(data).then(res => {
+                if(res.msg=="成功！") {
+                  this.messages();
+                  this.resetForm('ruleForm')
+                }else if(res.msg=="写入服务器失败，请重试") {
+                  this.unmessages();
+                }
+              })
+                .catch(e => {
+                  console.log('获取数据失败\n'+e);
+                  this.errmessages();
+                })
+            }else {
+              console.log('error submit!!');
+              return false;
+            }
+          });
+        },
+        resetForm(formName) {
+          this.$refs[formName].resetFields();
+        },
+        messages() {
+          this.$message({
+            showClose: true,
+            message: '发布成功',
+            type: 'success'
+          });
+        },
+        unmessages() {
+          this.$message({
+            showClose: true,
+            message: '发布失败',
+            type: 'error'
+          });
+        },
+        errmessages() {
+          this.$message({
+            showClose: true,
+            message: '出bug了,联系管理员',
+            type: 'warning'
+          });
+        },
+        sublocation(){
+          let chils=this.$refs['chil'];
+          // console.log("地址:"+chils.addForm.sname)
+          // console.log("纬度:"+chils.addForm.slon)
+          // console.log("经度:"+chils.addForm.slat)
+          this.ruleForm.location = chils.addForm.sname
+          this.ruleForm.Lat = chils.addForm.slat
+          this.ruleForm.Lon = chils.addForm.slon
+          this.visible = false
         }
       }
+    }
 
 
 </script>
 
 <style>
-
-  .taskbox{
-  /*background: #ffecec;*/
+  .el-card__body {
+    padding-bottom: 0px;
   }
   .taskbox2{
     border-radius: 4px;
-    min-height: 1200px;
-    /*min-width: 400px;*/
-    /*max-width: 800px;*/
-    /*min-width: 600px;*/
   }
   .timeline{
     border-radius: 4px;
@@ -337,7 +332,5 @@
     margin-bottom: 0px;
     margin-top: 0px;
   }
-  .el-popover {
-    height: 520px;
-  }
+
 </style>

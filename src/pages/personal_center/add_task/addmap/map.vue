@@ -1,7 +1,7 @@
 <template>
-  <div style="margin: 50px;width: 500px;">
+  <div style="width: 550px;height: 390px">
     <el-form ref="addForm" v-model="addForm" :rules="addRules">
-      <el-form-item label="任务地址：" prop="sname">
+      <el-form-item label="任务地址：" prop="sname" s>
         <el-input id="sname" v-model.trim="addForm.sname" type="text"
                   @input="placeAutoInput('sname')" @keyup.delete.native="deletePlace('sname')"
                   placeholder="请输入任务地址">
@@ -15,7 +15,7 @@
         </div>
         <div v-show="snameMapShow" class="map-wrapper">
           <div id="sNameMap" class="map-self"></div></div>
-        <div>任务地址：{{addForm.sname}}，经度：{{addForm.slon}}，纬度：{{addForm.slat}}</div>
+        <p style="margin-top: 5px">任务地址：{{addForm.sname}}</p><p style="margin-top: -25px">经度：{{addForm.slon}} ，纬度：{{addForm.slat}}</p>
       </el-form-item>
       <el-form-item v-if="infoVisible">
       </el-form-item>

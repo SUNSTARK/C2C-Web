@@ -43,7 +43,6 @@
 
         fetch_provinceNum().then(res => {
           res=res.data
-          //console.log(res)
           let data = [
             {
               name: '江苏',
@@ -180,6 +179,10 @@
             {
               name: '澳门',
               value: 0
+            },
+            {
+              name: '未知',
+              value: 0
             }
           ];
 
@@ -225,7 +228,7 @@
                 color: '#2D3E53',
                 fontSize: 18
               },
-              right: 160,
+              right: 95,
               top: 100
             }],
             tooltip: {

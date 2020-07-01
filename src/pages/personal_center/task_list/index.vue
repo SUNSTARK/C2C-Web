@@ -3,7 +3,10 @@
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <template v-for="tab in tabs">
         <el-tab-pane :label="tab.label" :name="tab.name">
-          <task-list-table :tableData="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :buttonTypeEnum="buttonTypeEnum" :buttonList="buttonList"></task-list-table>
+          <task-list-table :tableData="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                           :buttonTypeEnum="buttonTypeEnum"
+                           :buttonList="buttonList"
+                           :loading="loading"></task-list-table>
         </el-tab-pane>
       </template>
     </el-tabs>
@@ -71,6 +74,7 @@
         activeName: 'all',
         tabs: [],
         tableData: [],
+        loading: true, // 表格默认开启加载，获取到数据后设置为false
         buttonTypeEnum: {
           ACCEPT: 0,  //接受任务
           CANCEL: 1,  //放弃任务
@@ -104,30 +108,27 @@
             // console.log(res)
             this.tableData = res.data;
             this.buttonList = [this.buttonTypeEnum.ACCEPT,this.buttonTypeEnum.STOP];
+            this.loading = false
           })
           //正在完成  别人的任务 接收方
         } else if (tab.name === 'executing') {
           fetch_task_executing().then(res => {
             // console.log(res)
             this.tableData = res.data;
-            this.buttonList = [ this.buttonTypeEnum.CANCEL];
+            this.buttonList = [this.buttonTypeEnum.CANCEL];
+            this.loading = false
           })
           //正在发布中  发布方
         } else if (tab.name === 'executed') {
           fetch_task_executed().then(res => {
-            console.log(res)
-            this.tableData = res.data;
-            let failCount = 0
-            for (let item in this.tableData) {
-              if (this.tableData[item].check_state === 2) { // 统计未过审的
-                failCount += 1
+            this.tableData = []
+            for (let item in res.data) {
+              if (res.data[item].check_state === 1) { // 将过审的添加到tableData
+                this.tableData.push(res.data[item])
               }
             }
-            for (let item in this.tableData) {
-              if (this.tableData[item].check_state === 2)  // 剔除未过审的
-                this.tableData.splice(item, failCount)
-            }
             this.buttonList = [];
+            this.loading = false
           })
           //已完成的任务   ？
         } else if (tab.name === 'completed') {
@@ -135,6 +136,7 @@
             console.log(res)
             this.tableData = res.data
             this.buttonList = [];
+            this.loading = false
           })
           //已被完成    自己的任务
         } else if (tab.name === 'end') {
@@ -142,23 +144,20 @@
             console.log(res)
             this.tableData = res.data;
             this.buttonList = [this.buttonTypeEnum.COMMENT];
+            this.loading = false
           })
           // 未过审的  发布方
         } else if (tab.name === 'fail') {
           fetch_task_executed().then(res => {
-            this.tableData = res.data;
-            let passCount = 0
-            for (let item in this.tableData) {
-              if (this.tableData[item].check_state === 1) { // 统计过审的
-                passCount += 1
-              }
-            }
-            for (let item in this.tableData) {
-              if (this.tableData[item].check_state === 1) { // 剔除过审的
-                this.tableData.splice(item, passCount)
+            this.tableData = []
+            for (let item in res.data) {
+              if (res.data[item].check_state === 2) { // 将未过审的添加到tableData
+                this.tableData.push(res.data[item])
+                console.log(res.data[item])
               }
             }
             this.buttonList = [];
+            this.loading = false
           })
         }
       },

@@ -58,9 +58,6 @@
     },
     mounted() {
      this.getRange ();
-      let nowDate = new Date();
-
-      console.log(nowDate.toLocaleDateString())
     }
   }
 </script>

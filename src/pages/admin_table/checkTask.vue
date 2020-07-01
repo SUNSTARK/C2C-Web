@@ -35,12 +35,12 @@
                 icon="el-icon-check"
                 size="mini"
                 type="success"
-                @click="handlePost(scope.$index, scope.row)">通过</el-button>
+                @click="handlePost(scope.row)">通过</el-button>
               <el-button
                 icon="el-icon-close"
                 size="mini"
                 type="danger"
-                @click="handleDelete(scope.$index, scope.row)">拒绝</el-button>
+                @click="handleDelete(scope.row)">拒绝</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -77,15 +77,14 @@
     } ,
     watch:{
       name:function(){
-        console.log("changed");
         this.show();
       }
     },
     methods: {
       getTask(){
         fetch_uncheck().then(res => {
-          res = res.data
-          this.tableData=res
+          this.tableData = []
+          this.tableData = res.data
           this.loading = false
         }).catch(res => {
           this.$message({
@@ -96,11 +95,10 @@
         })
       },
       //上架任务
-      handlePost (index) {
-        let id ={'task_id': this.tableData[index].task_id}
+      handlePost (row) {
+        let id ={'task_id': row.task_id}
         pass_task(id).then(res=> {
           if (res.code === 200) {
-            this.tableData=[]
             this.loading = true
             this.getTask()
             this.$message({
@@ -114,11 +112,10 @@
           console.log(err)
         })
       },
-      handleDelete (index) {
-        let id ={'task_id': this.tableData[index].task_id}
+      handleDelete (row) {
+        let id ={'task_id': row.task_id}
         reject_task(id).then(res=> {
           if (res.code === 200) {
-            this.tableData=[]
             this.loading = true
             this.getTask()
             this.$message({

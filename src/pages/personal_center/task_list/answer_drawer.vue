@@ -16,7 +16,7 @@
           <div style="margin: 10px 10px 0 10px"><p style="text-indent:2em;">{{ answer.ans_body }}</p><br/>
             <el-image
               v-if="answer.img!=null"
-              style="width: 100%; height: 270px"
+              style="width: 100%; height: 100%"
               :src='answer.img'
               :previewSrcList=[answer.img]>
             </el-image>
