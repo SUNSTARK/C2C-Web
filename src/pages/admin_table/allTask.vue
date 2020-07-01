@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="title">
-        <h3>任务大厅<span class="tips">浅绿色——发布中，淡黄色——审核通过暂未发布</span>
+        <h3>任务大厅<span class="tips">浅绿色——发布中，淡黄色——审核通过暂未发布</span><el-button type="text" icon="el-icon-refresh" circle style="float: right" @click="this.getTableData">刷新</el-button>
         </h3>
       </div>
       <template>

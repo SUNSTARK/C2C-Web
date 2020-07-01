@@ -107,28 +107,29 @@
       handleCurrentChange: function(currentPage) {
         this.currentPage = currentPage;
       },
-      handleClick(tab) {
-        this.currentTab = tab
+      async handleClick(tab) {
+        this.tableData = []
         //全部
         if (tab.name === 'all') {
-          fetch_task_list().then(res => {
-            this.tableData = []
+          await fetch_task_list().then(res => {
             this.tableData = res.data;
             this.buttonList = [this.buttonTypeEnum.ACCEPT,this.buttonTypeEnum.STOP];
             this.loading = false
+          }).catch(err => {
+            console.log(err)
           })
           //正在完成  别人的任务 接收方
         } else if (tab.name === 'executing') {
-          fetch_task_executing().then(res => {
-            this.tableData = []
+          await fetch_task_executing().then(res => {
             this.tableData = res.data;
             this.buttonList = [this.buttonTypeEnum.CANCEL];
             this.loading = false
+          }).catch(err => {
+            console.log(err)
           })
           //正在发布中  发布方
         } else if (tab.name === 'executed') {
-          fetch_task_executed().then(res => {
-            this.tableData = []
+          await fetch_task_executed().then(res => {
             for (let item in res.data) {
               if (res.data[item].check_state === 1) { // 将过审的添加到tableData
                 this.tableData.push(res.data[item])
@@ -136,27 +137,30 @@
             }
             this.buttonList = [];
             this.loading = false
+          }).catch(err => {
+            console.log(err)
           })
           //接收方  已完成的任务
         } else if (tab.name === 'completed') {
-          fetch_task_completed().then(res => {
-            this.tableData = []
+          await fetch_task_completed().then(res => {
             this.tableData = res.data
             this.buttonList = [];
             this.loading = false
+          }).catch(err => {
+            console.log(err)
           })
           //发布方  已结束的任务
         } else if (tab.name === 'end') {
-          fetch_task_end().then(res => {
-            this.tableData = []
+          await fetch_task_end().then(res => {
             this.tableData = res.data;
             this.buttonList = [this.buttonTypeEnum.COMMENT];
             this.loading = false
+          }).catch(err => {
+            console.log(err)
           })
           // 未过审的  发布方
         } else if (tab.name === 'fail') {
-          fetch_task_executed().then(res => {
-            this.tableData = []
+          await fetch_task_executed().then(res => {
             for (let item in res.data) {
               if (res.data[item].check_state === 2) { // 将未过审的添加到tableData
                 this.tableData.push(res.data[item])
@@ -165,13 +169,17 @@
             }
             this.buttonList = [];
             this.loading = false
+          }).catch(err => {
+            console.log(err)
           })
           // 发布方 获取自己待审核状态的任务
         } else if (tab.name === 'checking') {
-          fech_checking_task().then(res => {
-            this.tableData = []
+          await fech_checking_task().then(res => {
+            // this.tableData = []
             this.tableData = res.data;
             this.loading = false
+          }).catch(err => {
+            console.log(err)
           })
         }
       },

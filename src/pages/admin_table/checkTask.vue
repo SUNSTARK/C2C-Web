@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">
-      <h3 >待审核任务</h3>
+      <h3 >待审核任务<el-button type="text" icon="el-icon-refresh" circle style="float: right" @click="this.getTask">刷新</el-button></h3>
     </div>
     <template>
       <div class="container_table">

@@ -3,8 +3,9 @@
     <p class="title"><i class="fa fa-sort-amount-desc"></i>用户积分排名</p>
     <el-table
       border
+      v-loading="loading"
       :data="tableData"
-      style="width: 100%">
+      style="width: 100%;margin-top: 10px">
       <el-table-column
         type="index">
       </el-table-column>
@@ -14,7 +15,7 @@
       </el-table-column>
       <el-table-column
         prop="user_name"
-        label="用户名称">
+        label="用户名">
       </el-table-column>
       <el-table-column
         sortable
@@ -36,14 +37,16 @@
     name: "maintable",
     data () {
       return {
-        tableData: []
+        tableData: [],
+        loading: true
       }
     },
     methods: {
       getRange() {
         fetch_points().then(res => {
           // console.log(res.data)
-          this.tableData=res.data.slice()
+          this.tableData=res.data
+          this.loading = false
         }).catch((err) => {
           console.log(err)
         }).catch(res => {

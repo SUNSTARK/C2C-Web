@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow: auto">
+  <div style="overflow: auto" id="content">
   <el-row :gutter="24" type="flex">
     <el-col :span="11" :offset="4" style="min-width: 650px">
       <div class="taskbox taskbox2">
@@ -260,14 +260,13 @@
               }
               console.log('数据是:\n', data);
               fetch_addtask(data).then(res => {
-                if(res.msg=="成功！") {
+                if(res.code==200) {
                   this.messages();
                   this.resetForm('ruleForm')
                 }else if(res.msg=="写入服务器失败，请重试") {
                   this.unmessages();
                 }
-              })
-                .catch(e => {
+              }).catch(e => {
                   console.log('获取数据失败\n'+e);
                   this.errmessages();
                 })
@@ -279,6 +278,7 @@
         },
         resetForm(formName) {
           this.$refs[formName].resetFields();
+          content.scrollIntoView()  // 回到顶部，content为最外层div的id
         },
         messages() {
           this.$message({

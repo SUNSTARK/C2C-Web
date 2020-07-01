@@ -111,6 +111,7 @@
   import {fetchPost} from "../../../api/axios";
 
   export default {
+    inject:['reload'],
     name: "task_list_table",
     components: {answerDrawer},
     props: {
@@ -185,7 +186,7 @@
       },
       //接受任务 成功
       accept(row) {
-        console.log('接受任务')
+        // console.log('接受任务')
         console.log('任务编号:'+row.task_id)
         let url="/user/task/accepting/?task_id=";
         url=url+row.task_id;
@@ -195,7 +196,7 @@
             if(res.msg=="成功！") {
               this.logmessage="接受任务成功，请及时完成任务！"
               this.messages();
-              this.$emit('callHandleClick')
+              this.reload()
             }else if(res.msg=="早已选择该任务") {
               this.unlogmessage="早已选择该任务,请选择其他任务！"
               this.unmessages();
@@ -219,7 +220,7 @@
             if(res.code==200) {
               this.logmessage="取消任务成功！"
               this.messages();
-              this.$emit('callHandleClick')
+              this.reload()
             }
           }).catch((e) => {
             console.log('获取数据失败');
@@ -240,7 +241,7 @@
             if(res.code==200) {
               this.logmessage="拉黑任务成功！"
               this.messages();
-              this.$emit('callHandleClick')
+              this.reload()
             }
           }).catch((e) => {
             console.log('获取数据失败');
