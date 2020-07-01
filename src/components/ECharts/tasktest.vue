@@ -223,7 +223,7 @@
           this.chart.setOption({
             title: [{
               show: true,
-              text: '各个省份用户人数排名',
+              text: '平台任务全国分布排名',
               textStyle: {
                 color: '#2D3E53',
                 fontSize: 18
