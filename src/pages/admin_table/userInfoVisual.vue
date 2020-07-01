@@ -14,6 +14,12 @@
       </el-col>
     </el-row>
     <br>
+    <h3>用户积分排名</h3>
+    <el-row>
+      <el-col :span="24">
+        <maintable id="maintable"></maintable>
+      </el-col>
+    </el-row>
   </div>
 
 </template>
@@ -22,12 +28,14 @@
   // import CityEcharts from "../../components/ECharts/cityEcharts"
   import SexEcharts from "../../components/ECharts/sexEcharts"
   import CityEcharts from "../../components/ECharts/chinatest"
+  import Maintable from "../admin_table/maintable"
 
   export default {
     name: "mainIndex",
     components: {
       SexEcharts,
-      CityEcharts
+      CityEcharts,
+      Maintable
     },
     mounted () {
       this.selfAdaption()

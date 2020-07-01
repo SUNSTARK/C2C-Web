@@ -8,14 +8,21 @@
       </el-row>
 
     <br>
+    <h3>任务地区分布</h3>
+    <br>
+    <el-row>
+      <el-col :span="24">
+        <city-echarts id="cityEcharts" height="500px" ref="radarEcharts"></city-echarts>
+      </el-col>
+    </el-row>
+
+    <br>
     <h3>用户任务高频tag</h3>
     <el-row>
       <el-col :span="24">
         <radar-echarts id="radarEcharts" height="300px" ref="radarEcharts"></radar-echarts>
       </el-col>
     </el-row>
-    <br>
-
   </div>
 
 </template>
@@ -23,10 +30,11 @@
 <script>
   import LineEcharts from "../../components/ECharts/lineEcharts"
   import RadarEcharts from "../../components/ECharts/radarEcharts"
+  import CityEcharts from "../../components/ECharts/tasktest"
 
   export default {
     name: "mainIndex",
-    components: {RadarEcharts, LineEcharts},
+    components: {RadarEcharts, LineEcharts,CityEcharts},
     mounted () {
       this.selfAdaption()
     },
@@ -67,17 +75,17 @@
 </script>
 
 <style>
-  #radarEcharts, #lineEchartsPage, .card {
+  #cityEcharts,#radarEcharts, #lineEchartsPage, .card {
     background: #fff;
     -webkit-box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     border-color: rgba(0, 0, 0, 0.2);
   }
-  #radarEcharts .title, #lineEchartsPage .title, .card .title {
+  #cityEcharts.title,#radarEcharts .title, #lineEchartsPage .title, .card .title {
     font-size: 14px;
     padding: 10px;
   }
-  #radarEcharts .title i, #lineEchartsPage .title i, .card .title i {
+  #cityEcharts.title i,#radarEcharts .title i, #lineEchartsPage .title i, .card .title i {
     margin-right: 5px;
   }
   .card {

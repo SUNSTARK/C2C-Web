@@ -39,22 +39,45 @@
           <line-echarts id="lineEcharts" height="300px" ref="mainecharts"></line-echarts>
         </el-col>
       </el-row>
-    <el-row>
-      <el-col :span="24">
-        <maintable id="maintable"></maintable>
+    <br>
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <div class="card dbsx">
+
+            <city-echarts id="cityEcharts" height="500px" ref="cityEcharts"></city-echarts>
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="card dbsx">
+          <user-echarts id="userEcharts" height="500px" ref="userEcharts"></user-echarts>
+        </div>
       </el-col>
     </el-row>
+<!--    <el-row>-->
+<!--      <el-col :span="24">-->
+<!--        <maintable id="maintable"></maintable>-->
+<!--      </el-col>-->
+<!--    </el-row>-->
+    <br>
+    <el-col :span="24">
+      <div class="card dbsx">
+        <radar-echarts id="radarEcharts" height="300px" ref="radarEcharts"></radar-echarts>
+      </div>
+    </el-col>
   </div>
 </template>
 
 <script>
   import LineEcharts from "../../components/ECharts/lineEcharts"
   import Maintable from "../admin_table/maintable"
+  import CityEcharts from "../../components/ECharts/chinaTask"
+  import UserEcharts from "../../components/ECharts/chinaUser"
+  import RadarEcharts from "../../components/ECharts/radarEcharts"
   import {fetch_uncheck, fetch_allTask} from "../../api/admin_apis";
 
   export default {
     name: "mainIndex",
-    components: {Maintable, LineEcharts},
+    components: {Maintable, LineEcharts,CityEcharts,UserEcharts,RadarEcharts},
     data () {
       return{
         uncheck_num: 0,
