@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>近期平台任务发布数</h3>
+    <h3>前7天平台任务发布数</h3>
       <el-row>
         <el-col :span="24">
           <line-echarts id="lineEchartsPage" height="300px" ref="lineEchartsPage"></line-echarts>
