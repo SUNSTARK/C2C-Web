@@ -8,7 +8,7 @@
   import echarts from "echarts"
   import westeros from "./theme/westeros"
   import 'echarts/map/js/china.js'
-  import {fetch_provinceNum} from "../../api/admin_apis";
+  import {fetch_provinceTask} from "../../api/admin_apis";
 
   export default {
     name: "chinaTask",
@@ -41,7 +41,7 @@
         let yData = [];
         let barData = [];
 
-        fetch_provinceNum().then(res => {
+        fetch_provinceTask().then(res => {
           res=res.data
           let data = [
             {
@@ -186,16 +186,16 @@
             }
           ];
           console.log(res)
-          // for(let i=0;i<res.length;i++){//收到的数据
-          //   for(let j=0;j < 34;j++){   //表内的默认数据
-          //     if(res[i].province==data[j].name)
-          //     {
-          //       // console.log(i+"配对成功")
-          //       data[j].value=res[i].count
-          //     }
-          //
-          //   }
-          // }
+          for(let i=0;i<res.length;i++){//收到的数据
+            for(let j=0;j < 34;j++){   //表内的默认数据
+              if(res[i].province==data[j].name)
+              {
+                // console.log(i+"配对成功")
+                data[j].value=res[i].count
+              }
+
+            }
+          }
           let num =data
 
           //冒泡排序

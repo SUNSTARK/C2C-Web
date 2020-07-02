@@ -8,12 +8,11 @@
   import echarts from "echarts"
   import westeros from "./theme/westeros"
   import 'echarts/map/js/china.js'
-  import {fetch_provinceNum} from "../../api/admin_apis";
+  import { fetch_provinceNum} from "../../api/admin_apis";
 
   export default {
-    name: "chinaUser",
+    name: "chinaTask",
     props: {
-
       id: {
         type: String,
         default: "myChart"
@@ -42,12 +41,12 @@
         let yData = [];
         let barData = [];
 
-        fetch_provinceNum().then(res => {
+         fetch_provinceNum().then(res => {
           res=res.data
           let data = [
             {
               name: '江苏',
-              value: 0
+              value: 1
             },
             {
               name: '北京',
@@ -55,11 +54,11 @@
             },
             {
               name: '上海',
-              value: 0
+              value: 3
             },
             {
               name: '重庆',
-              value: 0
+              value: 2
             },
             {
               name: '河北',
@@ -67,19 +66,19 @@
             },
             {
               name: '河南',
-              value: 0
+              value: 4
             },
             {
               name: '云南',
-              value: 0
+              value: 2
             },
             {
               name: '辽宁',
-              value:0
+              value:3
             },
             {
               name: '黑龙江',
-              value: 0
+              value: 1
             },
             {
               name: '湖南',
@@ -87,15 +86,15 @@
             },
             {
               name: '安徽',
-              value: 0
+              value: 4
             },
             {
               name: '山东',
-              value: 0
+              value: 5
             },
             {
               name: '新疆',
-              value: 0
+              value: 1
             },
             {
               name: '江苏',
@@ -107,7 +106,7 @@
             },
             {
               name: '江西',
-              value: 0
+              value: 2
             },
             {
               name: '湖北',
@@ -115,7 +114,7 @@
             },
             {
               name: '广西',
-              value: 0
+              value: 4
             },
             {
               name: '甘肃',
@@ -123,7 +122,7 @@
             },
             {
               name: '山西',
-              value: 0
+              value: 1
             },
             {
               name: '内蒙古',
@@ -135,7 +134,7 @@
             },
             {
               name: '吉林',
-              value:0
+              value:5
             },
             {
               name: '福建',
@@ -143,11 +142,11 @@
             },
             {
               name: '贵州',
-              value: 0
+              value: 1
             },
             {
               name: '广东',
-              value: 0
+              value:2
             },
             {
               name: '青海',
@@ -159,7 +158,7 @@
             },
             {
               name: '四川',
-              value: 0
+              value: 3
             },
             {
               name: '宁夏',
@@ -167,15 +166,15 @@
             },
             {
               name: '海南',
-              value: 0
+              value: 1
             },
             {
               name: '台湾',
-              value: 0
+              value: 3
             },
             {
               name: '香港',
-              value: 0
+              value: 1
             },
             {
               name: '澳门',
@@ -186,7 +185,7 @@
               value: 0
             }
           ];
-
+          console.log(res)
           for(let i=0;i<res.length;i++){//收到的数据
             for(let j=0;j < 34;j++){   //表内的默认数据
               if(res[i].province==data[j].name)
@@ -223,12 +222,13 @@
 
           this.chart.setOption({
             title: {
-              text: "全国用户地域分布图（橙色为用户高密度地区，详细信息请查看左侧用户可视化栏）",
+              text: "用户地域分布图（橙色为任务高密度地区，详细信息请查看左侧任务可视化栏）",
               textStyle: {
                 fontSize: 14,
                 color:"#2D3030"
               }
-            },ltip: {
+            },
+            tooltip: {
               show: true,
               formatter: function(params) {
                 return params.name + '：' + params.value + '%'
@@ -329,7 +329,7 @@
               },
               itemStyle: {
                 emphasis: {
-                  areaColor: '#8474C7'  // 鼠标悬浮省份的颜色
+                  areaColor: '#D395E0'  // 鼠标悬浮省份的颜色
                 }
               }
             },

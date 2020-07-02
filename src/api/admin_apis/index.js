@@ -50,3 +50,6 @@ export function fetch_provinceNum () {
   return fetchGet('/admin/userinfo/getprovince')
 }
 
+export function fetch_provinceTask () {
+  return fetchGet('/admin/gettaskprovince')
+}
