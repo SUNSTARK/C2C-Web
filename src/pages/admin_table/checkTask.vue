@@ -5,14 +5,14 @@
     </div>
     <div class="autoPass" style="width: 100%">
       <template>
-        <span style="font-size: 14px;font-weight: bold">任务内容过滤词设置：</span>
+        <span style="font-size: 15px;font-weight: bold">过滤词设置：<span style="font-size: 13px;font-weight: bold">(某任务的内容含有过滤词时，将不会被自动通过，需人工审核)</span></span>
         <el-select
           v-model="selectValue"
           multiple
           filterable
           allow-create
           default-first-option
-          placeholder="请选择过滤词，支持自定义，仅过滤任务内容"
+          placeholder="请选择过滤词，支持输入进行自定义，仅过滤任务内容"
           style="width: calc(100% - 120px);margin-top: 7px">
           <el-option
             v-for="item in options"
@@ -21,7 +21,7 @@
             :value="item.value">
           </el-option>
         </el-select>
-        <el-button type="success" size="mini" icon="el-icon-upload2" @click="autoPass" style="margin-left: 10px">批量通过</el-button>
+        <el-button type="success" size="mini" icon="el-icon-upload2" @click="autoPass" style="margin-left: 10px">自动通过</el-button>
       </template>
     </div>
     <template>
@@ -55,7 +55,7 @@
             sortable
             label="开始时间">
           </el-table-column>
-          <el-table-column label="操作" align="center">
+          <el-table-column label="操作" align="center" width="200px">
             <template slot-scope="scope">
               <el-button
                 icon="el-icon-check"

@@ -67,11 +67,11 @@
               <el-progress
                 type="line"
                 :stroke-width="8"
-                :percentage="scope.row.progress"
-              ></el-progress>
+                :percentage="scope.row.progress">
+              </el-progress>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center">
+          <el-table-column label="操作" align="center" width="80px">
             <template slot-scope="scope">
               <el-button
                 size="mini"

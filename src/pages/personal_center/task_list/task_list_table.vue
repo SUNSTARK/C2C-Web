@@ -28,17 +28,17 @@
             <el-form-item label="已完成">
               <span>{{props.row.complete_taskNum}} 份</span>
             </el-form-item>
-            <el-form-item label="审核状态">
-              <span v-if="props.row.check_state === 1">通过</span>
-              <span v-if="props.row.check_state === 2">未通过</span>
-              <span v-if="props.row.check_state === 0">待审核</span>
-            </el-form-item>
-            <el-form-item label="任务状态">
-              <span v-if="props.row.task_state === 0">待审核</span>
-              <span v-if="props.row.task_state === 1">审核通过暂未发布</span>
-              <span v-if="props.row.task_state === 2">正在发布</span>
-              <span v-if="props.row.task_state === 3">发布结束</span>
-            </el-form-item>
+<!--            <el-form-item label="审核状态">-->
+<!--              <span v-if="props.row.check_state === 1">通过</span>-->
+<!--              <span v-if="props.row.check_state === 2">未通过</span>-->
+<!--              <span v-if="props.row.check_state === 0">待审核</span>-->
+<!--            </el-form-item>-->
+<!--            <el-form-item label="任务状态">-->
+<!--              <span v-if="props.row.task_state === 0">待审核</span>-->
+<!--              <span v-if="props.row.task_state === 1">审核通过暂未发布</span>-->
+<!--              <span v-if="props.row.task_state === 2">正在发布</span>-->
+<!--              <span v-if="props.row.task_state === 3">发布结束</span>-->
+<!--            </el-form-item>-->
           </el-form>
         </template>
       </el-table-column>
@@ -54,7 +54,7 @@
       </el-table-column>
       <el-table-column
         align="center"
-        label="发布时间"
+        label="开始时间"
         prop="release_time">
       </el-table-column>
       <el-table-column

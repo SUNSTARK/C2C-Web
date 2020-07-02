@@ -75,10 +75,6 @@
       }
     },
     methods: {
-      // 重置表单
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
       submitForm () {
         let that = this
         if (that.loginForm.username === "" || that.loginForm.password === "") {
@@ -112,7 +108,7 @@
                 title: '登录失败',
                 message: '用户名或密码错误!'
               });
-              this.resetForm('loginForm')
+              this.loginForm.password = ''
             }
           }).catch((err) => {
             console.log(err)

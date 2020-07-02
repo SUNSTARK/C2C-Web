@@ -10,10 +10,10 @@
       <el-card :body-style="{ padding: '10px'}" style="margin: 10px;">
 
           <div slot="header" class="clearfix" style="height: 10px">
-            <b><span>用户id:{{answer.score}}</span></b>
+            <b><span>用户id:{{answer.user_id}}</span></b>
           </div>
 
-          <div><p style="text-indent:2em;">{{ answer.ans_body }}</p><br/>
+          <div><p >{{ answer.ans_body }}</p><br/>
             <div style="text-align: center">
             <el-image
               v-if="answer.img!=null"
