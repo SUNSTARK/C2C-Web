@@ -89,10 +89,8 @@
                   width="550"
                   trigger="manual"
                   v-model="visible">
-                  <Gdmap ref="chil"></Gdmap>
-                  <el-button type="success"  size="small" round slot="reference" @click="visible = !visible" >添加地址</el-button>
-                  <el-button type="primary"  size="small" @click="sublocation()" style="margin-left: 210px">确 定</el-button>
-                  <el-button type="danger" size="small" @click="visible = false" >取 消</el-button>
+                  <Gdmap ref="chil" @closePopper="closePopper" @sublocation="sublocation"></Gdmap>
+                  <el-button type="success" size="small" round slot="reference" @click="visible = !visible" >添加地址</el-button>
                 </el-popover>
               </el-form-item>
 
@@ -302,7 +300,7 @@
             type: 'warning'
           });
         },
-        sublocation(){
+        sublocation() {
           let chils=this.$refs['chil'];
           // console.log("地址:"+chils.addForm.sname)
           // console.log("纬度:"+chils.addForm.slon)
@@ -311,6 +309,9 @@
           this.ruleForm.Lat = chils.addForm.slat
           this.ruleForm.Lon = chils.addForm.slon
           this.visible = false
+        },
+        closePopper() {
+          this.visible = !this.visible
         }
       }
     }

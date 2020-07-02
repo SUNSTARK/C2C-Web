@@ -1,10 +1,31 @@
 <template>
   <div>
     <div class="title">
-      <h3 >待审核任务<el-button type="text" icon="el-icon-refresh" circle style="float: right" @click="this.getTask">刷新</el-button></h3>
+      <h3>待审核任务<el-button type="text" icon="el-icon-refresh" circle style="float: right" @click="this.getTask">刷新</el-button></h3>
+    </div>
+    <div class="autoPass" style="width: 100%">
+      <template>
+        <span style="font-size: 14px;font-weight: bold">任务内容过滤词设置：</span>
+        <el-select
+          v-model="selectValue"
+          multiple
+          filterable
+          allow-create
+          default-first-option
+          placeholder="请选择过滤词，支持自定义，仅过滤任务内容"
+          style="width: calc(100% - 120px);margin-top: 7px">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <el-button type="success" size="mini" icon="el-icon-upload2" @click="autoPass" style="margin-left: 10px">批量通过</el-button>
+      </template>
     </div>
     <template>
-      <div class="container_table">
+      <div class="container_table" style="margin-top: 10px">
         <el-table
           v-loading="loading"
           :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
@@ -17,6 +38,11 @@
             label="任务ID"
             sortable
             width="110">
+          </el-table-column>
+          <el-table-column
+            align="left"
+            prop="task_name"
+            label="任务标题">
           </el-table-column>
           <el-table-column
             align="left"
@@ -66,13 +92,26 @@
 <script>
   import {fetch_uncheck, pass_task,reject_task} from "../../api/admin_apis";
   export default {
+    inject:['reload'],
     name:'list11',
     data() {
       return {
         currentPage: 1,  // 默认显示页面为1
         pagesize: 8,  // 每页的数据条数
         loading: true, // 表格默认开启加载，获取到数据后设置为false
-        tableData: []  //需要data定义一些，tableData定义一个空数组，请求的数据都是存放这里面
+        tableData: [],  //需要data定义一些，tableData定义一个空数组，请求的数据都是存放这里面
+        selectValue: [], // 绑定过滤词选择框
+        autoPassTaskID:[], // 符合条件的taskID
+        options: [{
+          value: '黄',
+          label: '黄'
+        }, {
+          value: '赌',
+          label: '赌'
+        }, {
+          value: '毒',
+          label: '毒'
+        }]
       }
     } ,
     watch:{
@@ -81,10 +120,66 @@
       }
     },
     methods: {
+      async autoPass() {
+        if (this.selectValue.length == 0) {
+          this.$message.error({
+            message:'请至少输入一个汉字'
+          })
+          return
+        }
+        this.autoPassTaskID = []
+        for (let item in this.tableData) {
+          this.autoPassTaskID.push(this.tableData[item].task_id)
+          this.forbiddenValidation(this.tableData[item].detail, this.tableData[item].task_id)
+        }
+        this.$notify.info({
+          title:'提示',
+          message:'自动通过进行中，请稍后',
+        })
+        for (let item in this.autoPassTaskID) {
+          let id ={'task_id': this.autoPassTaskID[item]}
+          await pass_task(id).then(res => {
+            console.log(res)
+            this.loading = true
+          }).catch(err =>{
+              console.log(err)
+          })
+        }
+        this.$notify.close()
+        this.reload()
+        this.$notify.success({
+          title:'提示',
+          message:'自动通过已完成!'
+        })
+      },
+      forbiddenValidation(str, index) {
+        //定义敏感字符
+        let re = '';
+        for (let opt in this.selectValue) {
+          if (opt == this.selectValue.length - 1) {
+            re += this.selectValue[opt];
+          }else{
+            re += this.selectValue[opt] + "|";
+          }
+        }
+        //定义正则表示式对象
+        //利用RegExp可以动态生成正则表示式\
+        // console.log(re)
+        const pattern = new RegExp(re, "gm");
+        if (pattern.test(str)) {
+          this.autoPassTaskID.splice(this.autoPassTaskID.findIndex(item=> item=== index),1)
+          console.log("有敏感词!!!  "+index);
+          return false;
+        } else {
+          console.log("没有敏感词");
+          return true;
+        }
+      },
       getTask(){
         fetch_uncheck().then(res => {
           this.tableData = []
           this.tableData = res.data
+          // console.log(res.data)
           this.loading = false
         }).catch(res => {
           this.$message({
@@ -146,7 +241,7 @@
 
 <style scoped>
   h3{
-    margin: 0px 0 20px;
+    margin: 0px 0 10px;
     font-weight: 800;
     color: #409eff;
     font-size: 22px;

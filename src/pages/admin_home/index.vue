@@ -43,7 +43,6 @@
     <el-row :gutter="20">
       <el-col :span="12">
         <div class="card dbsx">
-
             <city-echarts id="cityEcharts" height="500px" ref="cityEcharts"></city-echarts>
         </div>
       </el-col>
@@ -53,11 +52,6 @@
         </div>
       </el-col>
     </el-row>
-<!--    <el-row>-->
-<!--      <el-col :span="24">-->
-<!--        <maintable id="maintable"></maintable>-->
-<!--      </el-col>-->
-<!--    </el-row>-->
     <br>
     <el-col :span="24">
       <div class="card dbsx">
@@ -110,6 +104,9 @@
           window.onresize = function () {
             if (that.$refs.mainecharts) {
               that.$refs.mainecharts.chart.resize()
+              that.$refs.cityEcharts.chart.resize()
+              that.$refs.userEcharts.chart.resize()
+              that.$refs.radarEcharts.chart.resize()
             }
           }
         }, 10)
@@ -119,6 +116,9 @@
         let that = this
         if (that.$refs.mainecharts){
           that.$refs.mainecharts.chart.resize()
+          that.$refs.cityEcharts.chart.resize()
+          that.$refs.userEcharts.chart.resize()
+          that.$refs.radarEcharts.chart.resize()
         }
       },
       // 获取平台任务总数
@@ -141,7 +141,7 @@
 </script>
 
 <style>
-  #maintable, #lineEcharts, .card {
+  #lineEcharts, .card {
     background: #fff;
     -webkit-box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);

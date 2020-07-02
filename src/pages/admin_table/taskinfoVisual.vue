@@ -12,7 +12,7 @@
     <br>
     <el-row>
       <el-col :span="24">
-        <city-echarts id="cityEcharts" height="500px" ref="radarEcharts"></city-echarts>
+        <city-echarts id="cityEchartspage" height="500px" ref="cityEcharts"></city-echarts>
       </el-col>
     </el-row>
 
@@ -34,7 +34,7 @@
 
   export default {
     name: "mainIndex",
-    components: {RadarEcharts, LineEcharts,CityEcharts},
+    components: {RadarEcharts, LineEcharts, CityEcharts},
     mounted () {
       this.selfAdaption()
     },
@@ -58,6 +58,7 @@
             if (that.$refs.lineEchartsPage){
               that.$refs.lineEchartsPage.chart.resize()
               that.$refs.radarEcharts.chart.resize()
+              that.$refs.cityEcharts.chart.resize()
             }
           }
         }, 10)
@@ -68,6 +69,7 @@
         if (that.$refs.lineEchartsPage){
           that.$refs.lineEchartsPage.chart.resize()
           that.$refs.radarEcharts.chart.resize()
+          that.$refs.cityEcharts.chart.resize()
         }
       }
     }
@@ -75,13 +77,13 @@
 </script>
 
 <style>
-  #cityEcharts,#radarEcharts, #lineEchartsPage, .card {
+  #cityEchartspage,#radarEcharts, #lineEchartsPage, .card {
     background: #fff;
     -webkit-box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.2);
     border-color: rgba(0, 0, 0, 0.2);
   }
-  #cityEcharts.title,#radarEcharts .title, #lineEchartsPage .title, .card .title {
+  #cityEchartspage.title,#radarEcharts .title, #lineEchartsPage .title, .card .title {
     font-size: 14px;
     padding: 10px;
   }

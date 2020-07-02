@@ -59,6 +59,18 @@
             label="地点"
             prop="location">
           </el-table-column>
+          <el-table-column
+            align="center"
+            label="任务进度"
+            prop="progress">
+            <template slot-scope="scope">
+              <el-progress
+                type="line"
+                :stroke-width="8"
+                :percentage="scope.row.progress"
+              ></el-progress>
+            </template>
+          </el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button
@@ -79,7 +91,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="current_page"
-          :page-sizes="[9, 15, 20]"
+          :page-sizes="[7, 15, 20]"
           :page-size="page_size"
           layout="total, sizes, prev, pager, next"
           :total='tableData.length'
@@ -97,7 +109,7 @@
     data() {
       return {
         current_page: 1,
-        page_size: 9,
+        page_size: 7,
         tableData: [],
         loading: true,
         expands: [] // 要展开的行，元素是row的key值
@@ -108,6 +120,10 @@
         fetch_allTask().then(res => {
           this.tableData = []
           this.tableData = res.data
+          for (let item in this.tableData) {
+            let percent = parseFloat((res.data[item].complete_taskNum / res.data[item].target_num * 100).toFixed(1))
+            res.data[item]['progress'] = percent
+          }
           this.loading = false
         }).catch(err => {
           console.log(err)

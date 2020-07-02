@@ -1,6 +1,6 @@
 <template>
-  <div style="width: 550px;height: 390px">
-    <el-form ref="addForm" v-model="addForm" :rules="addRules">
+  <div style="width: 550px;height: 400px">
+    <el-form ref="addForm" v-model="addForm">
       <el-form-item label="任务地址：" prop="sname" s>
         <el-input id="sname" v-model.trim="addForm.sname" type="text"
                   @input="placeAutoInput('sname')" @keyup.delete.native="deletePlace('sname')"
@@ -15,7 +15,9 @@
         </div>
         <div v-show="snameMapShow" class="map-wrapper">
           <div id="sNameMap" class="map-self"></div></div>
-        <p style="margin-top: 5px">任务地址：{{addForm.sname}}</p><p style="margin-top: -25px">经度：{{addForm.slon}} ，纬度：{{addForm.slat}}</p>
+        <p>任务地址：{{addForm.sname}} <br>经度：{{addForm.slon}} ，纬度：{{addForm.slat}}</p>
+        <el-button size="mini" type="danger"  @click="closePopper" style="float: right;margin-left: 20px;margin-right: 10px;margin-top: -25px">取 消</el-button>
+        <el-button size="mini" type="primary"  @click="sublocation" style="float: right;margin-top: -25px">确 定</el-button>
       </el-form-item>
       <el-form-item v-if="infoVisible">
       </el-form-item>
@@ -41,27 +43,11 @@
   export default {
     name:'Gdmap',
     data() {
-      let validatePlace = (rules, value, callback) => {
-        if (rules.field === 'sname') {
-          if (value === '') {
-            callback(new Error('请输入地点'));
-          } else {
-            if (!this.addForm.slat || this.addForm.slat === 0) {
-              callback(new Error('请搜索并选择有经纬度的地点'));
-            } else {
-              callback();
-            }
-          }
-        }
-      };
       return {
         addForm: {
           sname: '', // 地点
           slat: 0, // 地点纬度
           slon: 0 // 地点经度
-        },
-        addRules: {
-          sname: [{required: true, validator: validatePlace, trigger: 'change'}]
         },
         inputId: '', // 地址搜索input对应的id
         result: [], // 地址搜索结果
@@ -85,6 +71,23 @@
       window.addEventListener("resize", this.changePos, false)
     },
     methods: {
+      sublocation() {
+        if (this.addForm.sname === '') {
+          this.$message.error({
+            message:'请选择一个地址'
+          })
+          return
+        }
+        this.$emit('sublocation')
+        this.addForm = {
+          sname: '', // 地点
+          slat: 0, // 地点纬度
+          slon: 0 // 地点经度
+        }
+      },
+      closePopper() {
+        this.$emit('closePopper')
+      },
       placeAutoInput(inputId) {
         let currentDom = document.getElementById(inputId);// 获取input对象
         let keywords = currentDom.value;
