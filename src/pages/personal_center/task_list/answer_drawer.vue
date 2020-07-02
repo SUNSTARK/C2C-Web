@@ -16,7 +16,7 @@
           <div><p >{{ answer.ans_body }}</p><br/>
             <div style="text-align: center">
             <el-image
-              v-if="answer.img!=null"
+              v-if="answer.img!=''"
               style="width: 100%; height: 100%;margin-bottom: 10px"
               :src='answer.img'
               :previewSrcList=[answer.img]>

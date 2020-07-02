@@ -56,7 +56,7 @@
           dateArray.push(dateTemp);
           myDate.setDate(myDate.getDate() + flag);
         }
-        console.log(dateArray)
+        // console.log(dateArray)
 
        //数据异步获取
         let dates1 = year + '-' + '0'+dateArray[0]

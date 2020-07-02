@@ -135,7 +135,7 @@
                 this.tableData.push(res.data[item])
               }
             }
-            this.buttonList = [];
+            this.buttonList = [this.buttonTypeEnum.COMMENT];
             this.loading = false
           }).catch(err => {
             console.log(err)

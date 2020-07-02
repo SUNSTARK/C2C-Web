@@ -185,7 +185,7 @@
               value: 0
             }
           ];
-          console.log(res)
+          // console.log(res)
           for(let i=0;i<res.length;i++){//收到的数据
             for(let j=0;j < 34;j++){   //表内的默认数据
               if(res[i].province==data[j].name)

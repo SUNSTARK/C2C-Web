@@ -43,7 +43,7 @@
     <el-row :gutter="20">
       <el-col :span="12">
         <div class="card dbsx">
-            <city-echarts id="cityEcharts" height="500px" ref="cityEcharts"></city-echarts>
+            <city-echarts id="cityEchartsHome" height="500px" ref="cityEcharts"></city-echarts>
         </div>
       </el-col>
       <el-col :span="12">
@@ -262,8 +262,4 @@
     padding-top: 5px;
   }
 
-  #maintable {
-    margin-top: 20px;
-    padding-top: 5px;
-  }
 </style>
